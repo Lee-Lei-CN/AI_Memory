@@ -1,0 +1,40 @@
+<idea-plugin>
+    <id>commit-message-helper-idea-plugin</id>
+    <name>Git Commit Message Helper</name>
+    <vendor email="fulinlin9527@outlook.com" url="https://github.com/AutismSuperman">FuLinLin</vendor>
+    <version>1.4.1</version>
+
+
+    <description><![CDATA[<p>Description notes will be filled by gradle build</p>]]></description>
+
+    <change-notes><![CDATA[<p>Change notes will be filled by gradle build</p>]]></change-notes>
+
+
+    <idea-version since-build="203.*"/>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.vcs</depends>
+
+
+    <application-components>
+    </application-components>
+
+    <extensions defaultExtensionNs="com.intellij">
+
+
+    </extensions>
+
+
+    <resource-bundle>i18n.info</resource-bundle>
+
+
+    <actions>
+        <group id="ComponentManagerPlugin.PluginSet" text="性能优化助手" popup="true" description="AI-Profilers">
+            <add-to-group group-id="MainMenu" anchor="last"/>
+        </group>
+    </actions>
+
+
+</idea-plugin>
