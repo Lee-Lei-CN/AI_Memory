@@ -33,6 +33,8 @@
     <actions>
         <group id="ComponentManagerPlugin.PluginSet" text="性能优化助手" popup="true" description="AI-Profilers">
             <add-to-group group-id="MainMenu" anchor="last"/>
+            <action class="com.tcl.tools.profilers.ProfilersAction" text="TCL Profilers"
+            />
         </group>
     </actions>
 

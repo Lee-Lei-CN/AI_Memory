@@ -21,7 +21,7 @@ import com.tcl.tools.adtui.common.AdtUiUtils;
 import com.tcl.tools.adtui.model.Range;
 import com.android.tools.adtui.stdui.ContextMenuItem;
 import com.tcl.tools.adtui.stdui.DefaultContextMenuItem;
-import com.android.tools.inspectors.common.ui.ContextMenuInstaller;
+import com.tcl.tools.inspectors.commom.ui.ContextMenuInstaller;
 import com.tcl.tools.profilers.IdeProfilerComponents;
 import com.intellij.icons.AllIcons;
 import java.awt.event.KeyEvent;

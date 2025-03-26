@@ -27,7 +27,7 @@ import com.tcl.tools.adtui.model.StateChartModel;
 import com.tcl.tools.adtui.model.trackgroup.TrackModel;
 import com.tcl.tools.adtui.trackgroup.TrackRenderer;
 import com.tcl.tools.adtui.util.SwingUtil;
-import com.android.tools.inspectors.common.api.stacktrace.CodeNavigator;
+import com.tcl.tools.idea.codenavigation.CodeNavigator;
 import com.tcl.tools.profilers.ProfilerColors;
 import com.tcl.tools.profilers.StudioProfilersView;
 import com.tcl.tools.profilers.cpu.CaptureNode;import com.tcl.tools.profilers.cpu.ThreadState;import com.tcl.tools.profilers.cpu.VsyncPanel;import com.tcl.tools.profilers.cpu.analysis.CaptureNodeAnalysisModel;

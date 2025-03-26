@@ -15,9 +15,9 @@
  */
 package com.tcl.tools.profilers.memory.adapters
 
-import com.android.tools.inspectors.common.api.stacktrace.CodeLocation
-import com.android.tools.inspectors.common.api.stacktrace.ThreadId
 import com.android.tools.profiler.proto.Memory
+import com.tcl.tools.idea.codenavigation.CodeLocation
+import com.tcl.tools.inspectors.commom.api.stacktrace.ThreadId
 import gnu.trove.TLongObjectHashMap
 
 class LiveAllocationInstanceObject(private val captureObject: LiveAllocationCaptureObject,

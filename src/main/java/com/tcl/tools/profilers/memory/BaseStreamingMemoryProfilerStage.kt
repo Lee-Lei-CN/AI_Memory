@@ -32,8 +32,6 @@ import com.tcl.tools.adtui.model.formatter.BaseAxisFormatter
 import com.tcl.tools.adtui.model.formatter.MemoryAxisFormatter
 import com.tcl.tools.adtui.model.formatter.SingleUnitAxisFormatter
 import com.tcl.tools.adtui.model.updater.Updatable
-import com.android.tools.inspectors.common.api.stacktrace.CodeLocation
-import com.android.tools.inspectors.common.api.stacktrace.CodeNavigator
 import com.android.tools.profiler.proto.Commands
 import com.android.tools.profiler.proto.Common
 import com.android.tools.profiler.proto.Memory.MemoryAllocSamplingData
@@ -50,6 +48,8 @@ import com.tcl.tools.profilers.memory.adapters.CaptureObject
 import com.google.common.annotations.VisibleForTesting
 import com.google.common.util.concurrent.MoreExecutors
 import com.intellij.openapi.diagnostic.Logger
+import com.tcl.tools.idea.codenavigation.CodeLocation;
+import com.tcl.tools.idea.codenavigation.CodeNavigator
 import io.grpc.StatusRuntimeException
 import java.util.concurrent.Executor
 import java.util.concurrent.TimeUnit

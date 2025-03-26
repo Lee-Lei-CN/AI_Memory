@@ -17,11 +17,11 @@ package com.tcl.tools.profilers.network.details;
 
 import static com.tcl.tools.profilers.ProfilerFonts.STANDARD_FONT;
 
-import com.android.tools.inspectors.common.ui.dataviewer.DataViewer;
 import com.tcl.tools.adtui.TreeWalker;
 import com.tcl.tools.adtui.common.AdtUiUtils;
 import com.tcl.tools.adtui.event.NestedScrollPaneMouseWheelListener;
 import com.tcl.tools.adtui.stdui.ContentType;
+import com.tcl.tools.inspectors.commom.ui.dataviewer.DataViewer;
 import com.tcl.tools.profilers.IdeProfilerComponents;
 import com.tcl.tools.profilers.network.NetworkConnectionsModel;
 import com.tcl.tools.profilers.network.httpdata.HttpData;

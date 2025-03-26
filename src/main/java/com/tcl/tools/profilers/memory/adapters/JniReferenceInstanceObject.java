@@ -13,17 +13,16 @@
 // limitations under the License.
 package com.tcl.tools.profilers.memory.adapters;
 
-import com.android.tools.inspectors.common.api.stacktrace.ThreadId;
-import com.android.tools.inspectors.common.api.stacktrace.CodeLocation;
+import com.tcl.tools.idea.codenavigation.CodeLocation;
 import com.android.tools.profiler.proto.Memory.NativeBacktrace;
 import com.android.tools.profiler.proto.Memory.NativeCallStack;
+import com.tcl.tools.inspectors.commom.api.stacktrace.ThreadId;
 import com.tcl.tools.profilers.cpu.nodemodel.CppFunctionModel;
 import com.tcl.tools.profilers.cpu.simpleperf.NodeNameParser;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import com.tcl.tools.profilers.memory.adapters.LiveAllocationCaptureObject;
-import com.tcl.tools.profilers.memory.adapters.LiveAllocationInstanceObject;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

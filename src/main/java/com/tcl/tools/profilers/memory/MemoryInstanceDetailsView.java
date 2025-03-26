@@ -24,8 +24,7 @@ import static com.tcl.tools.profilers.memory.SimpleColumnRenderer.makeSizeColumn
 import static com.tcl.tools.profilers.memory.SimpleColumnRenderer.onSubclass;
 
 import com.android.tools.adtui.stdui.ContextMenuItem;
-import com.android.tools.inspectors.common.ui.ContextMenuInstaller;
-import com.android.tools.inspectors.common.ui.stacktrace.StackTraceView;
+import com.tcl.tools.inspectors.commom.ui.ContextMenuInstaller;
 import com.tcl.tools.adtui.common.ColumnTreeBuilder;
 import com.android.tools.adtui.model.AspectObserver;
 import com.tcl.tools.adtui.model.StreamingTimeline;
@@ -34,7 +33,8 @@ import com.tcl.tools.adtui.model.formatter.TimeFormatter;
 import com.tcl.tools.adtui.stdui.CloseButton;
 import com.tcl.tools.adtui.stdui.CommonTabbedPane;
 import com.tcl.tools.adtui.stdui.StandardColors;
-import com.android.tools.inspectors.common.api.stacktrace.CodeLocation;
+import com.tcl.tools.idea.codenavigation.CodeLocation;
+import com.tcl.tools.inspectors.commom.ui.stacktrace.StackTraceView;
 import com.tcl.tools.profilers.IdeProfilerComponents;
 import com.tcl.tools.profilers.ProfilerColors;
 import com.tcl.tools.profilers.analytics.FeatureTracker;

@@ -16,7 +16,8 @@
 package com.tcl.tools.profilers;
 
 import com.tcl.tools.adtui.model.StreamingTimeline;
-import com.tcl.tools.profilers.StudioProfilers;import org.jetbrains.annotations.NotNull;
+import com.tcl.tools.profilers.StudioProfilers;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * A stage that uses a {@link StreamingTimeline}.

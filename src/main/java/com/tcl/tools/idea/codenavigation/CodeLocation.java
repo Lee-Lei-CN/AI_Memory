@@ -17,6 +17,7 @@ package com.tcl.tools.idea.codenavigation;
 
 import com.intellij.openapi.util.text.StringUtil;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
@@ -25,22 +26,17 @@ import org.jetbrains.annotations.TestOnly;
 
 public final class CodeLocation {
   public static final int INVALID_LINE_NUMBER = -1;
-
   @Nullable
   private final String myClassName;
-
   @Nullable
   private final String myFileName;
-
   @Nullable
   private final String myMethodName;
-
   /**
    * See {@link Builder#setMethodSignature(String)} for details about this field.
    */
   @Nullable
   private final String mySignature;
-
   /**
    * See {@link Builder#setMethodParameters(List)} (String)} for details about this field.
    */
@@ -48,18 +44,14 @@ public final class CodeLocation {
   private final List<String> myMethodParameters;
 
   private final int myLineNumber;
-
   private final boolean myNativeCode;
   /**
    * See {@link Builder#setNativeVAddress(long)} for details about this field.
    */
   private final long myNativeVAddress;
-
   @Nullable
   private final String myNativeModuleName;
-  /** Fully qualified name of a Composable (e.g. androidx.compose.runtime.LaunchedEffect) */
-  @Nullable
-  private final String myFullComposableName;
+  private final int myHashcode;
 
   private CodeLocation(@NotNull Builder builder) {
     myClassName = builder.myClassName;
@@ -71,7 +63,13 @@ public final class CodeLocation {
     myNativeCode = builder.myNativeCode;
     myNativeVAddress = builder.myNativeVAddress;
     myNativeModuleName = builder.myNativeModuleName;
-    myFullComposableName = builder.myFullComposableName;
+    myHashcode = Arrays.hashCode(new int[]{
+      myClassName == null ? 0 : myClassName.hashCode(),
+      myFileName == null ? 0 : myFileName.hashCode(),
+      myMethodName == null ? 0 : myMethodName.hashCode(),
+      mySignature == null ? 0 : mySignature.hashCode(),
+      myNativeModuleName == null ? 0 : myNativeModuleName.hashCode(),
+      Integer.hashCode(myLineNumber)});
   }
 
   @TestOnly
@@ -83,6 +81,23 @@ public final class CodeLocation {
   @Nullable
   public String getClassName() {
     return myClassName;
+  }
+
+  /**
+   * Convenience method for stripping all inner classes (e.g. anything following the first "$")
+   * from {@link #getClassName()}. If this code location's class is already an outer class, its
+   * name is returned as is.
+   */
+  @Nullable
+  public String getOuterClassName() {
+    if (myClassName == null) {
+      return null;
+    }
+    int innerCharIndex = myClassName.indexOf('$');
+    if (innerCharIndex < 0) {
+      innerCharIndex = myClassName.length();
+    }
+    return myClassName.substring(0, innerCharIndex);
   }
 
   @Nullable
@@ -109,7 +124,7 @@ public final class CodeLocation {
 
   @Nullable
   public List<String> getMethodParameters() {
-    return myMethodParameters == null ? null : new ArrayList<>(myMethodParameters);
+    return myMethodParameters;
   }
 
   public boolean isNativeCode() {
@@ -125,41 +140,25 @@ public final class CodeLocation {
     return myNativeModuleName;
   }
 
-  /** Fully qualified name of a Composable (e.g. androidx.compose.runtime.LaunchedEffect) */
-  @Nullable
-  public String getFullComposableName() {
-    return myFullComposableName;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    CodeLocation location = (CodeLocation)o;
-    return myLineNumber == location.myLineNumber &&
-           myNativeCode == location.myNativeCode &&
-           myNativeVAddress == location.myNativeVAddress &&
-           Objects.equals(myClassName, location.myClassName) &&
-           Objects.equals(myFileName, location.myFileName) &&
-           Objects.equals(myMethodName, location.myMethodName) &&
-           Objects.equals(mySignature, location.mySignature) &&
-           Objects.equals(myMethodParameters, location.myMethodParameters) &&
-           Objects.equals(myNativeModuleName, location.myNativeModuleName) &&
-           Objects.equals(myFullComposableName, location.myFullComposableName);
-  }
-
   @Override
   public int hashCode() {
-    return Objects.hash(myClassName,
-                        myFileName,
-                        myMethodName,
-                        mySignature,
-                        myMethodParameters,
-                        myLineNumber,
-                        myNativeCode,
-                        myNativeVAddress,
-                        myNativeModuleName,
-                        myFullComposableName);
+    return myHashcode;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (!(obj instanceof CodeLocation)) {
+      return false;
+    }
+
+    CodeLocation other = (CodeLocation)obj;
+    return StringUtil.equals(myClassName, other.myClassName) &&
+           StringUtil.equals(myFileName, other.myFileName) &&
+           StringUtil.equals(myMethodName, other.myMethodName) &&
+           StringUtil.equals(mySignature, other.mySignature) &&
+           StringUtil.equals(myNativeModuleName, other.myNativeModuleName) &&
+           myLineNumber == other.myLineNumber &&
+           myNativeCode == other.myNativeCode;
   }
 
   public static final class Builder {
@@ -172,7 +171,6 @@ public final class CodeLocation {
     boolean myNativeCode;
     long myNativeVAddress = -1;
     @Nullable String myNativeModuleName;
-    @Nullable String myFullComposableName;
 
     public Builder(@Nullable String className) {
       myClassName = className;
@@ -188,7 +186,6 @@ public final class CodeLocation {
       myNativeCode = rhs.myNativeCode;
       myNativeVAddress = rhs.myNativeVAddress;
       myNativeModuleName = rhs.myNativeModuleName;
-      myFullComposableName = rhs.myFullComposableName;
     }
 
     @NotNull
@@ -259,28 +256,9 @@ public final class CodeLocation {
       return this;
     }
 
-    /** Fully qualified name of a Composable (e.g. androidx.compose.runtime.LaunchedEffect) */
-    public Builder setFullComposableName(String name) {
-      myFullComposableName = name;
-      return this;
-    }
-
     @NotNull
     public CodeLocation build() {
       return new CodeLocation(this);
     }
-  }
-
-  /**
-   * Convenience method for stripping all inner classes (e.g. anything following the first "$")
-   * from a Java class name. If it is already the outer class name, the class name is returned
-   * as-is.
-   */
-  @NotNull
-  public String getOuterClass() {
-    if (myClassName == null) return "";
-
-    int innerCharIndex = myClassName.indexOf('$');
-    return innerCharIndex < 0 ? myClassName : myClassName.substring(0, innerCharIndex);
   }
 }

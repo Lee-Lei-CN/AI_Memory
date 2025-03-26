@@ -17,8 +17,6 @@ package com.tcl.tools.profilers.network.details;
 
 import static com.tcl.tools.profilers.ProfilerFonts.STANDARD_FONT;
 
-import com.android.tools.inspectors.common.ui.dataviewer.DataViewer;
-import com.android.tools.inspectors.common.ui.dataviewer.ImageDataViewer;
 import com.tcl.tools.adtui.LegendComponent;
 import com.tcl.tools.adtui.LegendConfig;
 import com.tcl.tools.adtui.TabularLayout;
@@ -28,6 +26,8 @@ import com.tcl.tools.adtui.model.legend.FixedLegend;
 import com.tcl.tools.adtui.model.legend.Legend;
 import com.tcl.tools.adtui.model.legend.LegendComponentModel;
 import com.tcl.tools.adtui.stdui.ContentType;
+import com.tcl.tools.inspectors.commom.ui.dataviewer.DataViewer;
+import com.tcl.tools.inspectors.commom.ui.dataviewer.ImageDataViewer;
 import com.tcl.tools.profilers.FeatureConfig;
 import com.tcl.tools.profilers.IdeProfilerComponents;
 import com.tcl.tools.profilers.analytics.FeatureTracker;

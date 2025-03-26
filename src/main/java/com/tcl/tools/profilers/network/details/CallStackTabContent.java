@@ -15,8 +15,8 @@
  */
 package com.tcl.tools.profilers.network.details;
 
-import com.android.tools.inspectors.common.api.stacktrace.ThreadId;
-import com.android.tools.inspectors.common.ui.stacktrace.StackTraceView;
+import com.tcl.tools.inspectors.commom.api.stacktrace.ThreadId;
+import com.tcl.tools.inspectors.commom.ui.stacktrace.StackTraceView;
 import com.tcl.tools.profilers.analytics.FeatureTracker;
 import com.tcl.tools.profilers.network.NetworkConnectionsModel;
 import com.tcl.tools.profilers.network.httpdata.HttpData;

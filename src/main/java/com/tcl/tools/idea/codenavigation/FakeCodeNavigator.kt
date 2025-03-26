@@ -15,9 +15,6 @@
  */
 package com.tcl.tools.idea.codenavigation
 
-import com.android.tools.inspectors.common.api.stacktrace.CodeLocation
-import com.android.tools.inspectors.common.api.stacktrace.CodeNavigator
-
 /**
  * A test-only [CodeNavigator] that says every [CodeLocation] is navigable but does nothing when
  * asked to navigate to a [CodeLocation]. If a test actually cares about acting on navigation

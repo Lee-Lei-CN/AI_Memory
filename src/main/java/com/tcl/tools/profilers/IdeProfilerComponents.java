@@ -15,12 +15,12 @@
  */
 package com.tcl.tools.profilers;
 
-import com.android.tools.inspectors.common.api.stacktrace.StackTraceModel;
-import com.android.tools.inspectors.common.ui.ContextMenuInstaller;
-import com.android.tools.inspectors.common.ui.dataviewer.DataViewer;
-import com.android.tools.inspectors.common.ui.stacktrace.StackTraceGroup;
-import com.android.tools.inspectors.common.ui.stacktrace.StackTraceView;
 import com.tcl.tools.adtui.stdui.ContentType;
+import com.tcl.tools.inspectors.commom.api.stacktrace.StackTraceModel;
+import com.tcl.tools.inspectors.commom.ui.ContextMenuInstaller;
+import com.tcl.tools.inspectors.commom.ui.dataviewer.DataViewer;
+import com.tcl.tools.inspectors.commom.ui.stacktrace.StackTraceGroup;
+import com.tcl.tools.inspectors.commom.ui.stacktrace.StackTraceView;
 import com.tcl.tools.profilers.cpu.config.CpuProfilerConfigModel;
 import com.tcl.tools.profilers.cpu.config.ProfilingConfiguration;
 import com.tcl.tools.profilers.stacktrace.LoadingPanel;

@@ -15,9 +15,9 @@
  */
 package com.tcl.tools.idea.profilers.stacktrace;
 
-import com.android.tools.nativeSymbolizer.NativeSymbolizer;
-import com.android.tools.nativeSymbolizer.Symbol;
 import com.android.tools.profiler.proto.Memory;
+import com.tcl.tools.nativeSymbolizer.NativeSymbolizer;
+import com.tcl.tools.nativeSymbolizer.Symbol;
 import com.tcl.tools.profilers.stacktrace.NativeFrameSymbolizer;
 import com.intellij.openapi.diagnostic.Logger;
 import java.io.File;

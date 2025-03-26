@@ -16,8 +16,8 @@
 package com.tcl.tools.profilers.cpu.capturedetails;
 
 import com.tcl.tools.adtui.chart.hchart.HTreeChart;
-import com.android.tools.inspectors.common.api.stacktrace.CodeLocation;
-import com.android.tools.inspectors.common.api.stacktrace.CodeNavigator;
+import com.tcl.tools.idea.codenavigation.CodeLocation;
+import com.tcl.tools.idea.codenavigation.CodeNavigator;
 import com.tcl.tools.profilers.cpu.CaptureNode;
 import com.intellij.ui.DoubleClickListener;
 import java.awt.Point;

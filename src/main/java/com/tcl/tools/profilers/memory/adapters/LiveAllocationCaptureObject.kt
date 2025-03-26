@@ -15,7 +15,6 @@
  */
 package com.tcl.tools.profilers.memory.adapters
 
-import com.android.tools.inspectors.common.api.stacktrace.ThreadId
 import com.android.tools.profiler.proto.Common
 import com.android.tools.profiler.proto.Memory
 import com.android.tools.profiler.proto.MemoryProfiler
@@ -25,6 +24,7 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder
 import com.intellij.openapi.diagnostic.Logger
 import com.android.tools.adtui.model.AspectObserver
 import com.tcl.tools.adtui.model.Range
+import com.tcl.tools.inspectors.commom.api.stacktrace.ThreadId
 import com.tcl.tools.profilers.ProfilerClient
 import com.tcl.tools.profilers.memory.BaseMemoryProfilerStage
 import com.tcl.tools.profilers.memory.CaptureSelectionAspect

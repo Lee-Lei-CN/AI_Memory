@@ -15,13 +15,14 @@
  */
 package com.tcl.tools.profilers.memory.adapters;
 
-import com.android.tools.inspectors.common.api.stacktrace.ThreadId;
 import com.android.tools.profiler.proto.Memory;
-import com.android.tools.inspectors.common.api.stacktrace.CodeLocation;
+import com.tcl.tools.idea.codenavigation.CodeLocation;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import com.tcl.tools.inspectors.commom.api.stacktrace.ThreadId;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 public interface InstanceObject extends ValueObject {

@@ -23,8 +23,8 @@ import com.android.tools.idea.model.AndroidModuleInfo;
 import com.android.tools.idea.transport.TransportService;
 import com.android.tools.idea.transport.TransportServiceProxy;
 import com.android.tools.nativeSymbolizer.ProjectSymbolSource;
-import com.android.tools.nativeSymbolizer.SymbolFilesLocator;
 import com.android.tools.nativeSymbolizer.SymbolSource;
+import com.tcl.tools.nativeSymbolizer.SymbolFilesLocator;
 import com.android.tools.adtui.model.AspectObserver;
 import com.tcl.tools.idea.codenavigation.IntellijCodeNavigator;
 import com.android.tools.profiler.proto.Common;
@@ -97,7 +97,7 @@ public class AndroidProfilerToolWindow implements Disposable {
   @NotNull
   private final Project myProject;
   @NotNull
-  private final IntellijProfilerServices myIdeProfilerServices;
+//  private final IntellijProfilerServices myIdeProfilerServices;
 
   public AndroidProfilerToolWindow(@NotNull ToolWindowWrapper window, @NotNull Project project) {
     myWindow = window;
@@ -105,12 +105,12 @@ public class AndroidProfilerToolWindow implements Disposable {
 
     SymbolSource symbolSource = new ProjectSymbolSource(project);
     SymbolFilesLocator symbolLocator = new SymbolFilesLocator(symbolSource);
-    myIdeProfilerServices = new IntellijProfilerServices(myProject, symbolLocator);
-    Disposer.register(this, myIdeProfilerServices);
+//    myIdeProfilerServices = new IntellijProfilerServices(myProject, symbolLocator);
+//    Disposer.register(this, myIdeProfilerServices);
 
     myPanel = new JPanel(new BorderLayout());
     if (!tryInitializeProfilers()) {
-      myIdeProfilerServices.getFeatureTracker().trackProfilerInitializationFailed();
+//      myIdeProfilerServices.getFeatureTracker().trackProfilerInitializationFailed();
       myPanel.add(buildInitializationFailedUi());
     }
   }

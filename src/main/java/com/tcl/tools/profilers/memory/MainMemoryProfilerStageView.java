@@ -18,7 +18,7 @@ package com.tcl.tools.profilers.memory;
 import static com.tcl.tools.profilers.ProfilerLayout.createToolbarLayout;
 
 import com.android.tools.adtui.stdui.ContextMenuItem;
-import com.android.tools.inspectors.common.ui.ContextMenuInstaller;
+import com.tcl.tools.inspectors.commom.ui.ContextMenuInstaller;
 import com.tcl.tools.adtui.RangeSelectionComponent;
 import com.tcl.tools.adtui.common.AdtUiUtils;
 import com.tcl.tools.adtui.model.Range;
@@ -31,7 +31,8 @@ import com.tcl.tools.profilers.RecordingOptionsView;
 import com.tcl.tools.profilers.StudioProfilers;
 import com.tcl.tools.profilers.StudioProfilersView;
 import com.tcl.tools.profilers.SupportLevel;
-import com.tcl.tools.profilers.memory.*;import com.tcl.tools.profilers.memory.adapters.CaptureObject;
+import com.tcl.tools.profilers.memory.*;
+import com.tcl.tools.profilers.memory.adapters.CaptureObject;
 import com.tcl.tools.profilers.sessions.SessionAspect;
 import com.tcl.tools.profilers.stacktrace.LoadingPanel;
 import com.google.common.annotations.VisibleForTesting;

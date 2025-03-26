@@ -15,7 +15,7 @@
  */
 package com.tcl.tools.profilers;
 
-import com.android.tools.inspectors.common.api.stacktrace.CodeNavigator;
+import com.tcl.tools.idea.codenavigation.CodeNavigator;
 import com.tcl.tools.profilers.analytics.FeatureTracker;
 import com.tcl.tools.profilers.appinspection.AppInspectionMigrationServices;
 import com.tcl.tools.profilers.cpu.config.ProfilingConfiguration;
@@ -72,6 +72,7 @@ public interface IdeProfilerServices {
    * <p>
    * Implementors of this method should be sure to return the same instance each time, not a new
    * instance per call.
+   * @return
    */
   @NotNull
   CodeNavigator getCodeNavigator();

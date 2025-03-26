@@ -19,30 +19,6 @@ import com.android.tools.idea.gradle.project.sync.hyperlink.OpenUrlHyperlink;
 import com.android.tools.idea.project.AndroidNotification;
 import com.android.tools.idea.run.AndroidRunConfigurationBase;
 import com.android.tools.idea.run.editor.ProfilerState;
-import com.android.tools.idea.run.profiler.CpuProfilerConfigsState;
-import com.android.tools.nativeSymbolizer.NativeSymbolizer;
-import com.android.tools.nativeSymbolizer.NativeSymbolizerKt;
-import com.android.tools.nativeSymbolizer.SymbolFilesLocator;
-import com.android.tools.inspectors.common.api.stacktrace.CodeNavigator;
-import com.tcl.tools.idea.flags.StudioFlags;
-import com.tcl.tools.idea.profilers.analytics.StudioFeatureTracker;
-import com.tcl.tools.idea.profilers.appinspection.AppInspectionIntellijMigrationServices;
-import com.tcl.tools.idea.profilers.profilingconfig.CpuProfilerConfigConverter;
-import com.tcl.tools.idea.profilers.profilingconfig.CpuProfilingConfigService;
-import com.tcl.tools.idea.profilers.stacktrace.IntelliJNativeFrameSymbolizer;
-import com.tcl.tools.idea.codenavigation.IntellijCodeNavigator;
-import com.tcl.tools.idea.profilers.traceprocessor.TraceProcessorServiceImpl;
-import com.tcl.tools.profilers.FeatureConfig;
-import com.tcl.tools.profilers.IdeProfilerServices;
-import com.tcl.tools.profilers.Notification;
-import com.tcl.tools.profilers.ProfilerPreferences;
-import com.tcl.tools.profilers.analytics.FeatureTracker;
-import com.tcl.tools.profilers.appinspection.AppInspectionMigrationServices;
-import com.tcl.tools.profilers.cpu.config.ProfilingConfiguration;
-import com.tcl.tools.profilers.perfetto.traceprocessor.TraceProcessorService;
-import com.tcl.tools.profilers.stacktrace.NativeFrameSymbolizer;
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.collect.ImmutableList;
 import com.intellij.execution.RunManager;
 import com.intellij.execution.RunnerAndConfigurationSettings;
 import com.intellij.execution.impl.EditConfigurationsDialog;
@@ -63,24 +39,44 @@ import com.intellij.psi.search.ProjectScope;
 import com.intellij.psi.search.searches.AllClassesSearch;
 import com.intellij.util.Query;
 import com.intellij.util.containers.ContainerUtil;
+import com.google.common.collect.ImmutableList;
+import com.tcl.tools.idea.codenavigation.CodeNavigator;
+import com.tcl.tools.idea.codenavigation.IntellijCodeNavigator;
+import com.tcl.tools.idea.flags.StudioFlags;
+import com.tcl.tools.idea.profilers.analytics.StudioFeatureTracker;
+import com.tcl.tools.idea.profilers.appinspection.AppInspectionIntellijMigrationServices;
+import com.tcl.tools.idea.profilers.profilingconfig.CpuProfilerConfigConverter;
+import com.tcl.tools.idea.profilers.profilingconfig.CpuProfilingConfigService;
+import com.tcl.tools.idea.profilers.stacktrace.IntelliJNativeFrameSymbolizer;
+import com.tcl.tools.idea.profilers.traceprocessor.TraceProcessorServiceImpl;
+import com.tcl.tools.idea.run.profiler.CpuProfilerConfigsState;
+import com.tcl.tools.nativeSymbolizer.NativeSymbolizer;
+import com.tcl.tools.nativeSymbolizer.NativeSymbolizerKt;
+import com.tcl.tools.nativeSymbolizer.SymbolFilesLocator;
+import com.tcl.tools.profilers.FeatureConfig;
+import com.tcl.tools.profilers.IdeProfilerServices;
+import com.tcl.tools.profilers.Notification;
+import com.tcl.tools.profilers.ProfilerPreferences;
+import com.tcl.tools.profilers.analytics.FeatureTracker;
+import com.tcl.tools.profilers.appinspection.AppInspectionMigrationServices;
+import com.tcl.tools.profilers.cpu.config.ProfilingConfiguration;
+import com.tcl.tools.profilers.perfetto.traceprocessor.TraceProcessorService;
+import com.tcl.tools.profilers.stacktrace.NativeFrameSymbolizer;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.VisibleForTesting;
+
+import javax.swing.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import javax.swing.SwingUtilities;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class IntellijProfilerServices implements IdeProfilerServices, Disposable {
 
@@ -88,7 +84,8 @@ public class IntellijProfilerServices implements IdeProfilerServices, Disposable
     return Logger.getInstance(IntellijProfilerServices.class);
   }
 
-  @NotNull private final SymbolFilesLocator mySymbolLocator;
+  @NotNull
+  private final SymbolFilesLocator mySymbolLocator;
   private final IntellijCodeNavigator myCodeNavigator;
   @NotNull private final NativeFrameSymbolizer myNativeSymbolizer;
   private final StudioFeatureTracker myFeatureTracker;
@@ -123,7 +120,7 @@ public class IntellijProfilerServices implements IdeProfilerServices, Disposable
 
   @NotNull
   @Override
-  public Executor getMainExecutor() {
+  public java.util.concurrent.Executor getMainExecutor() {
     return ApplicationManager.getApplication()::invokeLater;
   }
 
@@ -251,7 +248,7 @@ public class IntellijProfilerServices implements IdeProfilerServices, Disposable
 
     AtomicReference<T> selectedValue = new AtomicReference<>();
     Supplier<T> dialog = () -> {
-      ListBoxChooserDialog<T> listBoxDialog = new ListBoxChooserDialog<>(title, message, options, listBoxPresentationAdapter);
+      ListBoxChooserDialog<T> listBoxDialog = new ListBoxChooserDialog<T>(title, message, options, listBoxPresentationAdapter);
       listBoxDialog.show();
       return listBoxDialog.getExitCode() != DialogWrapper.OK_EXIT_CODE ? null : listBoxDialog.getSelectedValue();
     };
@@ -373,7 +370,8 @@ public class IntellijProfilerServices implements IdeProfilerServices, Disposable
   }
 
   @Override
-  public @NotNull AppInspectionMigrationServices getAppInspectionMigrationServices() {
+  public @NotNull
+  AppInspectionMigrationServices getAppInspectionMigrationServices() {
     return myMigrationServices;
   }
 

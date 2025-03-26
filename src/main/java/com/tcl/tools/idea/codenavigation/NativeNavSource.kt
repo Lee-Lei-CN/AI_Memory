@@ -15,16 +15,17 @@
  */
 package com.tcl.tools.idea.codenavigation
 
-import com.android.tools.nativeSymbolizer.NativeSymbolizer
 import com.intellij.build.FileNavigatable
 import com.intellij.build.FilePosition
 import com.intellij.openapi.project.Project
 import com.intellij.pom.Navigatable
+import com.tcl.tools.nativeSymbolizer.NativeSymbolizer
 import java.io.File
 import java.io.IOException
 
 class NativeNavSource(private val project: Project,
-                      private val symbolizer: NativeSymbolizer): NavSource {
+                      private val symbolizer: NativeSymbolizer
+): NavSource {
   override fun lookUp(location: CodeLocation, arch: String?): Navigatable? {
     if (!location.isNativeCode || location.fileName == null || arch == null) {
       return null

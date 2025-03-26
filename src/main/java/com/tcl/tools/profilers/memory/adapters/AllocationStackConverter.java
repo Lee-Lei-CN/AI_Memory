@@ -16,7 +16,7 @@
 package com.tcl.tools.profilers.memory.adapters;
 
 import com.android.tools.perflib.heap.StackFrame;
-import com.android.tools.inspectors.common.api.stacktrace.CodeLocation;
+import com.tcl.tools.idea.codenavigation.CodeLocation;
 import org.jetbrains.annotations.NotNull;
 
 public class AllocationStackConverter {

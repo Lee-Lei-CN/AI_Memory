@@ -15,10 +15,10 @@
  */
 package com.tcl.tools.profilers.network.httpdata;
 
-import com.android.tools.inspectors.common.api.stacktrace.CodeLocation;
-import com.android.tools.inspectors.common.api.stacktrace.StackFrameParser;
+import com.tcl.tools.idea.codenavigation.CodeLocation;
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;
+import com.tcl.tools.inspectors.commom.api.stacktrace.StackFrameParser;
 import org.jetbrains.annotations.NotNull;
 
 /**

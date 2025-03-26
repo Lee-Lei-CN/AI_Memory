@@ -15,7 +15,7 @@
  */
 package com.tcl.tools.profilers.memory.adapters.classifiers;
 
-import com.android.tools.inspectors.common.api.stacktrace.ThreadId;
+import com.tcl.tools.inspectors.commom.api.stacktrace.ThreadId;
 import com.tcl.tools.profilers.memory.adapters.CaptureObject;
 import com.tcl.tools.profilers.memory.adapters.InstanceObject;
 import java.util.LinkedHashMap;

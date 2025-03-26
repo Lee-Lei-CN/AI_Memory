@@ -16,7 +16,6 @@
 package com.tcl.tools.profilers.memory
 
 import com.android.tools.adtui.model.AspectModel
-import com.android.tools.inspectors.common.api.stacktrace.StackTraceModel
 import com.tcl.tools.adtui.model.ConditionalEnumComboBoxModel
 import com.tcl.tools.adtui.model.filter.Filter
 import com.tcl.tools.adtui.model.filter.FilterHandler
@@ -30,6 +29,7 @@ import com.tcl.tools.profilers.memory.adapters.classifiers.ClassSet
 import com.tcl.tools.profilers.memory.adapters.classifiers.HeapSet
 import com.tcl.tools.profilers.memory.adapters.instancefilters.CaptureObjectInstanceFilter
 import com.google.common.util.concurrent.ListenableFuture
+import com.tcl.tools.inspectors.commom.api.stacktrace.StackTraceModel
 import java.util.Objects
 import java.util.concurrent.Executor
 

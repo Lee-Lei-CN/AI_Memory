@@ -25,7 +25,7 @@ import com.android.tools.adtui.model.AspectObserver;
 import com.android.tools.adtui.stdui.ContextMenuItem;
 import com.tcl.tools.adtui.stdui.DefaultContextMenuItem;
 import com.tcl.tools.adtui.stdui.StandardColors;
-import com.android.tools.inspectors.common.ui.ContextMenuInstaller;
+import com.tcl.tools.inspectors.commom.ui.ContextMenuInstaller;
 import com.tcl.tools.profilers.StudioProfilers;
 import com.tcl.tools.profilers.sessions.SessionsView;import com.google.common.annotations.VisibleForTesting;
 import com.intellij.util.IconUtil;

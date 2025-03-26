@@ -15,7 +15,7 @@
  */
 package com.tcl.tools.profilers.memory.adapters;
 
-import com.android.tools.inspectors.common.api.stacktrace.ThreadId;
+import com.tcl.tools.inspectors.commom.api.stacktrace.ThreadId;
 import com.android.tools.profiler.proto.Memory.AllocationEvent;
 import com.android.tools.profiler.proto.Memory.AllocationStack;
 import com.tcl.tools.profilers.memory.adapters.ClassDb.ClassEntry;

@@ -15,12 +15,12 @@
  */
 package com.tcl.tools.profilers.energy;
 
-import com.android.tools.inspectors.common.api.stacktrace.StackTraceModel;
+import com.tcl.tools.inspectors.commom.api.stacktrace.StackTraceModel;
 import com.tcl.tools.adtui.common.AdtUiUtils;
 import com.tcl.tools.adtui.model.formatter.TimeFormatter;
 import com.tcl.tools.adtui.ui.HideablePanel;
-import com.android.tools.inspectors.common.ui.stacktrace.StackTraceGroup;
-import com.android.tools.inspectors.common.ui.stacktrace.StackTraceView;
+import com.tcl.tools.inspectors.commom.ui.stacktrace.StackTraceGroup;
+import com.tcl.tools.inspectors.commom.ui.stacktrace.StackTraceView;
 import com.android.tools.profiler.proto.Common;
 import com.intellij.openapi.ui.VerticalFlowLayout;
 import com.intellij.util.ui.JBEmptyBorder;

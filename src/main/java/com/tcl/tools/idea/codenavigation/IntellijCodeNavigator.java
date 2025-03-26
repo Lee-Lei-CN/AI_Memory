@@ -16,10 +16,6 @@
 package com.tcl.tools.idea.codenavigation;
 
 import com.android.tools.idea.apk.ApkFacet;
-import com.android.tools.inspectors.common.api.stacktrace.CodeLocation;
-import com.android.tools.inspectors.common.api.stacktrace.CodeNavigator;
-import com.android.tools.nativeSymbolizer.NativeSymbolizer;
-import com.android.tools.nativeSymbolizer.Symbol;
 import com.google.common.base.Strings;
 import com.intellij.build.FileNavigatable;
 import com.intellij.build.FilePosition;
@@ -43,6 +39,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
+
+import com.tcl.tools.nativeSymbolizer.NativeSymbolizer;
+import com.tcl.tools.nativeSymbolizer.Symbol;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

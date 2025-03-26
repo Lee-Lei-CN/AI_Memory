@@ -26,13 +26,14 @@ import com.android.sdklib.AndroidVersion;
 import com.android.tools.analytics.CommonMetricsData;
 import com.android.tools.analytics.UsageTracker;
 import com.android.tools.idea.stats.UsageTrackerUtils;
+import com.google.wireless.android.sdk.stats.*;
 import com.tcl.tools.idea.stats.AnonymizerUtil;
 import com.android.tools.profiler.proto.Common;
 import com.android.tools.profiler.proto.Cpu;
 import com.android.tools.profiler.proto.Energy;
 import com.tcl.tools.profilers.analytics.FeatureTracker;
+import com.tcl.tools.profilers.cpu.CpuCaptureMetadata;
 import com.tcl.tools.profilers.cpu.CpuCaptureSessionArtifact;
-import com.tcl.tools.profilers.cpu.CpuProfilerStage;
 import com.tcl.tools.profilers.cpu.config.ArtSampledConfiguration;
 import com.tcl.tools.profilers.cpu.config.ProfilingConfiguration;
 import com.tcl.tools.profilers.energy.EnergyDuration;
@@ -46,28 +47,6 @@ import com.tcl.tools.profilers.sessions.SessionArtifact;
 import com.tcl.tools.profilers.sessions.SessionItem;
 import com.tcl.tools.profilers.sessions.SessionsManager;
 import com.google.common.collect.ImmutableMap;
-import com.google.wireless.android.sdk.stats.AdtUiBoxSelectionMetadata;
-import com.google.wireless.android.sdk.stats.AdtUiTrackGroupMetadata;
-import com.google.wireless.android.sdk.stats.AndroidProfilerEvent;
-import com.google.wireless.android.sdk.stats.AndroidStudioEvent;
-import com.google.wireless.android.sdk.stats.AppInspectionEvent;
-import com.google.wireless.android.sdk.stats.CpuApiTracingMetadata;
-import com.google.wireless.android.sdk.stats.CpuCaptureMetadata;
-import com.google.wireless.android.sdk.stats.CpuImportTraceMetadata;
-import com.google.wireless.android.sdk.stats.CpuProfilingConfig;
-import com.google.wireless.android.sdk.stats.CpuStartupProfilingMetadata;
-import com.google.wireless.android.sdk.stats.DeviceInfo;
-import com.google.wireless.android.sdk.stats.EnergyEvent;
-import com.google.wireless.android.sdk.stats.EnergyEventCount;
-import com.google.wireless.android.sdk.stats.EnergyEventMetadata;
-import com.google.wireless.android.sdk.stats.EnergyRangeMetadata;
-import com.google.wireless.android.sdk.stats.FilterMetadata;
-import com.google.wireless.android.sdk.stats.MemoryInstanceFilterMetadata;
-import com.google.wireless.android.sdk.stats.ProfilerSessionCreationMetaData;
-import com.google.wireless.android.sdk.stats.ProfilerSessionSelectionMetaData;
-import com.google.wireless.android.sdk.stats.TraceProcessorDaemonManagerStats;
-import com.google.wireless.android.sdk.stats.TraceProcessorDaemonQueryStats;
-import com.google.wireless.android.sdk.stats.TransportFailureMetadata;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import java.io.IOException;
@@ -123,54 +102,54 @@ public final class StudioFeatureTracker implements FeatureTracker {
 
   private final static ImmutableMap<com.tcl.tools.profilers.cpu.CpuCaptureMetadata.CaptureStatus, CpuCaptureMetadata.CaptureStatus>
     CPU_CAPTURE_STATUS_MAP =
-    ImmutableMap.<com.tcl.tools.profilers.cpu.CpuCaptureMetadata.CaptureStatus, CpuCaptureMetadata.CaptureStatus>builder()
-      .put(com.tcl.tools.profilers.cpu.CpuCaptureMetadata.CaptureStatus.SUCCESS,
+    ImmutableMap.<CpuCaptureMetadata.CaptureStatus, CpuCaptureMetadata.CaptureStatus>builder()
+      .put(CpuCaptureMetadata.CaptureStatus.SUCCESS,
            CpuCaptureMetadata.CaptureStatus.SUCCESS)
-      .put(com.tcl.tools.profilers.cpu.CpuCaptureMetadata.CaptureStatus.PARSING_FAILURE,
+      .put(CpuCaptureMetadata.CaptureStatus.PARSING_FAILURE,
            CpuCaptureMetadata.CaptureStatus.PARSING_FAILURE)
-      .put(com.tcl.tools.profilers.cpu.CpuCaptureMetadata.CaptureStatus.STOP_CAPTURING_FAILURE,
+      .put(CpuCaptureMetadata.CaptureStatus.STOP_CAPTURING_FAILURE,
            CpuCaptureMetadata.CaptureStatus.STOP_CAPTURING_FAILURE)
-      .put(com.tcl.tools.profilers.cpu.CpuCaptureMetadata.CaptureStatus.USER_ABORTED_PARSING,
+      .put(CpuCaptureMetadata.CaptureStatus.USER_ABORTED_PARSING,
            CpuCaptureMetadata.CaptureStatus.USER_ABORTED_PARSING)
-      .put(com.tcl.tools.profilers.cpu.CpuCaptureMetadata.CaptureStatus.PREPROCESS_FAILURE,
+      .put(CpuCaptureMetadata.CaptureStatus.PREPROCESS_FAILURE,
            CpuCaptureMetadata.CaptureStatus.PREPROCESS_FAILURE)
-      .put(com.tcl.tools.profilers.cpu.CpuCaptureMetadata.CaptureStatus.STOP_FAILED_NO_GOING_PROFILING,
+      .put(CpuCaptureMetadata.CaptureStatus.STOP_FAILED_NO_GOING_PROFILING,
            CpuCaptureMetadata.CaptureStatus.STOP_FAILED_NO_GOING_PROFILING)
-      .put(com.tcl.tools.profilers.cpu.CpuCaptureMetadata.CaptureStatus.STOP_FAILED_APP_PROCESS_DIED,
+      .put(CpuCaptureMetadata.CaptureStatus.STOP_FAILED_APP_PROCESS_DIED,
            CpuCaptureMetadata.CaptureStatus.STOP_FAILED_APP_PROCESS_DIED)
-      .put(com.tcl.tools.profilers.cpu.CpuCaptureMetadata.CaptureStatus.STOP_FAILED_APP_PID_CHANGED,
+      .put(CpuCaptureMetadata.CaptureStatus.STOP_FAILED_APP_PID_CHANGED,
            CpuCaptureMetadata.CaptureStatus.STOP_FAILED_APP_PID_CHANGED)
-      .put(com.tcl.tools.profilers.cpu.CpuCaptureMetadata.CaptureStatus.STOP_FAILED_PROFILER_PROCESS_DIED,
+      .put(CpuCaptureMetadata.CaptureStatus.STOP_FAILED_PROFILER_PROCESS_DIED,
            CpuCaptureMetadata.CaptureStatus.STOP_FAILED_PROFILER_PROCESS_DIED)
-      .put(com.tcl.tools.profilers.cpu.CpuCaptureMetadata.CaptureStatus.STOP_FAILED_STOP_COMMAND_FAILED,
+      .put(CpuCaptureMetadata.CaptureStatus.STOP_FAILED_STOP_COMMAND_FAILED,
            CpuCaptureMetadata.CaptureStatus.STOP_FAILED_STOP_COMMAND_FAILED)
-      .put(com.tcl.tools.profilers.cpu.CpuCaptureMetadata.CaptureStatus.STOP_FAILED_STILL_PROFILING_AFTER_STOP,
+      .put(CpuCaptureMetadata.CaptureStatus.STOP_FAILED_STILL_PROFILING_AFTER_STOP,
            CpuCaptureMetadata.CaptureStatus.STOP_FAILED_STILL_PROFILING_AFTER_STOP)
-      .put(com.tcl.tools.profilers.cpu.CpuCaptureMetadata.CaptureStatus.STOP_FAILED_CANNOT_START_WAITING,
+      .put(CpuCaptureMetadata.CaptureStatus.STOP_FAILED_CANNOT_START_WAITING,
            CpuCaptureMetadata.CaptureStatus.STOP_FAILED_CANNOT_START_WAITING)
-      .put(com.tcl.tools.profilers.cpu.CpuCaptureMetadata.CaptureStatus.STOP_FAILED_WAIT_TIMEOUT,
+      .put(CpuCaptureMetadata.CaptureStatus.STOP_FAILED_WAIT_TIMEOUT,
            CpuCaptureMetadata.CaptureStatus.STOP_FAILED_WAIT_TIMEOUT)
-      .put(com.tcl.tools.profilers.cpu.CpuCaptureMetadata.CaptureStatus.STOP_FAILED_WAIT_FAILED,
+      .put(CpuCaptureMetadata.CaptureStatus.STOP_FAILED_WAIT_FAILED,
            CpuCaptureMetadata.CaptureStatus.STOP_FAILED_WAIT_FAILED)
-      .put(com.tcl.tools.profilers.cpu.CpuCaptureMetadata.CaptureStatus.STOP_FAILED_CANNOT_READ_WAIT_EVENT,
+      .put(CpuCaptureMetadata.CaptureStatus.STOP_FAILED_CANNOT_READ_WAIT_EVENT,
            CpuCaptureMetadata.CaptureStatus.STOP_FAILED_CANNOT_READ_WAIT_EVENT)
-      .put(com.tcl.tools.profilers.cpu.CpuCaptureMetadata.CaptureStatus.STOP_FAILED_CANNOT_COPY_FILE,
+      .put(CpuCaptureMetadata.CaptureStatus.STOP_FAILED_CANNOT_COPY_FILE,
            CpuCaptureMetadata.CaptureStatus.STOP_FAILED_CANNOT_COPY_FILE)
-      .put(com.tcl.tools.profilers.cpu.CpuCaptureMetadata.CaptureStatus.STOP_FAILED_CANNOT_FORM_FILE,
+      .put(CpuCaptureMetadata.CaptureStatus.STOP_FAILED_CANNOT_FORM_FILE,
            CpuCaptureMetadata.CaptureStatus.STOP_FAILED_CANNOT_FORM_FILE)
-      .put(com.tcl.tools.profilers.cpu.CpuCaptureMetadata.CaptureStatus.STOP_FAILED_CANNOT_READ_FILE,
+      .put(CpuCaptureMetadata.CaptureStatus.STOP_FAILED_CANNOT_READ_FILE,
            CpuCaptureMetadata.CaptureStatus.STOP_FAILED_CANNOT_READ_FILE)
-      .put(com.tcl.tools.profilers.cpu.CpuCaptureMetadata.CaptureStatus.PARSING_FAILED_PATH_INVALID,
+      .put(CpuCaptureMetadata.CaptureStatus.PARSING_FAILED_PATH_INVALID,
            CpuCaptureMetadata.CaptureStatus.PARSING_FAILED_PATH_INVALID)
-      .put(com.tcl.tools.profilers.cpu.CpuCaptureMetadata.CaptureStatus.PARSING_FAILED_READ_ERROR,
+      .put(CpuCaptureMetadata.CaptureStatus.PARSING_FAILED_READ_ERROR,
            CpuCaptureMetadata.CaptureStatus.PARSING_FAILED_READ_ERROR)
-      .put(com.tcl.tools.profilers.cpu.CpuCaptureMetadata.CaptureStatus.PARSING_FAILED_PARSER_UNKNOWN,
+      .put(CpuCaptureMetadata.CaptureStatus.PARSING_FAILED_PARSER_UNKNOWN,
            CpuCaptureMetadata.CaptureStatus.PARSING_FAILED_PARSER_UNKNOWN)
-      .put(com.tcl.tools.profilers.cpu.CpuCaptureMetadata.CaptureStatus.PARSING_FAILED_FILE_HEADER_ERROR,
+      .put(CpuCaptureMetadata.CaptureStatus.PARSING_FAILED_FILE_HEADER_ERROR,
            CpuCaptureMetadata.CaptureStatus.PARSING_FAILED_FILE_HEADER_ERROR)
-      .put(com.tcl.tools.profilers.cpu.CpuCaptureMetadata.CaptureStatus.PARSING_FAILED_PARSER_ERROR,
+      .put(CpuCaptureMetadata.CaptureStatus.PARSING_FAILED_PARSER_ERROR,
            CpuCaptureMetadata.CaptureStatus.PARSING_FAILED_PARSER_ERROR)
-      .put(com.tcl.tools.profilers.cpu.CpuCaptureMetadata.CaptureStatus.PARSING_FAILED_CAUSE_UNKNOWN,
+      .put(CpuCaptureMetadata.CaptureStatus.PARSING_FAILED_CAUSE_UNKNOWN,
            CpuCaptureMetadata.CaptureStatus.PARSING_FAILED_CAUSE_UNKNOWN)
       .build();
 
@@ -1013,22 +992,23 @@ public final class StudioFeatureTracker implements FeatureTracker {
     }
 
     private void populateCpuCaptureMetadata(AndroidProfilerEvent.Builder profilerEvent) {
-      if (myCpuCaptureMetadata != null) {
-        CpuCaptureMetadata.Builder captureMetadata = CpuCaptureMetadata.newBuilder()
-          .setCaptureDurationMs(myCpuCaptureMetadata.getCaptureDurationMs())
-          .setRecordDurationMs(myCpuCaptureMetadata.getRecordDurationMs())
-          .setTraceFileSizeBytes(myCpuCaptureMetadata.getTraceFileSizeBytes())
-          .setParsingTimeMs(myCpuCaptureMetadata.getParsingTimeMs())
-          .setStoppingTimeMs(myCpuCaptureMetadata.getStoppingTimeMs())
-          .setCaptureStatus(
-            CPU_CAPTURE_STATUS_MAP.getOrDefault(myCpuCaptureMetadata.getStatus(), CpuCaptureMetadata.CaptureStatus.SUCCESS));
-
-        captureMetadata.setProfilingConfig(toStatsCpuProfilingConfig(myCpuCaptureMetadata.getProfilingConfiguration()));
-        if (myCpuCaptureMetadata.getProfilingConfiguration().getTraceType() == Cpu.CpuTraceType.ART) {
-          captureMetadata.setArtStopTimeoutSec(CpuProfilerStage.CPU_ART_STOP_TIMEOUT_SEC);
-        }
-        profilerEvent.setCpuCaptureMetadata(captureMetadata);
-      }
+      // TODO: 2025/3/25
+//      if (myCpuCaptureMetadata != null) {
+//        CpuCaptureMetadata.Builder captureMetadata = CpuCaptureMetadata.newBuilder()
+//          .setCaptureDurationMs(myCpuCaptureMetadata.getCaptureDurationMs())
+//          .setRecordDurationMs(myCpuCaptureMetadata.getRecordDurationMs())
+//          .setTraceFileSizeBytes(myCpuCaptureMetadata.getTraceFileSizeBytes())
+//          .setParsingTimeMs(myCpuCaptureMetadata.getParsingTimeMs())
+//          .setStoppingTimeMs(myCpuCaptureMetadata.getStoppingTimeMs())
+//          .setCaptureStatus(
+//            CPU_CAPTURE_STATUS_MAP.getOrDefault(myCpuCaptureMetadata.getStatus(), CpuCaptureMetadata.CaptureStatus.SUCCESS));
+//
+//        captureMetadata.setProfilingConfig(toStatsCpuProfilingConfig(myCpuCaptureMetadata.getProfilingConfiguration()));
+//        if (myCpuCaptureMetadata.getProfilingConfiguration().getTraceType() == Cpu.CpuTraceType.ART) {
+//          captureMetadata.setArtStopTimeoutSec(CpuProfilerStage.CPU_ART_STOP_TIMEOUT_SEC);
+//        }
+//        profilerEvent.setCpuCaptureMetadata(captureMetadata);
+//      }
     }
 
     /**

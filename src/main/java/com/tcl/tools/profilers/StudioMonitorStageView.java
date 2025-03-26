@@ -21,7 +21,7 @@ import com.tcl.tools.adtui.model.ViewBinder;
 import com.android.tools.adtui.stdui.ContextMenuItem;
 import com.tcl.tools.adtui.stdui.DefaultContextMenuItem;
 import com.tcl.tools.adtui.stdui.StreamingScrollbar;
-import com.android.tools.inspectors.common.ui.ContextMenuInstaller;
+import com.tcl.tools.inspectors.commom.ui.ContextMenuInstaller;
 import com.tcl.tools.profilers.DismissibleMessage;import com.tcl.tools.profilers.StudioProfilersView;import com.tcl.tools.profilers.SupportLevel;import com.tcl.tools.profilers.appinspection.AppInspectionMigrationKt;
 import com.tcl.tools.profilers.appinspection.AppInspectionMigrationServices;
 import com.tcl.tools.profilers.cpu.CpuMonitor;

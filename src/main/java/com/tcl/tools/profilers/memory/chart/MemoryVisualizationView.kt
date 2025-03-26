@@ -15,7 +15,6 @@
  */
 package com.tcl.tools.profilers.memory.chart
 
-import com.android.tools.inspectors.common.api.stacktrace.CodeLocation
 import com.tcl.tools.adtui.AxisComponent
 import com.tcl.tools.adtui.RangeTimeScrollBar
 import com.tcl.tools.adtui.TabularLayout
@@ -37,6 +36,7 @@ import com.tcl.tools.profilers.memory.adapters.NativeAllocationSampleCaptureObje
 import com.tcl.tools.profilers.memory.adapters.classifiers.NativeCallStackSet
 import com.tcl.tools.profilers.memory.chart.MemoryVisualizationModel.XAxisFilter
 import com.google.common.base.Strings
+import com.tcl.tools.idea.codenavigation.CodeLocation;
 import java.awt.BorderLayout
 import java.awt.Component
 import java.awt.Dimension

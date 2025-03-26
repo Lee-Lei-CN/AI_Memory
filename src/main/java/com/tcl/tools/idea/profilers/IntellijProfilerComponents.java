@@ -15,16 +15,16 @@
  */
 package com.tcl.tools.idea.profilers;
 
-import com.android.tools.inspectors.common.api.ide.IntellijContextMenuInstaller;
-import com.android.tools.inspectors.common.api.ide.stacktrace.IntelliJStackTraceGroup;
-import com.android.tools.inspectors.common.ui.dataviewer.DataViewer;
-import com.android.tools.inspectors.common.ui.dataviewer.IntellijDataViewer;
-import com.android.tools.inspectors.common.ui.dataviewer.IntellijImageDataViewer;
-import com.android.tools.inspectors.common.ui.stacktrace.StackTraceGroup;
 import com.tcl.tools.adtui.stdui.ContentType;
 import com.tcl.tools.adtui.stdui.ResizableImage;
 import com.tcl.tools.idea.profilers.profilingconfig.CpuProfilingConfigurationsDialog;
-import com.android.tools.inspectors.common.ui.ContextMenuInstaller;
+import com.tcl.tools.inspectors.commom.api.ide.IntellijContextMenuInstaller;
+import com.tcl.tools.inspectors.commom.api.ide.stacktrace.IntelliJStackTraceGroup;
+import com.tcl.tools.inspectors.commom.ui.ContextMenuInstaller;
+import com.tcl.tools.inspectors.commom.ui.dataviewer.DataViewer;
+import com.tcl.tools.inspectors.commom.ui.dataviewer.IntellijDataViewer;
+import com.tcl.tools.inspectors.commom.ui.dataviewer.IntellijImageDataViewer;
+import com.tcl.tools.inspectors.commom.ui.stacktrace.StackTraceGroup;
 import com.tcl.tools.profilers.ExportDialog;
 import com.tcl.tools.profilers.IdeProfilerComponents;
 import com.tcl.tools.profilers.ImportDialog;
@@ -122,20 +122,20 @@ public class IntellijProfilerComponents implements IdeProfilerComponents {
     assert(styleHint != DataViewer.Style.INVALID);
 
     if (contentType.isSupportedImageType()) {
-      DataViewer viewer = IntellijImageDataViewer.createImageViewer(content);
+      DataViewer viewer = (DataViewer) IntellijImageDataViewer.createImageViewer(content);
       if (viewer == null) {
-        viewer = IntellijDataViewer.createInvalidViewer();
+        viewer = (DataViewer) IntellijDataViewer.createInvalidViewer();
       }
       return viewer;
     }
     if (styleHint == DataViewer.Style.RAW) {
-      return contentType.isSupportedTextType()
-             ? IntellijDataViewer.createRawTextViewer(content)
-             : IntellijDataViewer.createInvalidViewer();
+      return (DataViewer) (contentType.isSupportedTextType()
+                   ? IntellijDataViewer.createRawTextViewer(content)
+                   : IntellijDataViewer.createInvalidViewer());
     }
     else {
       assert (styleHint == DataViewer.Style.PRETTY);
-      return IntellijDataViewer.createPrettyViewerIfPossible(myProject, content, contentType.getFileType());
+      return (DataViewer) IntellijDataViewer.createPrettyViewerIfPossible(myProject, content, contentType.getFileType());
     }
   }
 
