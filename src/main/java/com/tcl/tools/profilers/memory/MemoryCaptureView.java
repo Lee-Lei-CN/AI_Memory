@@ -42,7 +42,7 @@ public final class MemoryCaptureView extends AspectObserver {
 
   @Nullable private CaptureObject myCaptureObject = null;
 
-  MemoryCaptureView(@NotNull MemoryCaptureSelection selection, @NotNull IdeProfilerComponents ideProfilerComponents) {
+  MemoryCaptureView(@NotNull MemoryCaptureSelection selection) {
     mySelection = selection;
     mySelection.getAspect().addDependency(this)
       .onChange(CaptureSelectionAspect.CURRENT_LOADING_CAPTURE, this::reset)

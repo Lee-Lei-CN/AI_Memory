@@ -59,11 +59,8 @@ import com.intellij.ui.SimpleTextAttributes;
 import com.intellij.util.PlatformIcons;
 import com.intellij.util.ui.UIUtilities;
 import icons.StudioIcons;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+
+import java.awt.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.util.Collections;
@@ -122,7 +119,7 @@ public final class MemoryClassifierView extends AspectObserver implements Captur
 
   @NotNull private final JPanel myClassifierPanel = new JPanel(new BorderLayout());
 
-  @NotNull private final LoadingPanel myLoadingPanel;
+//  @NotNull private final LoadingPanel myLoadingPanel;
 
   @Nullable private InstructionsPanel myHelpTipPanel; // Panel to let user know to select a range with allocations in it.
 
@@ -138,14 +135,42 @@ public final class MemoryClassifierView extends AspectObserver implements Captur
 
   @Nullable private Comparator<MemoryObjectTreeNode<ClassifierSet>> myInitialComparator;
 
-  private final CsvExporter myCsvExporter;
-
-  public MemoryClassifierView(@NotNull MemoryCaptureSelection selection, @NotNull IdeProfilerComponents ideProfilerComponents) {
+  public MemoryClassifierView(@NotNull MemoryCaptureSelection selection,ContextMenuInstaller contextMenuInstaller) {
     mySelection = selection;
-    myCsvExporter = new CsvExporter(() -> myTree, () -> myCaptureObject, ideProfilerComponents, selection.getIdeServices());
-    myContextMenuInstaller = ideProfilerComponents.createContextMenuInstaller();
-    myLoadingPanel = ideProfilerComponents.createLoadingPanel(HEAP_UPDATING_DELAY_MS);
-    myLoadingPanel.setLoadingText("");
+    myContextMenuInstaller = contextMenuInstaller;
+//    myLoadingPanel = new LoadingPanel() {
+//      private final JBLoadingPanel myLoadingPanel = new JBLoadingPanel(new BorderLayout(), HEAP_UPDATING_DELAY_MS);
+//
+//      @NotNull
+//      @Override
+//      public JComponent getComponent() {
+//        return myLoadingPanel;
+//      }
+//
+//      @Override
+//      public void setChildComponent(@Nullable Component comp) {
+//        myLoadingPanel.getContentPanel().removeAll();
+//        if (comp != null) {
+//          myLoadingPanel.add(comp);
+//        }
+//      }
+//
+//      @Override
+//      public void setLoadingText(@NotNull String loadingText) {
+//        myLoadingPanel.setLoadingText(loadingText);
+//      }
+//
+//      @Override
+//      public void startLoading() {
+//        myLoadingPanel.startLoading();
+//      }
+//
+//      @Override
+//      public void stopLoading() {
+//        myLoadingPanel.stopLoading();
+//      }
+//    };
+//    myLoadingPanel.setLoadingText("");
 
     mySelection.getAspect().addDependency(this)
       .onChange(CaptureSelectionAspect.CURRENT_LOADING_CAPTURE, this::loadCapture)
@@ -384,11 +409,6 @@ public final class MemoryClassifierView extends AspectObserver implements Captur
       return null;
     });
 
-    if (mySelection.getIdeServices().getFeatureConfig().isMemoryCSVExportEnabled()) {
-      myContextMenuInstaller.installGenericContextMenu(myTree, myCsvExporter.makeClassExportItem());
-      myContextMenuInstaller.installGenericContextMenu(myTree, myCsvExporter.makeInstanceExportItem());
-    }
-
     List<ClassifierAttribute> attributes = myCaptureObject.getClassifierAttributes();
     myTableColumnModel = new DefaultTableColumnModel();
     ColumnTreeBuilder builder = new ColumnTreeBuilder(myTree, myTableColumnModel);
@@ -442,10 +462,10 @@ public final class MemoryClassifierView extends AspectObserver implements Captur
     if (myColumnTree == null) {
       return;
     }
-    myPanel.remove(myClassifierPanel);
-    myPanel.add(myLoadingPanel.getComponent(), BorderLayout.CENTER);
-    myLoadingPanel.setChildComponent(myClassifierPanel);
-    myLoadingPanel.startLoading();
+//    myPanel.remove(myClassifierPanel);
+//    myPanel.add(myLoadingPanel.getComponent(), BorderLayout.CENTER);
+//    myLoadingPanel.setChildComponent(myClassifierPanel);
+//    myLoadingPanel.startLoading();
   }
 
   private void stopHeapLoadingUi() {
@@ -453,11 +473,11 @@ public final class MemoryClassifierView extends AspectObserver implements Captur
       return;
     }
 
-    myPanel.remove(myLoadingPanel.getComponent());
-    myPanel.add(myClassifierPanel, BorderLayout.CENTER);
-    // Loading panel is registered with the project. Be extra careful not have it reference anything when we are done with it.
-    myLoadingPanel.setChildComponent(null);
-    myLoadingPanel.stopLoading();
+//    myPanel.remove(myLoadingPanel.getComponent());
+//    myPanel.add(myClassifierPanel, BorderLayout.CENTER);
+//    // Loading panel is registered with the project. Be extra careful not have it reference anything when we are done with it.
+//    myLoadingPanel.setChildComponent(null);
+//    myLoadingPanel.stopLoading();
   }
 
   private void refreshClassifierPanel() {

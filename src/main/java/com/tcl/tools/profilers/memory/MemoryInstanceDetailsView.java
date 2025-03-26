@@ -24,6 +24,11 @@ import static com.tcl.tools.profilers.memory.SimpleColumnRenderer.makeSizeColumn
 import static com.tcl.tools.profilers.memory.SimpleColumnRenderer.onSubclass;
 
 import com.android.tools.adtui.stdui.ContextMenuItem;
+import com.intellij.openapi.project.Project;
+import com.tcl.tools.ProjectHolder;
+import com.tcl.tools.inspectors.commom.api.ide.IntellijContextMenuInstaller;
+import com.tcl.tools.inspectors.commom.api.ide.stacktrace.IntelliJStackTraceView;
+import com.tcl.tools.inspectors.commom.api.stacktrace.StackTraceModel;
 import com.tcl.tools.inspectors.commom.ui.ContextMenuInstaller;
 import com.tcl.tools.adtui.common.ColumnTreeBuilder;
 import com.android.tools.adtui.model.AspectObserver;
@@ -83,6 +88,7 @@ import javax.swing.event.TreeExpansionListener;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -100,8 +106,6 @@ public final class MemoryInstanceDetailsView extends AspectObserver {
 
   @NotNull private final MemoryCaptureSelection mySelection;
 
-  @NotNull private final IdeProfilerComponents myIdeProfilerComponents;
-
   @NotNull private final JTabbedPane myTabsPanel;
 
   @NotNull private final StackTraceView myAllocationStackTraceView;
@@ -113,6 +117,8 @@ public final class MemoryInstanceDetailsView extends AspectObserver {
   @Nullable private JTree myReferenceTree;
 
   @Nullable private JTree myFieldTree;
+
+  private ContextMenuInstaller mContextMenuInstaller;
 
   @NotNull private final JBCheckBox myGCRootCheckBox = new JBCheckBox("Show nearest GC root only", false);
 
@@ -127,18 +133,17 @@ public final class MemoryInstanceDetailsView extends AspectObserver {
   @NotNull private final List<InstanceViewer> myInstanceViewers = new ArrayList<>();
 
   MemoryInstanceDetailsView(@NotNull MemoryCaptureSelection selection,
-                            @NotNull IdeProfilerComponents ideProfilerComponents,
+                            @NotNull ContextMenuInstaller contextMenuInstaller,
                             @NotNull StreamingTimeline timeline) {
     mySelection = selection;
     mySelection.getAspect().addDependency(this)
       .onChange(CaptureSelectionAspect.CURRENT_INSTANCE, this::instanceChanged)
       .onChange(CaptureSelectionAspect.CURRENT_FIELD_PATH, this::fieldChanged);
-    myIdeProfilerComponents = ideProfilerComponents;
-
+    mContextMenuInstaller = contextMenuInstaller;
     myTabsPanel = new CommonTabbedPane();
     myTabsPanel.addChangeListener(this::trackActiveTab);
-    myAllocationStackTraceView = ideProfilerComponents.createStackView(selection.getAllocationStackTraceModel());
-    myDeallocationStackTraceView = ideProfilerComponents.createStackView(selection.getDeallocationStackTraceModel());
+    myAllocationStackTraceView = createStackView(ProjectHolder.INSTANCE.getProject(), selection.getAllocationStackTraceModel());
+    myDeallocationStackTraceView = createStackView(ProjectHolder.INSTANCE.getProject(), selection.getDeallocationStackTraceModel());
 
     JPanel titleWrapper = new JPanel(new BorderLayout());
     titleWrapper.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, DEFAULT_BORDER_COLOR));
@@ -215,6 +220,17 @@ public final class MemoryInstanceDetailsView extends AspectObserver {
 
     // Fires the handler once at the beginning to ensure we are sync'd with the latest selection state in the MemoryProfilerStage.
     instanceChanged();
+  }
+
+  private StackTraceView createStackView(Project project, StackTraceModel model){
+    IntelliJStackTraceView view = new IntelliJStackTraceView(project, model);
+    ContextMenuInstaller installer = new IntellijContextMenuInstaller();
+    view.installNavigationContextMenu(installer);
+    view.installGenericContextMenu(installer, ContextMenuItem.SEPARATOR);
+    // Adds context menu to copy the selected line in the stack trace view. This is needed for users to search a specific line anywhere,
+    // specially when the navigation is not available for third party code.
+    view.installGenericContextMenu(installer, ContextMenuItem.COPY);
+    return view;
   }
 
   private void trackActiveTab(ChangeEvent event) {
@@ -320,7 +336,7 @@ public final class MemoryInstanceDetailsView extends AspectObserver {
 
     final InstanceObject finalInstance = instance;
     myInstanceViewers.forEach(viewer -> {
-      JComponent component = viewer.createComponent(myIdeProfilerComponents, capture, finalInstance);
+      JComponent component = viewer.createComponent(capture, finalInstance);
       if (component != null) {
         myTabsPanel.addTab(viewer.getTitle(), component);
       }
@@ -494,7 +510,7 @@ public final class MemoryInstanceDetailsView extends AspectObserver {
 
     tree.setModel(fieldTreeModel);
 
-    myIdeProfilerComponents.createContextMenuInstaller().installGenericContextMenu(tree, new ContextMenuItem() {
+    mContextMenuInstaller.installGenericContextMenu(tree, new ContextMenuItem() {
       @NotNull
       @Override
       public String getText() {
@@ -619,8 +635,7 @@ public final class MemoryInstanceDetailsView extends AspectObserver {
       }
     });
 
-    ContextMenuInstaller contextMenuInstaller = myIdeProfilerComponents.createContextMenuInstaller();
-    contextMenuInstaller.installNavigationContextMenu(tree, mySelection.getIdeServices().getCodeNavigator(), () -> {
+    mContextMenuInstaller.installNavigationContextMenu(tree, mySelection.getIdeServices().getCodeNavigator(), () -> {
       TreePath selection = tree.getSelectionPath();
       if (selection == null) {
         return null;
@@ -636,7 +651,7 @@ public final class MemoryInstanceDetailsView extends AspectObserver {
       }
     });
 
-    contextMenuInstaller.installGenericContextMenu(tree, new ContextMenuItem() {
+    mContextMenuInstaller.installGenericContextMenu(tree, new ContextMenuItem() {
       @NotNull
       @Override
       public String getText() {

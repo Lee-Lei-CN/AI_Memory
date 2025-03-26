@@ -35,12 +35,9 @@ import javax.swing.JPanel
 class MemoryCaptureStageView(profilersView: StudioProfilersView, stage: MemoryCaptureStage)
       : BaseMemoryProfilerStageView<MemoryCaptureStage>(profilersView, stage) {
 
-  private val capturePanel = CapturePanel(profilersView,
-                                          stage.captureSelection,
+  private val capturePanel = CapturePanel(stage.captureSelection,
                                           null,
                                           stage.studioProfilers.timeline.selectionRange,
-                                          ideComponents,
-                                          stage.timeline,
                                           true)
 
   private val title = JBLabel().apply {

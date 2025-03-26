@@ -41,12 +41,9 @@ import javax.swing.JList
 class AllocationStageView(profilersView: StudioProfilersView, stage: AllocationStage)
   : BaseStreamingMemoryProfilerStageView<AllocationStage>(profilersView, stage) {
 
-  private val capturePanel = CapturePanel(profilersView,
-                                          stage.captureSelection,
+  private val capturePanel = CapturePanel(stage.captureSelection,
                                           captureElapsedTimeLabel,
                                           stage.rangeSelectionModel.selectionRange,
-                                          ideComponents,
-                                          stage.timeline,
                                           false)
 
   @VisibleForTesting

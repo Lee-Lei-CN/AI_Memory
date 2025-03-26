@@ -28,7 +28,6 @@ public interface InstanceViewer {
   String getTitle();
 
   @Nullable
-  JComponent createComponent(@NotNull IdeProfilerComponents ideProfilerComponents,
-                             @NotNull CaptureObject captureObject,
+  JComponent createComponent(@NotNull CaptureObject captureObject,
                              @NotNull InstanceObject instanceObject);
 }

@@ -54,8 +54,7 @@ import javax.swing.JPanel
  * Class that manages the memory HTreeChart (CallChart). The UI has a dropdown that allows the user to change the X axis of the
  * chart. This class is responsible for rebuilding the chart when the dropdown changes or a filter is applied.
  */
-class MemoryVisualizationView(private val selection: MemoryCaptureSelection,
-                              private val profilersView: StudioProfilersView) : AspectObserver(), CapturePanelTabContainer {
+class MemoryVisualizationView(private val selection: MemoryCaptureSelection) : AspectObserver(), CapturePanelTabContainer {
   private val panel: JPanel = JPanel(BorderLayout())
   private val orderingDropdown: JComboBox<XAxisFilter> = ProfilerCombobox()
   private val model = MemoryVisualizationModel()
@@ -128,16 +127,17 @@ class MemoryVisualizationView(private val selection: MemoryCaptureSelection,
     horizontalScrollBar.preferredSize = Dimension(horizontalScrollBar.preferredSize.width, 10)
     val axis = createAxis(model.formatter(), captureRange)
     val chart = createChart(selected, captureRange, globalRange)
-    chart.addMouseMotionListener(
-      MemoryVisualizationTooltipView(chart, profilersView.component, VisualizationTooltipModel(captureRange, model)))
+//    chart.addMouseMotionListener(
+//      MemoryVisualizationTooltipView(chart, profilersView.component, VisualizationTooltipModel(captureRange, model)))
     val panel = JPanel(TabularLayout("*,Fit", "*,Fit"))
     panel.add(axis, TabularLayout.Constraint(0, 0))
     panel.add(chart, TabularLayout.Constraint(0, 0))
     panel.add(HTreeChartVerticalScrollBar(chart), TabularLayout.Constraint(0, 1))
     panel.add(horizontalScrollBar, TabularLayout.Constraint(1, 0, 1, 2))
-    val navigator = profilersView.studioProfilers.ideServices.codeNavigator
-    profilersView.ideProfilerComponents.createContextMenuInstaller()
-      .installNavigationContextMenu(chart, navigator) { getCodeLocation(chart) }
+    // TODO: 2025/3/26
+//    val navigator = profilersView.studioProfilers.ideServices.codeNavigator
+//    profilersView.ideProfilerComponents.createContextMenuInstaller()
+//      .installNavigationContextMenu(chart, navigator) { getCodeLocation(chart) }
     return panel
   }
 
@@ -179,7 +179,7 @@ class MemoryVisualizationView(private val selection: MemoryCaptureSelection,
       .setRootVisible(false)
       .build()
       .apply {
-        isDrawDebugInfo = profilersView.studioProfilers.ideServices.featureConfig.isPerformanceMonitoringEnabled
+        isDrawDebugInfo = false
       }
   }
 }

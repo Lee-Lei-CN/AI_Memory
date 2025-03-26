@@ -15,28 +15,27 @@
  */
 package com.tcl.tools.profilers.memory
 
+import com.android.tools.adtui.model.AspectObserver
+import com.intellij.ui.components.JBTabbedPane
+import com.intellij.util.ui.JBEmptyBorder
+import com.intellij.util.ui.JBUI
 import com.tcl.tools.adtui.FilterComponent
 import com.tcl.tools.adtui.StatLabel
 import com.tcl.tools.adtui.common.AdtUiUtils
 import com.tcl.tools.adtui.flat.FlatSeparator
-import com.android.tools.adtui.model.AspectObserver
+import com.tcl.tools.adtui.model.FpsTimer
 import com.tcl.tools.adtui.model.Range
 import com.tcl.tools.adtui.model.StreamingTimeline
+import com.tcl.tools.adtui.model.updater.Updater
+import com.tcl.tools.inspectors.commom.api.ide.IntellijContextMenuInstaller
+import com.tcl.tools.inspectors.commom.ui.ContextMenuInstaller
 import com.tcl.tools.profilers.IdeProfilerComponents
 import com.tcl.tools.profilers.ProfilerFonts
-import com.tcl.tools.profilers.ProfilerLayout.FILTER_TEXT_FIELD_TRIGGER_DELAY_MS
-import com.tcl.tools.profilers.ProfilerLayout.FILTER_TEXT_FIELD_WIDTH
-import com.tcl.tools.profilers.ProfilerLayout.FILTER_TEXT_HISTORY_SIZE
-import com.tcl.tools.profilers.ProfilerLayout.TOOLBAR_ICON_BORDER
-import com.tcl.tools.profilers.ProfilerLayout.createToolbarLayout
-import com.tcl.tools.profilers.StudioProfilersView
+import com.tcl.tools.profilers.ProfilerLayout.*
 import com.tcl.tools.profilers.memory.adapters.HeapDumpCaptureObject
 import com.tcl.tools.profilers.memory.adapters.NativeAllocationSampleCaptureObject
 import com.tcl.tools.profilers.memory.adapters.classifiers.HeapSet
 import com.tcl.tools.profilers.memory.chart.MemoryVisualizationView
-import com.intellij.ui.components.JBTabbedPane
-import com.intellij.util.ui.JBEmptyBorder
-import com.intellij.util.ui.JBUI
 import icons.StudioIcons
 import java.awt.BorderLayout
 import java.awt.Component
@@ -47,19 +46,18 @@ import javax.swing.JComponent
 import javax.swing.JLabel
 import javax.swing.JPanel
 
-class CapturePanel(profilersView: StudioProfilersView,
-                   selection: MemoryCaptureSelection,
+class CapturePanel(selection: MemoryCaptureSelection,
                    selectionTimeLabel: JLabel?,
                    selectionRange: Range,
-                   ideComponents: IdeProfilerComponents,
-                   timeline: StreamingTimeline,
                    isFullScreenHeapDumpUi: Boolean): AspectObserver() {
+  val contextMenuInstaller = IntellijContextMenuInstaller()
+  val timeline = StreamingTimeline(Updater(FpsTimer()))
   val heapView = MemoryHeapView(selection)
-  val captureView = MemoryCaptureView(selection, ideComponents) // TODO: remove after full migration. Only needed for legacy tests
+  val captureView = MemoryCaptureView(selection) // TODO: remove after full migration. Only needed for legacy tests
   val classGrouping = MemoryClassGrouping(selection)
-  val classifierView = MemoryClassifierView(selection, ideComponents)
-  val classSetView = MemoryClassSetView(selection, ideComponents, selectionRange, timeline)
-  val instanceDetailsView = MemoryInstanceDetailsView(selection, ideComponents, timeline)
+  val classifierView = MemoryClassifierView(selection, contextMenuInstaller)
+  val classSetView = MemoryClassSetView(selection, contextMenuInstaller, selectionRange, timeline)
+  val instanceDetailsView = MemoryInstanceDetailsView(selection, contextMenuInstaller, timeline)
 
   val captureInfoMessage = JLabel(StudioIcons.Common.WARNING).apply {
     border = TOOLBAR_ICON_BORDER
@@ -86,7 +84,7 @@ class CapturePanel(profilersView: StudioProfilersView,
     }
 
   val component: JPanel =
-    CapturePanelUi(selection, heapView, classGrouping, classifierView, filterComponent, captureInfoMessage, profilersView)
+    CapturePanelUi(selection, heapView, classGrouping, classifierView, filterComponent, captureInfoMessage)
 }
 
 /**
@@ -105,14 +103,13 @@ private class CapturePanelUi(private val selection: MemoryCaptureSelection,
                              private val classGrouping: MemoryClassGrouping,
                              private val classifierView: MemoryClassifierView,
                              private val filterComponent: FilterComponent,
-                             private val captureInfoMessage: JLabel,
-                             private val profilersView: StudioProfilersView)
+                             private val captureInfoMessage: JLabel)
   : JPanel(BorderLayout()) {
   private val observer = AspectObserver()
   private val instanceFilterMenu = MemoryInstanceFilterMenu(selection)
   private val toolbarTabPanels = mutableMapOf<String, ToolbarComponents>()
   private val tabListeners = mutableListOf<CapturePanelTabContainer>()
-  private val visualizationView = MemoryVisualizationView(selection, profilersView)
+  private val visualizationView = MemoryVisualizationView(selection)
   private var activeTabIndex = 0
 
   init {
@@ -203,14 +200,14 @@ private class CapturePanelUi(private val selection: MemoryCaptureSelection,
     val totalRetainedSizeLabel = mkLabel("Retained Size")
 
     // Compute total classes asynchronously because it can take multiple seconds
-    fun refreshTotalClassesAsync(heap: HeapSet) = profilersView.studioProfilers.ideServices.poolExecutor.execute {
+    fun refreshTotalClassesAsync(heap: HeapSet)  {
       // Handle "no filter" case specially, because it recomputes from the current instance stream,
       // and `ClassifierSet` only considers instances as "matched" if the filter is not empty.
       // This is analogous to how `MemoryClassifierView` is checking if filter is empty to treat it specially
       val filterMatches = if (selection.filterHandler.filter.isEmpty) heap.instancesStream else heap.filterMatches
       // Totals other than class count don't need this, because they are direct fields initialized correctly
       val count = filterMatches.mapToLong { it.classEntry.classId }.distinct().count()
-      profilersView.studioProfilers.ideServices.mainExecutor.execute { totalClassLabel.numValue = count }
+      totalClassLabel.numValue = count
     }
 
     fun refreshSummaries() {

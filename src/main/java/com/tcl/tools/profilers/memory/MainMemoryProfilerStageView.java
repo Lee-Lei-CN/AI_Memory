@@ -79,13 +79,11 @@ public class MainMemoryProfilerStageView extends BaseStreamingMemoryProfilerStag
     myTimelineComponent = getStage().isMemoryCaptureOnly() ?
                           null :
                           new MemoryTimelineComponent(this, buildTimeAxis(profilersView.getStudioProfilers()));
-    CapturePanel capturePanel = new CapturePanel(getProfilersView(),
-                                                 getStage().getCaptureSelection(),
-                                                 getStage().isMemoryCaptureOnly() ? null : getSelectionTimeLabel(),
-                                                 getStage().getRangeSelectionModel().getSelectionRange(),
-                                                 getIdeComponents(),
-                                                 getStage().getTimeline(),
-                                                 false);
+    CapturePanel capturePanel = new CapturePanel(
+            getStage().getCaptureSelection(),
+            getStage().isMemoryCaptureOnly() ? null : getSelectionTimeLabel(),
+            getStage().getRangeSelectionModel().getSelectionRange(),
+            false);
 
     myRecordingOptionsView = new RecordingOptionsView(stage.getRecordingOptionsModel());
     myLayout = new MemoryProfilerStageLayout(myTimelineComponent, capturePanel, myRecordingOptionsView, this::makeLoadingPanel);

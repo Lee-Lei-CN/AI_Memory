@@ -15,6 +15,7 @@
  */
 package com.tcl.tools.profilers.memory.instanceviewers;
 
+import com.android.tools.adtui.stdui.ResizableImage;
 import com.tcl.tools.profilers.IdeProfilerComponents;
 import com.tcl.tools.profilers.memory.adapters.AndroidBitmapDataProvider;
 import com.tcl.tools.profilers.memory.adapters.BitmapDecoder;
@@ -40,8 +41,7 @@ public class BitmapViewer implements InstanceViewer {
 
   @Nullable
   @Override
-  public JComponent createComponent(@NotNull IdeProfilerComponents ideProfilerComponents,
-                                    @NotNull CaptureObject captureObject,
+  public JComponent createComponent(@NotNull CaptureObject captureObject,
                                     @NotNull InstanceObject instanceObject) {
     AndroidBitmapDataProvider bitmapDataProvider = AndroidBitmapDataProvider.createDecoder(instanceObject);
     if (bitmapDataProvider == null) {
@@ -51,7 +51,7 @@ public class BitmapViewer implements InstanceViewer {
     if (image == null) {
       return null;
     }
-    JComponent viewer = ideProfilerComponents.createResizableImageComponent(image);
+    JComponent viewer = new ResizableImage(image);
 
     JPanel panel = new JPanel(new BorderLayout());
     panel.setName("Bitmap Preview");

@@ -104,11 +104,11 @@ public final class MemoryClassSetView extends AspectObserver {
   @Nullable private InstanceObject myInstanceObject;
 
   MemoryClassSetView(@NotNull MemoryCaptureSelection selection,
-                     @NotNull IdeProfilerComponents ideProfilerComponents,
+                     @NotNull ContextMenuInstaller contextMenuInstaller,
                      @NotNull Range selectionRange,
                      @NotNull StreamingTimeline timeline) {
     mySelection = selection;
-    myContextMenuInstaller = ideProfilerComponents.createContextMenuInstaller();
+    myContextMenuInstaller = contextMenuInstaller;
 
     mySelection.getAspect().addDependency(this)
       .onChange(CaptureSelectionAspect.CURRENT_LOADED_CAPTURE, this::refreshCaptureObject)
