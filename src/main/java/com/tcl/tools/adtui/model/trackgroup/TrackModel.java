@@ -15,7 +15,7 @@
  */
 package com.tcl.tools.adtui.model.trackgroup;
 
-import com.android.tools.adtui.model.AspectModel;
+import com.tcl.tools.profilers.AspectModel;
 import com.tcl.tools.adtui.model.DragAndDropModelListElement;
 import com.tcl.tools.adtui.model.TooltipModel;
 import org.jetbrains.annotations.NotNull;

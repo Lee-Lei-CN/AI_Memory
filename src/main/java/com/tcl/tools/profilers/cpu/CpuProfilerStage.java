@@ -23,7 +23,7 @@ import com.tcl.tools.idea.codenavigation.CodeLocation;
 import com.tcl.tools.idea.codenavigation.CodeNavigator;
 import com.android.tools.perflib.vmtrace.ClockType;
 import com.android.tools.profiler.proto.*;
-import com.android.tools.adtui.model.AspectModel;
+import com.tcl.tools.profilers.AspectModel;
 import com.android.tools.profilers.RecordingOption;
 import com.android.tools.profilers.RecordingOptionsModel;
 import com.tcl.tools.adtui.model.DataSeries;

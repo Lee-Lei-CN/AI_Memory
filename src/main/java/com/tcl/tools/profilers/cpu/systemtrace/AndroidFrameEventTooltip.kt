@@ -37,8 +37,8 @@ class AndroidFrameEventTooltip(
     private set
 
   override fun dispose() {
-    timeline.tooltipRange.removeDependencies(this)
-    model.removeDependencies(this)
+//    timeline.tooltipRange.removeDependencies(this)
+//    model.removeDependencies(this)
   }
 
   private fun updateValue() {
@@ -52,7 +52,7 @@ class AndroidFrameEventTooltip(
   }
 
   init {
-    timeline.tooltipRange.addDependency(this).onChange(Range.Aspect.RANGE) { updateValue() }
-    model.addDependency(this).onChange(StateChartModel.Aspect.MODEL_CHANGED) { updateValue() }
+//    timeline.tooltipRange.addDependency(this).onChange(Range.Aspect.RANGE) { updateValue() }
+//    model.addDependency(this).onChange(StateChartModel.Aspect.MODEL_CHANGED) { updateValue() }
   }
 }

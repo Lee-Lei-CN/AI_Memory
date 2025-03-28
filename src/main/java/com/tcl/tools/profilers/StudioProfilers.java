@@ -18,7 +18,7 @@ package com.tcl.tools.profilers;
 import com.android.sdklib.AndroidVersion;
 import com.android.tools.idea.transport.poller.TransportEventPoller;
 import com.android.tools.profiler.proto.*;
-import com.android.tools.adtui.model.AspectModel;
+import com.tcl.tools.profilers.AspectModel;
 import com.tcl.tools.adtui.model.FpsTimer;
 import com.tcl.tools.adtui.model.Range;
 import com.tcl.tools.adtui.model.StopwatchTimer;

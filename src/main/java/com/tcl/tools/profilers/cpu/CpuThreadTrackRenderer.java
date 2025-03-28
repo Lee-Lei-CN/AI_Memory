@@ -20,7 +20,7 @@ import com.tcl.tools.adtui.chart.hchart.HTreeChart;
 import com.tcl.tools.adtui.chart.statechart.StateChart;
 import com.tcl.tools.adtui.chart.statechart.StateChartColorProvider;
 import com.tcl.tools.adtui.common.EnumColors;
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.adtui.model.MultiSelectionModel;
 import com.tcl.tools.adtui.model.Range;
 import com.tcl.tools.adtui.model.StateChartModel;
@@ -192,7 +192,7 @@ public class CpuThreadTrackRenderer implements TrackRenderer<CpuThreadTrackModel
     if (node != null) {
       // Force the call chart to update when a filter is applied to the root node. By setting the root to the same node we're not changing
       // the tree model but just triggering a model-changed event.
-      node.getAspectModel().addDependency(myObserver).onChange(CaptureNode.Aspect.FILTER_APPLIED, () -> chart.setHTree(node));
+//      node.getAspectModel().addDependency(myObserver).onChange(CaptureNode.Aspect.FILTER_APPLIED, () -> chart.setHTree(node));
     }
     return chart;
   }

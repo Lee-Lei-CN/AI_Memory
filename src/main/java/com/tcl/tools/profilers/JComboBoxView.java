@@ -15,8 +15,8 @@
  */
 package com.tcl.tools.profilers;
 
-import com.android.tools.adtui.model.AspectModel;
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectModel;
+import com.tcl.tools.profilers.AspectObserver;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;

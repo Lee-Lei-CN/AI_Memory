@@ -107,10 +107,10 @@ public class MainMemoryProfilerStageView extends BaseStreamingMemoryProfilerStag
         .setKeyStrokes(KeyStroke.getKeyStroke(KeyEvent.VK_G, AdtUiUtils.getActionMask())).build();
     myForceGarbageCollectionButton.setToolTipText(myForceGarbageCollectionAction.getDefaultToolTipText());
 
-    getStage().getAspect().addDependency(this)
-      .onChange(MemoryProfilerAspect.TRACKING_ENABLED, this::allocationTrackingChanged)
-      .onChange(MemoryProfilerAspect.HEAP_DUMP_STARTED, this::showHeapDumpInProgress)
-      .onChange(MemoryProfilerAspect.HEAP_DUMP_FINISHED, this::hideHeapDumpInProgress);
+//    getStage().getAspect().addDependency(this)
+//      .onChange(MemoryProfilerAspect.TRACKING_ENABLED, this::allocationTrackingChanged)
+//      .onChange(MemoryProfilerAspect.HEAP_DUMP_STARTED, this::showHeapDumpInProgress)
+//      .onChange(MemoryProfilerAspect.HEAP_DUMP_FINISHED, this::hideHeapDumpInProgress);
     getStage().getCaptureSelection().getAspect().addDependency(this)
       .onChange(CaptureSelectionAspect.CURRENT_LOADING_CAPTURE, this::captureObjectChanged)
       .onChange(CaptureSelectionAspect.CURRENT_LOADED_CAPTURE, this::captureObjectFinishedLoading)

@@ -21,7 +21,7 @@ import static com.tcl.tools.profilers.ProfilerColors.SELECTED_SESSION_COLOR;
 import com.android.tools.adtui.stdui.ContextMenuItem;
 import com.tcl.tools.adtui.TabularLayout;
 import com.tcl.tools.adtui.common.AdtUiUtils;
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.android.tools.adtui.stdui.ContextMenuItem;
 import com.tcl.tools.adtui.stdui.DefaultContextMenuItem;
 import com.tcl.tools.adtui.stdui.StandardColors;

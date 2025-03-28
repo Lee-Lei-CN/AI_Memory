@@ -25,7 +25,7 @@ import static java.awt.event.InputEvent.META_DOWN_MASK;
 
 import com.tcl.tools.adtui.flat.FlatComboBox;
 import com.tcl.tools.adtui.flat.FlatSeparator;
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.adtui.model.Range;
 import com.tcl.tools.adtui.model.StreamingTimeline;
 import com.tcl.tools.adtui.model.Timeline;

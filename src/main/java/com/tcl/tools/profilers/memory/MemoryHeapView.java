@@ -17,7 +17,7 @@ package com.tcl.tools.profilers.memory;
 
 import static com.tcl.tools.profilers.ProfilerLayout.createToolbarLayout;
 
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.profilers.ProfilerCombobox;
 import com.tcl.tools.profilers.ProfilerComboboxCellRenderer;
 import com.tcl.tools.profilers.memory.CaptureSelectionAspect;import com.tcl.tools.profilers.memory.MemoryCaptureSelection;import com.tcl.tools.profilers.memory.adapters.CaptureObject;

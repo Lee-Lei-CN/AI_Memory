@@ -39,7 +39,7 @@ class BufferQueueTooltipView(parent: JComponent, val tooltip: BufferQueueTooltip
 
   init {
     content.add(valueLabel, TabularLayout.Constraint(0, 0))
-    tooltip.addDependency(this).onChange(BufferQueueTooltip.Aspect.VALUE_CHANGED) { updateView() }
+//    tooltip.addDependency(this).onChange(BufferQueueTooltip.Aspect.VALUE_CHANGED) { updateView() }
     updateView()
   }
 }

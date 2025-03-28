@@ -229,8 +229,8 @@ public class CpuCaptureStageView extends StageView<CpuCaptureStage> {
       .onChange(RangeSelectionModel.Aspect.SELECTION, this::updateTrackGroupList);
 
     // Repaint track groups when the root nodes' filters changed.
-    getStage().getCapture().getCaptureNodes().forEach(node -> node.getAspectModel().addDependency(this)
-      .onChange(CaptureNode.Aspect.FILTER_APPLIED, this::updateTrackGroupList));
+//    getStage().getCapture().getCaptureNodes().forEach(node -> node.getAspectModel().addDependency(this)
+//      .onChange(CaptureNode.Aspect.FILTER_APPLIED, this::updateTrackGroupList));
   }
 
   /**
@@ -238,7 +238,7 @@ public class CpuCaptureStageView extends StageView<CpuCaptureStage> {
    */
   private void unregisterAnalyzingEvents() {
     getStage().getMinimapModel().getRangeSelectionModel().removeDependencies(this);
-    getStage().getCapture().getCaptureNodes().forEach(node -> node.getAspectModel().removeDependencies(this));
+//    getStage().getCapture().getCaptureNodes().forEach(node -> node.getAspectModel().removeDependencies(this));
   }
 
   private JComponent createAnalyzingComponents() {

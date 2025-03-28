@@ -15,7 +15,7 @@
  */
 package com.tcl.tools.profilers.cpu
 
-import com.android.tools.adtui.model.AspectObserver
+import com.tcl.tools.profilers.AspectObserver
 import com.tcl.tools.adtui.model.Range
 import com.tcl.tools.adtui.model.RangedSeries
 import com.tcl.tools.adtui.model.SeriesData

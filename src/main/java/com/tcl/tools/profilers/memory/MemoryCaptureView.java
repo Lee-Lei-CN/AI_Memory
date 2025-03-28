@@ -16,7 +16,7 @@
 package com.tcl.tools.profilers.memory;
 
 import com.tcl.tools.adtui.flat.FlatSeparator;
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.profilers.IdeProfilerComponents;
 import com.tcl.tools.profilers.memory.CaptureSelectionAspect;import com.tcl.tools.profilers.memory.MemoryCaptureSelection;import com.tcl.tools.profilers.memory.adapters.CaptureObject;
 import com.google.common.annotations.VisibleForTesting;

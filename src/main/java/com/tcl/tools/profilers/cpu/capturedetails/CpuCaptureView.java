@@ -17,7 +17,7 @@ package com.tcl.tools.profilers.cpu.capturedetails;
 
 import static com.tcl.tools.profilers.cpu.capturedetails.RecordingInitiatorPane.STOP_TEXT;
 
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.adtui.model.Range;
 import com.tcl.tools.profilers.cpu.*;
 import com.google.common.annotations.VisibleForTesting;

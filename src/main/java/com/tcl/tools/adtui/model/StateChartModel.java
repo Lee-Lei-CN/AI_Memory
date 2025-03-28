@@ -15,7 +15,7 @@
  */
 package com.tcl.tools.adtui.model;
 
-import com.android.tools.adtui.model.AspectModel;
+import com.tcl.tools.profilers.AspectModel;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;

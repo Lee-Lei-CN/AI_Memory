@@ -20,7 +20,7 @@ import com.tcl.tools.adtui.RangeTimeScrollBar
 import com.tcl.tools.adtui.TabularLayout
 import com.tcl.tools.adtui.chart.hchart.HTreeChart
 import com.tcl.tools.adtui.chart.hchart.HTreeChartVerticalScrollBar
-import com.android.tools.adtui.model.AspectObserver
+import com.tcl.tools.profilers.AspectObserver
 import com.tcl.tools.adtui.model.Range
 import com.tcl.tools.adtui.model.axis.AxisComponentModel
 import com.tcl.tools.adtui.model.axis.ResizingAxisComponentModel

@@ -15,7 +15,7 @@
  */
 package com.tcl.tools.adtui.model.event;
 
-import com.android.tools.adtui.model.AspectModel;
+import com.tcl.tools.profilers.AspectModel;
 import com.tcl.tools.adtui.model.Range;
 import com.tcl.tools.adtui.model.RangedSeries;
 import org.jetbrains.annotations.NotNull;

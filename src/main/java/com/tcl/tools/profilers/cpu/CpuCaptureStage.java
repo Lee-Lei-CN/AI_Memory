@@ -18,7 +18,7 @@ package com.tcl.tools.profilers.cpu;
 import com.android.tools.idea.protobuf.ByteString;
 import com.android.tools.idea.transport.EventStreamServer;
 import com.android.tools.profiler.proto.Transport;
-import com.android.tools.adtui.model.AspectModel;
+import com.tcl.tools.profilers.AspectModel;
 import com.tcl.tools.adtui.model.BoxSelectionListener;
 import com.tcl.tools.adtui.model.BoxSelectionModel;
 import com.tcl.tools.adtui.model.DefaultTimeline;

@@ -16,7 +16,7 @@
 package com.tcl.tools.profilers.cpu;
 
 import com.android.tools.idea.protobuf.ByteString;
-import com.android.tools.adtui.model.AspectModel;
+import com.tcl.tools.profilers.AspectModel;
 import com.tcl.tools.adtui.model.Range;
 import com.android.tools.idea.protobuf.ByteString;
 import com.android.tools.profiler.proto.Cpu.CpuTraceType;

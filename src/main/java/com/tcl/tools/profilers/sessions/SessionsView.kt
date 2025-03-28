@@ -18,7 +18,7 @@ package com.tcl.tools.profilers.sessions
 import com.android.tools.profiler.proto.Common
 import com.tcl.tools.adtui.TabularLayout
 import com.tcl.tools.adtui.common.AdtUiUtils
-import com.android.tools.adtui.model.AspectObserver
+import com.tcl.tools.profilers.AspectObserver
 import com.tcl.tools.adtui.model.ViewBinder
 import com.tcl.tools.adtui.model.stdui.CommonAction
 import com.tcl.tools.adtui.model.stdui.CommonAction.SeparatorAction

@@ -15,7 +15,7 @@
  */
 package com.tcl.tools.adtui.model.axis;
 
-import com.android.tools.adtui.model.AspectModel;
+import com.tcl.tools.profilers.AspectModel;
 import com.tcl.tools.adtui.model.Range;
 import com.tcl.tools.adtui.model.formatter.BaseAxisFormatter;
 import com.tcl.tools.adtui.model.updater.Updatable;

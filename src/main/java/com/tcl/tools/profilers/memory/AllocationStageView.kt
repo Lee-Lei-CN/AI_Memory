@@ -4,7 +4,7 @@ import com.tcl.tools.adtui.AxisComponent
 import com.tcl.tools.adtui.common.AdtUiUtils.DEFAULT_HORIZONTAL_BORDERS
 import com.tcl.tools.adtui.common.AdtUiUtils.DEFAULT_VERTICAL_BORDERS
 import com.tcl.tools.adtui.flat.FlatSeparator
-import com.android.tools.adtui.model.AspectObserver
+import com.tcl.tools.profilers.AspectObserver
 import com.tcl.tools.adtui.model.Range
 import com.tcl.tools.adtui.model.axis.ResizingAxisComponentModel
 import com.tcl.tools.adtui.model.formatter.TimeAxisFormatter
@@ -220,7 +220,7 @@ class AllocationSamplingMenu(private val stage: AllocationStage): JBPanel<Alloca
         stage.requestLiveAllocationSamplingModeUpdate(model.selectedItem as LiveAllocationSamplingMode)
       }
     }
-    stage.aspect.addDependency(observer).onChange(MemoryProfilerAspect.LIVE_ALLOCATION_SAMPLING_MODE, ::onSamplingModeChanged)
+//    stage.aspect.addDependency(observer).onChange(MemoryProfilerAspect.LIVE_ALLOCATION_SAMPLING_MODE, ::onSamplingModeChanged)
     onSamplingModeChanged()
 
     border = JBUI.Borders.empty(0, 5)

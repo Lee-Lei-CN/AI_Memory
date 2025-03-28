@@ -15,8 +15,6 @@
  */
 package com.tcl.tools.profilers.memory.instanceviewers;
 
-import com.android.tools.adtui.stdui.ResizableImage;
-import com.tcl.tools.profilers.IdeProfilerComponents;
 import com.tcl.tools.profilers.memory.adapters.AndroidBitmapDataProvider;
 import com.tcl.tools.profilers.memory.adapters.BitmapDecoder;
 import com.tcl.tools.profilers.memory.adapters.CaptureObject;

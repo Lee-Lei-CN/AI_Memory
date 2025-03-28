@@ -78,7 +78,7 @@ class AndroidFrameEventTooltipView(parent: JComponent, val tooltip: AndroidFrame
       add(durationLabel, TabularLayout.Constraint(2, 0))
       add(helpTextLabel, TabularLayout.Constraint(3, 0))
     }
-    tooltip.addDependency(this).onChange(AndroidFrameEventTooltip.Aspect.VALUE_CHANGED, this::updateView)
+//    tooltip.addDependency(this).onChange(AndroidFrameEventTooltip.Aspect.VALUE_CHANGED, this::updateView)
     updateView()
   }
 }

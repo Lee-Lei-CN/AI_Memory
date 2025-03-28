@@ -16,7 +16,7 @@
 package com.tcl.tools.profilers.cpu;
 
 import com.tcl.tools.adtui.TabularLayout;
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.adtui.model.Range;
 import com.tcl.tools.adtui.model.formatter.TimeFormatter;
 import com.tcl.tools.profilers.ProfilerColors;

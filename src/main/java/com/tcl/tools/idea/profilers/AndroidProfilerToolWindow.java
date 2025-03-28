@@ -25,7 +25,7 @@ import com.android.tools.idea.transport.TransportServiceProxy;
 import com.android.tools.nativeSymbolizer.ProjectSymbolSource;
 import com.android.tools.nativeSymbolizer.SymbolSource;
 import com.tcl.tools.nativeSymbolizer.SymbolFilesLocator;
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.idea.codenavigation.IntellijCodeNavigator;
 import com.android.tools.profiler.proto.Common;
 import com.tcl.tools.profilers.IdeProfilerComponents;

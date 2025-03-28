@@ -39,7 +39,7 @@ class VsyncTooltipView(parent: JComponent, val tooltip: VsyncTooltip) : TooltipV
 
   init {
     content.add(valueLabel, TabularLayout.Constraint(0, 0))
-    tooltip.addDependency(this).onChange(VsyncTooltip.Aspect.VALUE_CHANGED, this::updateView)
+//    tooltip.addDependency(this).onChange(VsyncTooltip.Aspect.VALUE_CHANGED, this::updateView)
     updateView()
   }
 }

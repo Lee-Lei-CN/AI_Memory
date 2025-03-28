@@ -17,7 +17,7 @@ package com.tcl.tools.profilers.cpu.analysis
 
 import com.tcl.tools.adtui.TabularLayout
 import com.tcl.tools.adtui.common.primaryContentBackground
-import com.android.tools.adtui.model.AspectObserver
+import com.tcl.tools.profilers.AspectObserver
 import com.tcl.tools.adtui.model.DataSeries
 import com.tcl.tools.adtui.model.Range
 import com.tcl.tools.adtui.ui.HideablePanel

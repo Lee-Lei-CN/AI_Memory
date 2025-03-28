@@ -19,10 +19,12 @@ import static com.tcl.tools.adtui.common.AdtUiUtils.DEFAULT_TOP_BORDER;
 import static com.tcl.tools.profilers.ProfilerLayout.createToolbarLayout;
 
 import com.tcl.tools.adtui.TabularLayout;
-import com.android.tools.adtui.model.AspectModel;
+import com.tcl.tools.profilers.AspectModel;
 import com.tcl.tools.profilers.ProfilerColors;
 import com.tcl.tools.profilers.ProfilerLayout;
-import com.tcl.tools.profilers.memory.CaptureSelectionAspect;import com.tcl.tools.profilers.memory.MemoryCaptureSelection;import com.tcl.tools.profilers.memory.adapters.CaptureObject;
+import com.tcl.tools.profilers.memory.CaptureSelectionAspect;
+import com.tcl.tools.profilers.memory.MemoryCaptureSelection;
+import com.tcl.tools.profilers.memory.adapters.CaptureObject;
 import com.tcl.tools.profilers.memory.adapters.instancefilters.CaptureObjectInstanceFilter;
 import com.intellij.ui.HyperlinkLabel;
 import com.intellij.ui.components.JBCheckBox;

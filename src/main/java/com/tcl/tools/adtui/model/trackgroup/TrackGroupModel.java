@@ -15,7 +15,7 @@
  */
 package com.tcl.tools.adtui.model.trackgroup;
 
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.adtui.model.BoxSelectionModel;
 import com.tcl.tools.adtui.model.DragAndDropListModel;
 import java.util.ArrayList;

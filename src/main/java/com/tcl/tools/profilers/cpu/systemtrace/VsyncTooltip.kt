@@ -33,7 +33,7 @@ class VsyncTooltip(val timeline: Timeline, private val vsyncValues: RangedSeries
     private set
 
   override fun dispose() {
-    timeline.tooltipRange.removeDependencies(this)
+//    timeline.tooltipRange.removeDependencies(this)
   }
 
   private fun updateValue() {
@@ -46,6 +46,6 @@ class VsyncTooltip(val timeline: Timeline, private val vsyncValues: RangedSeries
   }
 
   init {
-    timeline.tooltipRange.addDependency(this).onChange(Range.Aspect.RANGE) { updateValue() }
+//    timeline.tooltipRange.addDependency(this).onChange(Range.Aspect.RANGE) { updateValue() }
   }
 }

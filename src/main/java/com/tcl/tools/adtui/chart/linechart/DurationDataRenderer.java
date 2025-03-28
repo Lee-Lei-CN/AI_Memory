@@ -16,7 +16,7 @@
 package com.tcl.tools.adtui.chart.linechart;
 
 import com.tcl.tools.adtui.chart.linechart.AbstractDurationDataRenderer;import com.tcl.tools.adtui.common.AdtUiUtils;
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.adtui.model.DurationData;
 import com.tcl.tools.adtui.model.DurationDataModel;
 import com.tcl.tools.adtui.model.RangedContinuousSeries;

@@ -15,7 +15,7 @@
  */
 package com.tcl.tools.inspectors.commom.api.ide.stacktrace;
 
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.android.tools.adtui.stdui.ContextMenuItem;
 import com.android.tools.adtui.stdui.StandardColors;
 import com.tcl.tools.idea.codenavigation.CodeLocation;
@@ -94,7 +94,6 @@ public class IntelliJStackTraceView extends AspectObserver implements StackTrace
     myListModel = new DefaultListModel<>();
     myListView = new JBList(myListModel);
     myListView.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    myListView.setBackground(StandardColors.DEFAULT_CONTENT_BACKGROUND_COLOR);
     myRenderer = new StackElementRenderer();
     myListView.setCellRenderer(myRenderer);
     myScrollPane = new JBScrollPane(myListView);

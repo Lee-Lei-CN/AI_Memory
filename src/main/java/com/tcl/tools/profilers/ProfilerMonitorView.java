@@ -21,7 +21,7 @@ import static com.tcl.tools.profilers.ProfilerFonts.STANDARD_FONT;
 import com.android.sdklib.AndroidVersion;
 import com.tcl.tools.adtui.RangeTooltipComponent;
 import com.tcl.tools.adtui.TabularLayout;
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.idea.IdeInfo;
 import com.tcl.tools.profilers.ProfilerTooltipMouseAdapter;import com.intellij.ui.HyperlinkAdapter;
 import com.intellij.ui.HyperlinkLabel;

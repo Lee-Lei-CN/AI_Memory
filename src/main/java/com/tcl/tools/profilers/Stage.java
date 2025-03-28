@@ -15,7 +15,7 @@
  */
 package com.tcl.tools.profilers;
 
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.adtui.model.Timeline;
 import com.tcl.tools.adtui.model.TooltipModel;
 import com.tcl.tools.profilers.StudioMonitorStage;import com.tcl.tools.profilers.StudioProfilers;import com.google.wireless.android.sdk.stats.AndroidProfilerEvent;

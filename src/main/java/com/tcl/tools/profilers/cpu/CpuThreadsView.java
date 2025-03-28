@@ -19,7 +19,7 @@ import com.tcl.tools.adtui.AxisComponent;
 import com.tcl.tools.adtui.DragAndDropList;
 import com.tcl.tools.adtui.TabularLayout;
 import com.tcl.tools.adtui.event.DelegateMouseEventHandler;
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.adtui.ui.HideablePanel;
 import com.tcl.tools.profilers.ProfilerColors;
 import com.tcl.tools.profilers.ProfilerLayout;

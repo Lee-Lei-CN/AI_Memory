@@ -28,7 +28,7 @@ import static com.tcl.tools.profilers.ProfilerLayout.TABLE_ROW_BORDER;
 import com.tcl.tools.idea.codenavigation.CodeNavigator;
 import com.android.tools.perflib.vmtrace.ClockType;
 import com.tcl.tools.adtui.common.ColumnTreeBuilder;
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.idea.codenavigation.CodeLocation;
 import com.tcl.tools.profilers.ProfilerColors;
 import com.tcl.tools.profilers.StudioProfilersView;

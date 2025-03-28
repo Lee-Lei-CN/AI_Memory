@@ -15,7 +15,7 @@
  */
 package com.tcl.tools.adtui;
 
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.adtui.model.Range;
 import com.intellij.ui.components.JBScrollBar;
 import org.jetbrains.annotations.NotNull;

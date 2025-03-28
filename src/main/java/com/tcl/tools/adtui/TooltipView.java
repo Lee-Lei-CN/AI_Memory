@@ -15,9 +15,11 @@
  */
 package com.tcl.tools.adtui;
 
-import com.tcl.tools.adtui.TabularLayout;import com.tcl.tools.adtui.TreeWalker;import com.tcl.tools.adtui.common.AdtUiUtils;
+import com.tcl.tools.adtui.TabularLayout;
+import com.tcl.tools.adtui.TreeWalker;
+import com.tcl.tools.adtui.common.AdtUiUtils;
 import com.tcl.tools.adtui.common.StudioColorsKt;
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.adtui.model.Range;
 import com.tcl.tools.adtui.model.Timeline;
 import com.tcl.tools.adtui.model.formatter.TimeFormatter;

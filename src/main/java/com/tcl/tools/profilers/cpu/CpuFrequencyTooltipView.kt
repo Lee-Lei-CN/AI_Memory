@@ -40,7 +40,7 @@ class CpuFrequencyTooltipView(parent: JComponent, val tooltip: CpuFrequencyToolt
 
   init {
     content.add(valueLabel, TabularLayout.Constraint(0, 0))
-    tooltip.addDependency(this).onChange(CpuFrequencyTooltip.Aspect.VALUE_CHANGED) { updateView() }
+//    tooltip.addDependency(this).onChange(CpuFrequencyTooltip.Aspect.VALUE_CHANGED) { updateView() }
     updateView()
   }
 }

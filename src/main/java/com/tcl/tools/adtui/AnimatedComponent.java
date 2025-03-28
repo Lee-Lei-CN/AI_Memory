@@ -15,7 +15,7 @@
  */
 package com.tcl.tools.adtui;
 
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.adtui.common.AdtUiUtils;
 import com.google.common.annotations.VisibleForTesting;
 import com.intellij.ide.ui.UISettings;
@@ -31,6 +31,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.function.BiFunction;
 import javax.swing.JComponent;
+import com.tcl.tools.profilers.AspectObserver;
 import org.jetbrains.annotations.NotNull;
 
 /**

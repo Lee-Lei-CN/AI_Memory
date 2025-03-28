@@ -19,7 +19,7 @@ package com.tcl.tools.adtui.model;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.android.tools.adtui.model.AspectModel;
+import com.tcl.tools.profilers.AspectModel;
 import org.jetbrains.annotations.NotNull;
 
 public final class Range extends AspectModel<Range.Aspect> {

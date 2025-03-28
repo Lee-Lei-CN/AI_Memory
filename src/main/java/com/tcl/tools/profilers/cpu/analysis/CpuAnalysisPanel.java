@@ -17,7 +17,7 @@ package com.tcl.tools.profilers.cpu.analysis;
 
 import com.tcl.tools.adtui.TabbedToolbar;
 import com.tcl.tools.adtui.common.StudioColorsKt;
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.adtui.model.ViewBinder;
 import com.tcl.tools.profilers.StudioProfilersView;
 import com.tcl.tools.profilers.cpu.CpuCaptureStage;

@@ -15,7 +15,7 @@
  */
 package com.tcl.tools.profilers.customevent;
 
-import com.android.tools.adtui.model.AspectModel;
+import com.tcl.tools.profilers.AspectModel;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;

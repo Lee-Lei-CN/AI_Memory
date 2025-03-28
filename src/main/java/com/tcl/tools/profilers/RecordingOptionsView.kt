@@ -15,7 +15,7 @@
  */
 package com.tcl.tools.profilers
 
-import com.android.tools.adtui.model.AspectObserver
+import com.tcl.tools.profilers.AspectObserver
 import com.android.tools.profilers.RecordingOption
 import com.android.tools.profilers.RecordingOptionsModel
 import com.google.common.annotations.VisibleForTesting
@@ -88,12 +88,12 @@ class RecordingOptionsView @JvmOverloads constructor(private val recordingModel:
     }
     add(content, GridBagConstraints())
 
-    recordingModel.addDependency(observer)
-      .onChange(RecordingOptionsModel.Aspect.RECORDING_CHANGED, ::onRecordingChanged)
-      .onChange(RecordingOptionsModel.Aspect.SELECTION_CHANGED, ::onSelectionChanged)
-      .onChange(RecordingOptionsModel.Aspect.BUILT_IN_OPTIONS_CHANGED, ::onBuiltInOptionsChanged)
-      .onChange(RecordingOptionsModel.Aspect.CONFIGURATIONS_EMPTINESS_CHANGED, ::resetConfigMenu)
-      .onChange(RecordingOptionsModel.Aspect.READY_OPTIONS_CHANGED, ::onOptionReadinessChanged)
+//    recordingModel.addDependency(observer)
+//      .onChange(RecordingOptionsModel.Aspect.RECORDING_CHANGED, ::onRecordingChanged)
+//      .onChange(RecordingOptionsModel.Aspect.SELECTION_CHANGED, ::onSelectionChanged)
+//      .onChange(RecordingOptionsModel.Aspect.BUILT_IN_OPTIONS_CHANGED, ::onBuiltInOptionsChanged)
+//      .onChange(RecordingOptionsModel.Aspect.CONFIGURATIONS_EMPTINESS_CHANGED, ::resetConfigMenu)
+//      .onChange(RecordingOptionsModel.Aspect.READY_OPTIONS_CHANGED, ::onOptionReadinessChanged)
 
     onRecordingChanged()
     onSelectionChanged()

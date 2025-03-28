@@ -34,7 +34,7 @@ class SurfaceflingerTooltip(val timeline: Timeline, private val surfaceflingerEv
     private set
 
   override fun dispose() {
-    timeline.tooltipRange.removeDependencies(this)
+//    timeline.tooltipRange.removeDependencies(this)
   }
 
   private fun updateEvent() {
@@ -47,6 +47,6 @@ class SurfaceflingerTooltip(val timeline: Timeline, private val surfaceflingerEv
   }
 
   init {
-    timeline.tooltipRange.addDependency(this).onChange(Range.Aspect.RANGE) { updateEvent() }
+//    timeline.tooltipRange.addDependency(this).onChange(Range.Aspect.RANGE) { updateEvent() }
   }
 }

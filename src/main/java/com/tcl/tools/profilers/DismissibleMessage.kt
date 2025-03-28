@@ -37,12 +37,14 @@ object DismissibleMessage {
   /**
    * @param key Key for use in persistent profiler preferences
    */
-  @JvmStatic @JvmOverloads
+  @JvmStatic
+  @JvmOverloads
   fun of(profilers: StudioProfilers, key: String, message: String, learnMoreLink: String,
          color: Color = secondaryPanelBackground): JPanel =
     of(profilers, key, message, { BrowserUtil.browse(learnMoreLink) }, color)
 
-  @JvmStatic @JvmOverloads
+  @JvmStatic
+  @JvmOverloads
   fun of(profilers: StudioProfilers, key: String, message: String, learnMore: () -> Unit,
          color: Color = secondaryPanelBackground): JPanel =
     profilers.ideServices.persistentProfilerPreferences.let { pref ->

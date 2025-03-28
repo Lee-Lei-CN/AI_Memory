@@ -27,7 +27,7 @@ import static com.tcl.tools.profilers.memory.SimpleColumnRenderer.onSubclass;
 
 import com.tcl.tools.adtui.common.ColoredIconGenerator;
 import com.tcl.tools.adtui.common.ColumnTreeBuilder;
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.adtui.model.Range;
 import com.tcl.tools.adtui.model.StreamingTimeline;
 import com.tcl.tools.adtui.model.formatter.NumberFormatter;
@@ -195,7 +195,7 @@ public final class MemoryClassSetView extends AspectObserver {
   }
 
   @NotNull
-  JComponent getComponent() {
+  public JComponent getComponent() {
     return myInstancesPanel;
   }
 

@@ -16,7 +16,7 @@
 package com.tcl.tools.profilers.cpu.capturedetails;
 
 import com.android.tools.perflib.vmtrace.ClockType;
-import com.android.tools.adtui.model.AspectModel;
+import com.tcl.tools.profilers.AspectModel;
 import com.tcl.tools.adtui.model.Range;
 import com.tcl.tools.profilers.cpu.CaptureNode;
 import com.tcl.tools.profilers.cpu.CpuCapture;

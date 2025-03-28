@@ -15,7 +15,7 @@
  */
 package com.tcl.tools.profilers.network;
 
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.adtui.model.Range;
 import com.tcl.tools.profilers.network.httpdata.HttpData;
 import org.jetbrains.annotations.NotNull;

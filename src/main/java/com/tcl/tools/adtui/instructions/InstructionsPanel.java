@@ -17,7 +17,7 @@ package com.tcl.tools.adtui.instructions;
 
 import com.tcl.tools.adtui.AnimatedComponent;
 import com.tcl.tools.adtui.TabularLayout;
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.adtui.model.EaseOutModel;
 import com.tcl.tools.adtui.util.SwingUtil;
 import com.google.common.annotations.VisibleForTesting;

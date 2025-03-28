@@ -72,7 +72,7 @@ class RssMemoryTooltipView(parent: JComponent, val tooltip: RssMemoryTooltip) : 
   init {
     content.add(valueLabel, TabularLayout.Constraint(0, 0))
     content.add(descriptionLabel, TabularLayout.Constraint(1, 0))
-    tooltip.addDependency(this).onChange(RssMemoryTooltip.Aspect.VALUE_CHANGED) { updateView() }
+//    tooltip.addDependency(this).onChange(RssMemoryTooltip.Aspect.VALUE_CHANGED) { updateView() }
     updateView()
   }
 }

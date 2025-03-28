@@ -15,7 +15,7 @@
  */
 package com.tcl.tools.profilers.memory;
 
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.profilers.ProfilerCombobox;
 import com.tcl.tools.profilers.ProfilerComboboxCellRenderer;
 import javax.swing.JComboBox;

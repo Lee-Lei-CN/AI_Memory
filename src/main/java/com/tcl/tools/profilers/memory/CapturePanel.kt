@@ -15,7 +15,7 @@
  */
 package com.tcl.tools.profilers.memory
 
-import com.android.tools.adtui.model.AspectObserver
+import com.tcl.tools.profilers.AspectObserver
 import com.intellij.ui.components.JBTabbedPane
 import com.intellij.util.ui.JBEmptyBorder
 import com.intellij.util.ui.JBUI
@@ -59,7 +59,7 @@ class CapturePanel(selection: MemoryCaptureSelection,
   val classSetView = MemoryClassSetView(selection, contextMenuInstaller, selectionRange, timeline)
   val instanceDetailsView = MemoryInstanceDetailsView(selection, contextMenuInstaller, timeline)
 
-  val captureInfoMessage = JLabel(StudioIcons.Common.WARNING).apply {
+  val captureInfoMessage = JLabel().apply {
     border = TOOLBAR_ICON_BORDER
     // preset the minimize size of the info to only show the icon, so the text can be truncated when the user resizes the vertical splitter.
     minimumSize = preferredSize

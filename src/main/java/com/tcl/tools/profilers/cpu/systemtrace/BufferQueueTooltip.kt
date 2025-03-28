@@ -34,7 +34,7 @@ class BufferQueueTooltip(val timeline: Timeline,
     private set
 
   override fun dispose() {
-    timeline.tooltipRange.removeDependencies(this)
+//    timeline.tooltipRange.removeDependencies(this)
   }
 
   private fun updateValue() {
@@ -47,6 +47,6 @@ class BufferQueueTooltip(val timeline: Timeline,
   }
 
   init {
-    timeline.tooltipRange.addDependency(this).onChange(Range.Aspect.RANGE) { updateValue() }
+//    timeline.tooltipRange.addDependency(this).onChange(Range.Aspect.RANGE) { updateValue() }
   }
 }

@@ -15,7 +15,7 @@
  */
 package com.tcl.tools.adtui.model.legend;
 
-import com.android.tools.adtui.model.AspectModel;
+import com.tcl.tools.profilers.AspectModel;
 import com.tcl.tools.adtui.model.Range;
 import java.util.ArrayList;
 import java.util.List;

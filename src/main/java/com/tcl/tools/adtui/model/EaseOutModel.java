@@ -15,7 +15,7 @@
  */
 package com.tcl.tools.adtui.model;
 
-import com.android.tools.adtui.model.AspectModel;
+import com.tcl.tools.profilers.AspectModel;
 import com.tcl.tools.adtui.model.updater.Updatable;
 import com.tcl.tools.adtui.model.updater.Updater;
 import org.jetbrains.annotations.NotNull;

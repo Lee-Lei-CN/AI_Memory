@@ -26,7 +26,7 @@ import com.android.tools.profiler.proto.Commands;
 import com.android.tools.profiler.proto.Common;
 import com.android.tools.profiler.proto.Profiler;
 import com.android.tools.profiler.proto.Transport;
-import com.android.tools.adtui.model.AspectModel;
+import com.tcl.tools.profilers.AspectModel;
 import com.tcl.tools.adtui.model.Range;
 import com.tcl.tools.profilers.StudioProfilers;
 import com.tcl.tools.profilers.cpu.CpuCaptureSessionArtifact;

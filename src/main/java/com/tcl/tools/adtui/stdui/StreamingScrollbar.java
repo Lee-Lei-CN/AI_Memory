@@ -19,7 +19,7 @@ import static com.tcl.tools.adtui.stdui.StandardColors.DEFAULT_CONTENT_BACKGROUN
 
 import com.tcl.tools.adtui.RangeScrollBarUI;
 import com.tcl.tools.adtui.common.AdtUiUtils;
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.adtui.model.Range;
 import com.tcl.tools.adtui.model.StreamingTimeline;
 import com.google.common.annotations.VisibleForTesting;

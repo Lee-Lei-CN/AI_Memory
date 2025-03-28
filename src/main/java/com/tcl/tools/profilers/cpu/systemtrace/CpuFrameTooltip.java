@@ -15,7 +15,7 @@
  */
 package com.tcl.tools.profilers.cpu.systemtrace;
 
-import com.android.tools.adtui.model.AspectModel;
+import com.tcl.tools.profilers.AspectModel;
 import com.tcl.tools.adtui.model.DataSeries;
 import com.tcl.tools.adtui.model.Range;
 import com.tcl.tools.adtui.model.SeriesData;

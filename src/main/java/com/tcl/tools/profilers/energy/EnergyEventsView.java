@@ -19,7 +19,7 @@ import static com.tcl.tools.profilers.ProfilerFonts.H2_FONT;
 import static com.tcl.tools.profilers.ProfilerLayout.ROW_HEIGHT_PADDING;
 
 import com.tcl.tools.adtui.TooltipComponent;
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.adtui.model.DefaultDataSeries;
 import com.tcl.tools.adtui.model.Range;
 import com.tcl.tools.adtui.model.RangedSeries;

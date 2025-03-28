@@ -19,7 +19,7 @@ import com.tcl.tools.adtui.TabularLayout;
 import com.tcl.tools.adtui.instructions.InstructionsPanel;
 import com.tcl.tools.adtui.instructions.NewRowInstruction;
 import com.tcl.tools.adtui.instructions.TextInstruction;
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.adtui.stdui.StandardColors;
 import com.tcl.tools.profilers.ProfilerFonts;
 import com.tcl.tools.profilers.cpu.CpuProfilerAspect;

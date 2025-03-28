@@ -15,7 +15,7 @@
  */
 package com.tcl.tools.profilers.energy;
 
-import com.android.tools.adtui.model.AspectModel;
+import com.tcl.tools.profilers.AspectModel;
 import com.tcl.tools.adtui.model.Range;
 import com.tcl.tools.adtui.model.formatter.TimeFormatter;
 import com.android.tools.profiler.proto.Common;

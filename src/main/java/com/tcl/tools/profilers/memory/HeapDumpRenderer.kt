@@ -21,7 +21,7 @@ import com.tcl.tools.adtui.common.AdtUiUtils
 import com.tcl.tools.adtui.common.linkForeground
 import com.tcl.tools.adtui.common.primaryContentBackground
 import com.tcl.tools.adtui.common.selectionOverlayBackground
-import com.android.tools.adtui.model.AspectObserver
+import com.tcl.tools.profilers.AspectObserver
 import com.tcl.tools.adtui.model.DurationDataModel
 import com.tcl.tools.adtui.model.Range
 import com.tcl.tools.adtui.model.RangedContinuousSeries

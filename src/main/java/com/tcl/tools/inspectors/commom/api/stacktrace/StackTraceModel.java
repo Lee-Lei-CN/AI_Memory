@@ -15,7 +15,7 @@
  */
 package com.tcl.tools.inspectors.commom.api.stacktrace;
 
-import com.android.tools.adtui.model.AspectModel;
+import com.tcl.tools.profilers.AspectModel;
 import com.google.common.collect.ImmutableList;
 import com.tcl.tools.idea.codenavigation.CodeLocation;;
 import com.tcl.tools.idea.codenavigation.CodeNavigator;

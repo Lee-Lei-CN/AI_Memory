@@ -15,7 +15,7 @@
  */
 package com.tcl.tools.profilers.energy;
 
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.adtui.model.Range;
 import com.android.tools.profiler.proto.Common;
 import com.android.tools.profiler.proto.EnergyProfiler;

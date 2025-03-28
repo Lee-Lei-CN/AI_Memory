@@ -19,7 +19,7 @@ import static com.tcl.tools.profilers.ProfilerFonts.STANDARD_FONT;
 
 import com.tcl.tools.adtui.AxisComponent;
 import com.tcl.tools.adtui.TooltipView;
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.adtui.model.Range;
 import com.tcl.tools.adtui.model.StreamingTimeline;
 import com.tcl.tools.adtui.model.Timeline;

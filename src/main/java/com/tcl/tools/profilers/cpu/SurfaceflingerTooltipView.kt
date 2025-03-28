@@ -57,7 +57,7 @@ class SurfaceflingerTooltipView(parent: JComponent, val tooltip: SurfaceflingerT
       add(eventNameLabel, TabularLayout.Constraint(0, 0))
       add(durationLabel, TabularLayout.Constraint(1, 0))
     }
-    tooltip.addDependency(this).onChange(SurfaceflingerTooltip.Aspect.EVENT_CHANGED, this::timeChanged)
+//    tooltip.addDependency(this).onChange(SurfaceflingerTooltip.Aspect.EVENT_CHANGED, this::timeChanged)
     timeChanged()
   }
 }

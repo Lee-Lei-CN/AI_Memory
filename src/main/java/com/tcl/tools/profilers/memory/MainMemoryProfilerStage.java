@@ -154,7 +154,7 @@ public class MainMemoryProfilerStage extends BaseStreamingMemoryProfilerStage {
         }
       };
       update.run();
-      getAspect().addDependency(this).onChange(MemoryProfilerAspect.LIVE_ALLOCATION_STATUS, update);
+//      getAspect().addDependency(this).onChange(MemoryProfilerAspect.LIVE_ALLOCATION_STATUS, update);
     }
 
     // Update statuses after recording options model has been initialized

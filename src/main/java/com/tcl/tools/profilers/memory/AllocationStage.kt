@@ -71,9 +71,9 @@ class AllocationStage private constructor(profilers: StudioProfilers, loader: Ca
       timeline.selectionRange.set(minTrackingTimeUs, maxTrackingTimeUs)
     } else {
       // Start tracking when allocation ready
-      aspect.addDependency(this).onChange(MemoryProfilerAspect.LIVE_ALLOCATION_SAMPLING_MODE) {
-        if (hasStartedTracking) aspect.removeDependencies(this) else startTracking()
-      }
+//      aspect.addDependency(this).onChange(MemoryProfilerAspect.LIVE_ALLOCATION_SAMPLING_MODE) {
+//        if (hasStartedTracking) aspect.removeDependencies(this) else startTracking()
+//      }
       requestLiveAllocationSamplingModeUpdate(FULL)
       // Prevent selecting outside of range
       timeline.selectionRange.apply {
@@ -109,7 +109,7 @@ class AllocationStage private constructor(profilers: StudioProfilers, loader: Ca
 
   fun stopTracking() {
     if (!hasEndedTracking) {
-      aspect.removeDependencies(this)
+//      aspect.removeDependencies(this)
       timeline.dataRange.removeDependencies(this)
       maxTrackingTimeUs = timeline.dataRange.max
     }

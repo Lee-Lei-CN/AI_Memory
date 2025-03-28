@@ -16,7 +16,7 @@
 package com.tcl.tools.profilers.cpu.config;
 
 import com.android.sdklib.AndroidVersion;
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.android.tools.profiler.proto.Common;
 import com.android.tools.profiler.proto.Cpu.CpuTraceType;
 import com.tcl.tools.profilers.StudioProfilers;

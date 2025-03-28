@@ -31,7 +31,7 @@ import com.tcl.tools.inspectors.commom.api.ide.stacktrace.IntelliJStackTraceView
 import com.tcl.tools.inspectors.commom.api.stacktrace.StackTraceModel;
 import com.tcl.tools.inspectors.commom.ui.ContextMenuInstaller;
 import com.tcl.tools.adtui.common.ColumnTreeBuilder;
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.adtui.model.StreamingTimeline;
 import com.tcl.tools.adtui.model.formatter.NumberFormatter;
 import com.tcl.tools.adtui.model.formatter.TimeFormatter;
@@ -226,10 +226,10 @@ public final class MemoryInstanceDetailsView extends AspectObserver {
     IntelliJStackTraceView view = new IntelliJStackTraceView(project, model);
     ContextMenuInstaller installer = new IntellijContextMenuInstaller();
     view.installNavigationContextMenu(installer);
-    view.installGenericContextMenu(installer, ContextMenuItem.SEPARATOR);
+//    view.installGenericContextMenu(installer, ContextMenuItem.SEPARATOR);
     // Adds context menu to copy the selected line in the stack trace view. This is needed for users to search a specific line anywhere,
     // specially when the navigation is not available for third party code.
-    view.installGenericContextMenu(installer, ContextMenuItem.COPY);
+//    view.installGenericContextMenu(installer, ContextMenuItem.COPY);
     return view;
   }
 
@@ -254,7 +254,7 @@ public final class MemoryInstanceDetailsView extends AspectObserver {
   }
 
   @NotNull
-  JComponent getComponent() {
+  public JComponent getComponent() {
     return myPanel;
   }
 
@@ -510,45 +510,45 @@ public final class MemoryInstanceDetailsView extends AspectObserver {
 
     tree.setModel(fieldTreeModel);
 
-    mContextMenuInstaller.installGenericContextMenu(tree, new ContextMenuItem() {
-      @NotNull
-      @Override
-      public String getText() {
-        return "Go to Instance";
-      }
-
-      @Nullable
-      @Override
-      public Icon getIcon() {
-        return null;
-      }
-
-      @Override
-      public boolean isEnabled() {
-        return mySelection.getSelectedInstanceObject() != null && !mySelection.getSelectedFieldObjectPath().isEmpty();
-      }
-
-      @Override
-      public void run() {
-        List<FieldObject> fieldPath = mySelection.getSelectedFieldObjectPath();
-        FieldObject selectedField = fieldPath.get(fieldPath.size() - 1);
-        if (selectedField.getValueType().getIsPrimitive() || selectedField.getValueType() == ValueObject.ValueType.NULL) {
-          return;
-        }
-
-        InstanceObject selectedObject = selectedField.getAsInstance();
-        assert selectedObject != null;
-
-        HeapSet heapSet = mySelection.getSelectedCapture().getHeapSet(selectedObject.getHeapId());
-        assert heapSet != null;
-        ClassifierSet classifierSet = heapSet.findContainingClassifierSet(selectedObject);
-        assert classifierSet instanceof ClassSet;
-        mySelection.selectHeapSet(heapSet);
-        mySelection.selectClassSet((ClassSet)classifierSet);
-        mySelection.selectInstanceObject(selectedObject);
-        mySelection.selectFieldObjectPath(Collections.emptyList());
-      }
-    });
+//    mContextMenuInstaller.installGenericContextMenu(tree, new ContextMenuItem() {
+//      @NotNull
+//      @Override
+//      public String getText() {
+//        return "Go to Instance";
+//      }
+//
+//      @Nullable
+//      @Override
+//      public Icon getIcon() {
+//        return null;
+//      }
+//
+//      @Override
+//      public boolean isEnabled() {
+//        return mySelection.getSelectedInstanceObject() != null && !mySelection.getSelectedFieldObjectPath().isEmpty();
+//      }
+//
+//      @Override
+//      public void run() {
+//        List<FieldObject> fieldPath = mySelection.getSelectedFieldObjectPath();
+//        FieldObject selectedField = fieldPath.get(fieldPath.size() - 1);
+//        if (selectedField.getValueType().getIsPrimitive() || selectedField.getValueType() == ValueObject.ValueType.NULL) {
+//          return;
+//        }
+//
+//        InstanceObject selectedObject = selectedField.getAsInstance();
+//        assert selectedObject != null;
+//
+//        HeapSet heapSet = mySelection.getSelectedCapture().getHeapSet(selectedObject.getHeapId());
+//        assert heapSet != null;
+//        ClassifierSet classifierSet = heapSet.findContainingClassifierSet(selectedObject);
+//        assert classifierSet instanceof ClassSet;
+//        mySelection.selectHeapSet(heapSet);
+//        mySelection.selectClassSet((ClassSet)classifierSet);
+//        mySelection.selectInstanceObject(selectedObject);
+//        mySelection.selectFieldObjectPath(Collections.emptyList());
+//      }
+//    });
 
 
     return tree;
@@ -651,47 +651,47 @@ public final class MemoryInstanceDetailsView extends AspectObserver {
       }
     });
 
-    mContextMenuInstaller.installGenericContextMenu(tree, new ContextMenuItem() {
-      @NotNull
-      @Override
-      public String getText() {
-        return "Go to Instance";
-      }
-
-      @Nullable
-      @Override
-      public Icon getIcon() {
-        return null;
-      }
-
-      @Override
-      public boolean isEnabled() {
-        return tree.getSelectionPath() != null;
-      }
-
-      @Override
-      public void run() {
-        CaptureObject captureObject = mySelection.getSelectedCapture();
-        TreePath selection = tree.getSelectionPath();
-        assert captureObject != null && selection != null;
-        MemoryObject memoryObject = ((MemoryObjectTreeNode)selection.getLastPathComponent()).getAdapter();
-        if (memoryObject instanceof InstanceObject) {
-          assert memoryObject == mySelection.getSelectedInstanceObject();
-          // don't do anything because the only instance object in the tree is the one already selected
-        }
-        else {
-          assert memoryObject instanceof ReferenceObject;
-          InstanceObject targetInstance = ((ReferenceObject)memoryObject).getReferenceInstance();
-          HeapSet heapSet = captureObject.getHeapSet(targetInstance.getHeapId());
-          assert heapSet != null;
-          mySelection.selectHeapSet(heapSet);
-          ClassifierSet classifierSet = heapSet.findContainingClassifierSet(targetInstance);
-          assert classifierSet instanceof ClassSet;
-          mySelection.selectClassSet((ClassSet)classifierSet);
-          mySelection.selectInstanceObject(targetInstance);
-        }
-      }
-    });
+//    mContextMenuInstaller.installGenericContextMenu(tree, new ContextMenuItem() {
+//      @NotNull
+//      @Override
+//      public String getText() {
+//        return "Go to Instance";
+//      }
+//
+//      @Nullable
+//      @Override
+//      public Icon getIcon() {
+//        return null;
+//      }
+//
+//      @Override
+//      public boolean isEnabled() {
+//        return tree.getSelectionPath() != null;
+//      }
+//
+//      @Override
+//      public void run() {
+//        CaptureObject captureObject = mySelection.getSelectedCapture();
+//        TreePath selection = tree.getSelectionPath();
+//        assert captureObject != null && selection != null;
+//        MemoryObject memoryObject = ((MemoryObjectTreeNode)selection.getLastPathComponent()).getAdapter();
+//        if (memoryObject instanceof InstanceObject) {
+//          assert memoryObject == mySelection.getSelectedInstanceObject();
+//          // don't do anything because the only instance object in the tree is the one already selected
+//        }
+//        else {
+//          assert memoryObject instanceof ReferenceObject;
+//          InstanceObject targetInstance = ((ReferenceObject)memoryObject).getReferenceInstance();
+//          HeapSet heapSet = captureObject.getHeapSet(targetInstance.getHeapId());
+//          assert heapSet != null;
+//          mySelection.selectHeapSet(heapSet);
+//          ClassifierSet classifierSet = heapSet.findContainingClassifierSet(targetInstance);
+//          assert classifierSet instanceof ClassSet;
+//          mySelection.selectClassSet((ClassSet)classifierSet);
+//          mySelection.selectInstanceObject(targetInstance);
+//        }
+//      }
+//    });
 
     return tree;
   }

@@ -20,7 +20,7 @@ import static com.tcl.tools.profilers.ProfilerLayout.TOOLTIP_BORDER;
 
 import com.tcl.tools.adtui.TooltipComponent;
 import com.tcl.tools.adtui.TooltipView;
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.adtui.model.StreamingTimeline;
 import com.tcl.tools.adtui.model.formatter.NumberFormatter;
 import com.tcl.tools.adtui.stdui.BorderlessTableCellRenderer;

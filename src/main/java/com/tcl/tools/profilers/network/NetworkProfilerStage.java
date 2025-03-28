@@ -19,8 +19,8 @@ import static com.tcl.tools.profilers.network.NetworkTrafficDataSeries.Type.BYTE
 import static com.tcl.tools.profilers.network.NetworkTrafficDataSeries.Type.BYTES_SENT;
 
 import com.tcl.tools.idea.codenavigation.CodeNavigator;
-import com.android.tools.adtui.model.AspectModel;
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectModel;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.adtui.model.EaseOutModel;
 import com.tcl.tools.adtui.model.Interpolatable;
 import com.tcl.tools.adtui.model.Range;

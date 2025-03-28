@@ -16,8 +16,8 @@
 package com.tcl.tools.profilers.cpu.capturedetails;
 
 import com.android.tools.perflib.vmtrace.ClockType;
-import com.android.tools.adtui.model.AspectModel;
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectModel;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.adtui.model.Range;
 import java.util.Enumeration;
 import java.util.HashMap;

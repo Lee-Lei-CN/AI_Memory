@@ -22,7 +22,7 @@ import com.android.tools.profiler.proto.Transport
 import com.google.common.annotations.VisibleForTesting
 import com.google.common.util.concurrent.ThreadFactoryBuilder
 import com.intellij.openapi.diagnostic.Logger
-import com.android.tools.adtui.model.AspectObserver
+import com.tcl.tools.profilers.AspectObserver
 import com.tcl.tools.adtui.model.Range
 import com.tcl.tools.inspectors.commom.api.stacktrace.ThreadId
 import com.tcl.tools.profilers.ProfilerClient

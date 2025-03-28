@@ -26,7 +26,7 @@ import com.tcl.tools.adtui.common.ColumnTreeBuilder;
 import com.tcl.tools.adtui.instructions.InstructionsPanel;
 import com.tcl.tools.adtui.instructions.NewRowInstruction;
 import com.tcl.tools.adtui.instructions.TextInstruction;
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.adtui.model.formatter.NumberFormatter;
 import com.tcl.tools.adtui.stdui.StandardColors;
 import com.tcl.tools.idea.codenavigation.CodeLocation;
@@ -385,29 +385,29 @@ public final class MemoryClassifierView extends AspectObserver implements Captur
       }
     });
 
-    myContextMenuInstaller.installNavigationContextMenu(myTree, mySelection.getIdeServices().getCodeNavigator(), () -> {
-      TreePath selection = myTree.getSelectionPath();
-      if (selection == null || !(selection.getLastPathComponent() instanceof MemoryObjectTreeNode)) {
-        return null;
-      }
-
-      MemoryObject treeNodeAdapter = ((MemoryObjectTreeNode)selection.getLastPathComponent()).getAdapter();
-      if (treeNodeAdapter instanceof ClassSet) {
-        ClassSet classSet = (ClassSet)treeNodeAdapter;
-        return new CodeLocation.Builder(classSet.getClassEntry().getClassName()).build();
-      }
-      if (treeNodeAdapter instanceof NativeCallStackSet) {
-        NativeCallStackSet nativeSet = (NativeCallStackSet)treeNodeAdapter;
-        if (!Strings.isNullOrEmpty(nativeSet.getFileName())) {
-          return new CodeLocation.Builder(nativeSet.getName()) // Expects class name but we don't have that so we use the function.
-            .setMethodName(nativeSet.getName())
-            .setFileName(nativeSet.getFileName())
-            .setLineNumber(nativeSet.getLineNumber() - 1) // Line numbers from symbolizer are 1 based UI is 0 based.
-            .build();
-        }
-      }
-      return null;
-    });
+//    myContextMenuInstaller.installNavigationContextMenu(myTree, mySelection.getIdeServices().getCodeNavigator(), () -> {
+//      TreePath selection = myTree.getSelectionPath();
+//      if (selection == null || !(selection.getLastPathComponent() instanceof MemoryObjectTreeNode)) {
+//        return null;
+//      }
+//
+//      MemoryObject treeNodeAdapter = ((MemoryObjectTreeNode)selection.getLastPathComponent()).getAdapter();
+//      if (treeNodeAdapter instanceof ClassSet) {
+//        ClassSet classSet = (ClassSet)treeNodeAdapter;
+//        return new CodeLocation.Builder(classSet.getClassEntry().getClassName()).build();
+//      }
+//      if (treeNodeAdapter instanceof NativeCallStackSet) {
+//        NativeCallStackSet nativeSet = (NativeCallStackSet)treeNodeAdapter;
+//        if (!Strings.isNullOrEmpty(nativeSet.getFileName())) {
+//          return new CodeLocation.Builder(nativeSet.getName()) // Expects class name but we don't have that so we use the function.
+//            .setMethodName(nativeSet.getName())
+//            .setFileName(nativeSet.getFileName())
+//            .setLineNumber(nativeSet.getLineNumber() - 1) // Line numbers from symbolizer are 1 based UI is 0 based.
+//            .build();
+//        }
+//      }
+//      return null;
+//    });
 
     List<ClassifierAttribute> attributes = myCaptureObject.getClassifierAttributes();
     myTableColumnModel = new DefaultTableColumnModel();

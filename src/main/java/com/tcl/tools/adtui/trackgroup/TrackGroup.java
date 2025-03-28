@@ -22,7 +22,7 @@ import com.tcl.tools.adtui.common.AdtUiUtils;
 import com.tcl.tools.adtui.common.StudioColorsKt;
 import com.tcl.tools.adtui.event.DelegateMouseEventHandler;
 import com.tcl.tools.adtui.flat.FlatSeparator;
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.adtui.model.stdui.CommonAction;
 import com.tcl.tools.adtui.model.trackgroup.TrackGroupModel;
 import com.tcl.tools.adtui.model.trackgroup.TrackModel;

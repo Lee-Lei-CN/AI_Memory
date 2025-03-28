@@ -15,7 +15,7 @@
  */
 package com.tcl.tools.adtui.model;
 
-import com.android.tools.adtui.model.AspectModel;
+import com.tcl.tools.profilers.AspectModel;
 import com.google.common.collect.ImmutableList;
 import java.util.Collections;
 import java.util.HashSet;

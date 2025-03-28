@@ -15,7 +15,7 @@
  */
 package com.tcl.tools.profilers.memory
 
-import com.android.tools.adtui.model.AspectObserver
+import com.tcl.tools.profilers.AspectObserver
 import com.tcl.tools.profilers.ProfilerCombobox
 import com.tcl.tools.profilers.ProfilerComboboxCellRenderer
 import com.tcl.tools.profilers.memory.adapters.instancefilters.CaptureObjectInstanceFilter
@@ -30,28 +30,28 @@ internal class MemoryInstanceFilterMenu(selection: MemoryCaptureSelection): Aspe
   val component = ProfilerCombobox<CaptureObjectInstanceFilter>()
 
   init {
-    selection.aspect.addDependency(this)
-      .onChange(CaptureSelectionAspect.CURRENT_LOADING_CAPTURE) {
-        component.isVisible = false
-      }
-      .onChange(CaptureSelectionAspect.CURRENT_LOADED_CAPTURE) {
-        val captureObject = selection.selectedCapture
-        if (captureObject != null) {
-          val filters = captureObject.supportedInstanceFilters
-          if (filters.size > 0) {
-            val allFilters = arrayOf<CaptureObjectInstanceFilter?>(null) + filters.toTypedArray()
-            component.apply {
-              isVisible = true
-              model = DefaultComboBoxModel(allFilters)
-              renderer = InstanceFilterMenuRenderer()
-            }
-          } else {
-            component.isVisible = false
-          }
-        } else {
-          component.isVisible = false
-        }
-      }
+//    selection.aspect.addDependency(this)
+//      .onChange(CaptureSelectionAspect.CURRENT_LOADING_CAPTURE) {
+//        component.isVisible = false
+//      }
+//      .onChange(CaptureSelectionAspect.CURRENT_LOADED_CAPTURE) {
+//        val captureObject = selection.selectedCapture
+//        if (captureObject != null) {
+//          val filters = captureObject.supportedInstanceFilters
+//          if (filters.size > 0) {
+//            val allFilters = arrayOf<CaptureObjectInstanceFilter?>(null) + filters.toTypedArray()
+//            component.apply {
+//              isVisible = true
+//              model = DefaultComboBoxModel(allFilters)
+//              renderer = InstanceFilterMenuRenderer()
+//            }
+//          } else {
+//            component.isVisible = false
+//          }
+//        } else {
+//          component.isVisible = false
+//        }
+//      }
 
     component.addActionListener {
       val captureObject = selection.selectedCapture!!

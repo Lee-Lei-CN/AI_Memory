@@ -15,7 +15,6 @@
  */
 package com.tcl.tools.profilers.memory
 
-import com.android.tools.adtui.model.AspectModel
 import com.tcl.tools.adtui.model.ConditionalEnumComboBoxModel
 import com.tcl.tools.adtui.model.filter.Filter
 import com.tcl.tools.adtui.model.filter.FilterHandler
@@ -30,13 +29,15 @@ import com.tcl.tools.profilers.memory.adapters.classifiers.HeapSet
 import com.tcl.tools.profilers.memory.adapters.instancefilters.CaptureObjectInstanceFilter
 import com.google.common.util.concurrent.ListenableFuture
 import com.tcl.tools.inspectors.commom.api.stacktrace.StackTraceModel
+import com.tcl.tools.profilers.AspectModel
+import com.tcl.tools.test.FakeCodeNavigator
 import java.util.Objects
 import java.util.concurrent.Executor
 
 /**
  * This class manages the capture selection state and fires aspects when it is changed.
  */
-class MemoryCaptureSelection(val ideServices: IdeProfilerServices) {
+class MemoryCaptureSelection(val ideServices: IdeProfilerServices?) {
   val aspect = AspectModel<CaptureSelectionAspect>()
 
   val classGroupingModel = ConditionalEnumComboBoxModel(ClassGrouping::class.java) {grouping ->
@@ -51,8 +52,8 @@ class MemoryCaptureSelection(val ideServices: IdeProfilerServices) {
       }
     }
   }
-  val allocationStackTraceModel = StackTraceModel(ideServices.codeNavigator)
-  val deallocationStackTraceModel = StackTraceModel(ideServices.codeNavigator)
+  val allocationStackTraceModel = StackTraceModel(FakeCodeNavigator())
+  val deallocationStackTraceModel = StackTraceModel(FakeCodeNavigator())
 
   private var lastFilter: Filter? = null
 
@@ -92,7 +93,7 @@ class MemoryCaptureSelection(val ideServices: IdeProfilerServices) {
     set(newGrouping) {
       if (field != newGrouping) {
         field = newGrouping
-        ideServices.featureTracker.trackChangeClassArrangment()
+        ideServices?.featureTracker?.trackChangeClassArrangment()
         aspect.changed(CaptureSelectionAspect.CLASS_GROUPING)
         filterHandler.refreshFilterContent()
       }
@@ -130,7 +131,7 @@ class MemoryCaptureSelection(val ideServices: IdeProfilerServices) {
 
     filterHandler.refreshFilterContent()
     heapSet?.let {
-      ideServices.featureTracker.trackSelectMemoryHeap(it.name)
+      ideServices?.featureTracker?.trackSelectMemoryHeap(it.name)
     }
   }
 
@@ -254,7 +255,7 @@ class MemoryCaptureSelection(val ideServices: IdeProfilerServices) {
 
   private fun trackFilterUsage(filter: Filter) {
     val filterMetadata = FilterMetadata()
-    val featureTracker = ideServices.featureTracker
+//    val featureTracker = ideServices?.featureTracker
     when (classGrouping) {
       ClassGrouping.ARRANGE_BY_CLASS -> filterMetadata.view = FilterMetadata.View.MEMORY_CLASS
       ClassGrouping.ARRANGE_BY_PACKAGE -> filterMetadata.view = FilterMetadata.View.MEMORY_PACKAGE
@@ -267,7 +268,7 @@ class MemoryCaptureSelection(val ideServices: IdeProfilerServices) {
       filterMetadata.totalElementCount = it.totalObjectSetCount
     }
     filterMetadata.filterTextLength = if (filter.isEmpty) 0 else filter.filterString.length
-    featureTracker.trackFilterMetadata(filterMetadata)
+//    featureTracker.trackFilterMetadata(filterMetadata)
   }
 }
 

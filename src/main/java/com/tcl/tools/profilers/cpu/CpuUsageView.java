@@ -36,7 +36,7 @@ import com.tcl.tools.adtui.common.AdtUiUtils;
 import com.tcl.tools.adtui.event.DelegateMouseEventHandler;
 import com.tcl.tools.adtui.instructions.InstructionsPanel;
 import com.tcl.tools.adtui.instructions.TextInstruction;
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.adtui.model.Range;
 import com.tcl.tools.adtui.model.formatter.TimeFormatter;
 import com.tcl.tools.profilers.ProfilerColors;

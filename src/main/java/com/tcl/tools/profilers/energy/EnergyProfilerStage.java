@@ -13,8 +13,8 @@
 // limitations under the License.
 package com.tcl.tools.profilers.energy;
 
-import com.android.tools.adtui.model.AspectModel;
-import com.android.tools.adtui.model.AspectObserver;
+import com.tcl.tools.profilers.AspectModel;
+import com.tcl.tools.profilers.AspectObserver;
 import com.tcl.tools.adtui.model.EaseOutModel;
 import com.tcl.tools.adtui.model.Interpolatable;
 import com.tcl.tools.adtui.model.Range;
