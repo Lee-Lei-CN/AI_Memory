@@ -73,7 +73,7 @@ class AllocationStageView(profilersView: StudioProfilersView, stage: AllocationS
     toolTipText = "Force the JVM garbage collector to release unused memory"
     addActionListener {
       stage.forceGarbageCollection()
-      stage.studioProfilers.ideServices.featureTracker.trackForceGc()
+      stage.studioProfilers!!.ideServices.featureTracker.trackForceGc()
     }
   }
 
@@ -119,7 +119,7 @@ class AllocationStageView(profilersView: StudioProfilersView, stage: AllocationS
     }
 
     fun updateLabel() {
-      val elapsedUs = stage.minTrackingTimeUs.toLong() - TimeUnit.NANOSECONDS.toMicros(stage.studioProfilers.session.startTimestamp)
+      val elapsedUs = stage.minTrackingTimeUs.toLong() - TimeUnit.NANOSECONDS.toMicros(stage.studioProfilers!!.session.startTimestamp)
       captureElapsedTimeLabel.text = "Recorded Java / Kotlin Allocations: ${TimeFormatter.getSimplifiedClockString(elapsedUs)}"
     }
 
@@ -130,8 +130,8 @@ class AllocationStageView(profilersView: StudioProfilersView, stage: AllocationS
       adjustSelectAllButton()
       updateLabel()
     }
-    stage.studioProfilers.sessionsManager.addDependency(this).onChange(SessionAspect.SESSIONS) {
-      if (!stage.studioProfilers.sessionsManager.isSessionAlive) stopButton.doClick()
+    stage.studioProfilers!!.sessionsManager.addDependency(this).onChange(SessionAspect.SESSIONS) {
+      if (!stage.studioProfilers!!.sessionsManager.isSessionAlive) stopButton.doClick()
     }
     updateLabel()
     updateInstanceDetailsSplitter()

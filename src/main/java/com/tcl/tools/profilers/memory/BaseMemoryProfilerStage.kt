@@ -121,15 +121,14 @@ abstract class BaseMemoryProfilerStage(profilers: StudioProfilers, protected val
     }
 
     CompletableFuture
-      .supplyAsync(captureObject::canSafelyLoad, studioProfilers.ideServices.poolExecutor)
+      .supplyAsync(captureObject::canSafelyLoad, studioProfilers?.ideServices?.poolExecutor)
       .whenComplete { canSafelyLoad, _ ->
         if (canSafelyLoad) {
           load.run()
         }
         else {
           ApplicationManager.getApplication().invokeAndWait {
-            studioProfilers.ideServices
-              .openYesNoDialog("The hprof file is large, and Android Studio may become unresponsive while " +
+            studioProfilers?.ideServices?.openYesNoDialog("The hprof file is large, and Android Studio may become unresponsive while " +
                                "it parses the data and afterwards. Do you want to continue?",
                                "Heap Dump File Too Large",
                                load, clear)

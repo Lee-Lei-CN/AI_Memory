@@ -17,6 +17,7 @@ package com.tcl.tools.profilers.memory
 
 
 import com.android.tools.profiler.proto.Common
+import com.tcl.tools.ProjectHolder
 import com.tcl.tools.adtui.model.DataSeries
 import com.tcl.tools.adtui.model.Range
 import com.tcl.tools.adtui.model.SeriesData
@@ -26,6 +27,7 @@ import com.tcl.tools.profilers.memory.MemoryProfiler.Companion.getAllocationInfo
 import com.tcl.tools.profilers.memory.MemoryProfiler.Companion.getHeapDumpsForSession
 import com.tcl.tools.profilers.memory.MemoryProfiler.Companion.getNativeHeapSamplesForSession
 import com.tcl.tools.profilers.memory.adapters.*
+import java.io.File
 import java.util.concurrent.TimeUnit
 
 /**
@@ -36,7 +38,7 @@ import java.util.concurrent.TimeUnit
 object CaptureDataSeries {
   @JvmStatic
   fun ofAllocationInfos(client: ProfilerClient, session: Common.Session, tracker: FeatureTracker, stage: BaseMemoryProfilerStage) =
-    of({ getAllocationInfosForSession(client, session, it, stage.studioProfilers.ideServices) },
+    of({ getAllocationInfosForSession(client, session, it, stage.studioProfilers!!.ideServices) },
        { it.startTime }, { it.endTime },
        { if (it.legacy) LegacyAllocationCaptureObject(client, session, it, tracker)
          else LiveAllocationCaptureObject(client, session, it.startTime, null, stage) },
@@ -44,9 +46,9 @@ object CaptureDataSeries {
 
   @JvmStatic
   fun ofHeapDumpSamples(client: ProfilerClient, session: Common.Session, tracker: FeatureTracker, stage: BaseMemoryProfilerStage) =
-    of({ getHeapDumpsForSession(client, session, it, stage.studioProfilers.ideServices) },
+    of({ getHeapDumpsForSession(client, session, it, stage.studioProfilers!!.ideServices) },
        { it.startTime }, { it.endTime },
-       { HeapDumpCaptureObject(client, session, it, null, tracker, stage.studioProfilers.ideServices) },
+       { HeapDumpCaptureObject(ProjectHolder.project!!, File(""), 1,1) },
        { durUs, _, entry -> CaptureDurationData(durUs, false, false, entry, HeapDumpCaptureObject::class.java)})
 
   @JvmStatic

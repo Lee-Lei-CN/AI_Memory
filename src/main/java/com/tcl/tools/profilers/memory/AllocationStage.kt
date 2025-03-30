@@ -98,7 +98,7 @@ class AllocationStage private constructor(profilers: StudioProfilers, loader: Ca
     if (liveAllocationSamplingMode != NONE) {
       val now = timeline.dataRange.max
       minTrackingTimeUs =
-        AllocationSamplingRateDataSeries(studioProfilers.client, sessionData, true).getDataForRange(timeline.dataRange)
+        AllocationSamplingRateDataSeries(studioProfilers!!.client, sessionData, true).getDataForRange(timeline.dataRange)
           .last { it.x.toDouble() <= now && getModeFromFrequency(it.value.currentRate.samplingNumInterval) != NONE }
           .x.toDouble()
       timeline.selectionRange.set(minTrackingTimeUs, minTrackingTimeUs)

@@ -67,7 +67,7 @@ class LiveAllocationCaptureObject(
     private val methodIdMap = TLongObjectHashMap<Memory.AllocationStack.StackFrame>()
     private val threadIdMap = TIntObjectHashMap<ThreadId>()
     private val jniMemoryRegionMap = TreeMap<Long, Memory.MemoryMap.MemoryRegion>()
-    private val enableJniRefsTracking = stage.studioProfilers.ideServices.featureConfig.isJniReferenceTrackingEnabled
+    private val enableJniRefsTracking = stage.studioProfilers!!.ideServices.featureConfig.isJniReferenceTrackingEnabled
     private val heapSets = mutableListOf(
         HeapSet(this, CaptureObject.DEFAULT_HEAP_NAME, 0),  // default
         HeapSet(this, CaptureObject.IMAGE_HEAP_NAME, 1),  // image
@@ -94,7 +94,7 @@ class LiveAllocationCaptureObject(
         override fun getTimestamp(event: Memory.AllocationEvent) = event.timestamp
         override fun getEventList(batch: Memory.BatchAllocationEvents) = batch.eventsList
         override fun getBatchEvents(startTimeNs: Long, endTimeNs: Long) =
-            (if (stage.studioProfilers.ideServices.featureConfig.isUnifiedPipelineEnabled)
+            (if (stage.studioProfilers!!.ideServices.featureConfig.isUnifiedPipelineEnabled)
                 getEvents(startTimeNs, endTimeNs, Common.Event.Kind.MEMORY_ALLOC_EVENTS) { it.memoryAllocEvents.events }
             else
                 getClient().getAllocationEvents(
@@ -234,7 +234,7 @@ class LiveAllocationCaptureObject(
                     return@submit null
                 }
                 val hasNonFullTrackingRegion = !hasOnlyFullAllocationTrackingWithinRegion(
-                    stage.studioProfilers, session,
+                    stage.studioProfilers!!, session,
                     TimeUnit.NANOSECONDS.toMicros(newStartTimeNs), TimeUnit.NANOSECONDS.toMicros(newEndTimeNs)
                 )
                 joiner.execute { stage.captureSelection.aspect.changed(CaptureSelectionAspect.CURRENT_HEAP_UPDATING) }
@@ -553,9 +553,9 @@ class LiveAllocationCaptureObject(
                     val unsymbolizedFrame =
                         Memory.NativeCallStack.NativeFrame.newBuilder().setAddress(address).setModuleName(module).setModuleOffset(offset)
                             .build()
-                    val symbolizedFrame = stage.studioProfilers.ideServices.nativeFrameSymbolizer
+                    val symbolizedFrame = stage.studioProfilers!!.ideServices.nativeFrameSymbolizer
                         .symbolize(
-                            stage.studioProfilers.sessionsManager.selectedSessionMetaData.processAbi,
+                            stage.studioProfilers!!.sessionsManager.selectedSessionMetaData.processAbi,
                             unsymbolizedFrame
                         )
                     nativeFrameMap.put(address, symbolizedFrame)
@@ -572,7 +572,7 @@ class LiveAllocationCaptureObject(
     }
 
     private fun getAllocationContexts(startTimeNs: Long, endTimeNs: Long) =
-        if (stage.studioProfilers.ideServices.featureConfig.isUnifiedPipelineEnabled)
+        if (stage.studioProfilers!!.ideServices.featureConfig.isUnifiedPipelineEnabled)
             client.transportClient.getEventGroups(
                 buildEventGroupRequest(
                     Common.Event.Kind.MEMORY_ALLOC_CONTEXTS,

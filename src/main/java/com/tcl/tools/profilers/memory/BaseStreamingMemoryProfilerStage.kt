@@ -122,7 +122,7 @@ abstract class BaseStreamingMemoryProfilerStage(profilers: StudioProfilers,
              allocationSamplingRateUpdatable, captureElapsedTimeUpdatable) +
       captureSeries
 
-  val isLiveAllocationTrackingReady get() = MemoryProfiler.isUsingLiveAllocation(studioProfilers, sessionData)
+  val isLiveAllocationTrackingReady get() = MemoryProfiler.isUsingLiveAllocation(studioProfilers!!, sessionData)
   val isLiveAllocationTrackingSupported
     get() = with(getDeviceForSelectedSession()) { this != null && featureLevel >= AndroidVersion.VersionCodes.O }
 
@@ -150,12 +150,12 @@ abstract class BaseStreamingMemoryProfilerStage(profilers: StudioProfilers,
     }
 
     // Get ready to fire LIVE_ALLOCATION_STATUS if applicable.
-    if (studioProfilers.sessionsManager.isSessionAlive && isLiveAllocationTrackingSupported) {
+    if (studioProfilers!!.sessionsManager.isSessionAlive && isLiveAllocationTrackingSupported) {
       // Note the max of current data range as isLiveAllocationTrackingReady() returns info before it.
       val currentRangeMax = profilers.timeline.dataRange.max.toLong().microsToNanos()
       if (!isLiveAllocationTrackingReady) {
         val listener = TransportEventListener(
-          Common.Event.Kind.MEMORY_ALLOC_SAMPLING, studioProfilers.ideServices.mainExecutor,
+          Common.Event.Kind.MEMORY_ALLOC_SAMPLING, studioProfilers!!.ideServices.mainExecutor,
           { true }, { sessionData.streamId }, { sessionData.pid },
           null,  // wait for only new events, not old ones such as those from previous sessions
           { currentRangeMax }
@@ -163,7 +163,7 @@ abstract class BaseStreamingMemoryProfilerStage(profilers: StudioProfilers,
           aspect.changed(MemoryProfilerAspect.LIVE_ALLOCATION_STATUS)
           true
         }
-        studioProfilers.transportPoller.registerListener(listener)
+        studioProfilers!!.transportPoller.registerListener(listener)
       }
     }
 
@@ -173,16 +173,16 @@ abstract class BaseStreamingMemoryProfilerStage(profilers: StudioProfilers,
   override fun enter() {
     loader.start()
     eventMonitor.enter()
-    updatables.forEach(studioProfilers.updater::register)
-    studioProfilers.ideServices.codeNavigator.addListener(this)
-    studioProfilers.ideServices.featureTracker.trackEnterStage(stageType)
+    updatables.forEach(studioProfilers!!.updater::register)
+    studioProfilers!!.ideServices.codeNavigator.addListener(this)
+    studioProfilers!!.ideServices.featureTracker.trackEnterStage(stageType)
   }
 
   override fun exit() {
     eventMonitor.exit()
-    updatables.forEach(studioProfilers.updater::unregister)
+    updatables.forEach(studioProfilers!!.updater::unregister)
     loader.stop()
-    studioProfilers.ideServices.codeNavigator.removeListener(this)
+    studioProfilers!!.ideServices.codeNavigator.removeListener(this)
     rangeSelectionModel.clearListeners()
   }
 
@@ -192,7 +192,7 @@ abstract class BaseStreamingMemoryProfilerStage(profilers: StudioProfilers,
   fun requestLiveAllocationSamplingModeUpdate(mode: LiveAllocationSamplingMode) {
     try {
       val samplingRate = MemoryAllocSamplingData.newBuilder().setSamplingNumInterval(mode.value).build()
-      val response = studioProfilers.client.transportClient.execute(
+      val response = studioProfilers!!.client.transportClient.execute(
         Transport.ExecuteRequest.newBuilder().setCommand(Commands.Command.newBuilder()
                                                            .setStreamId(sessionData.streamId)
                                                            .setPid(sessionData.pid)
@@ -206,7 +206,7 @@ abstract class BaseStreamingMemoryProfilerStage(profilers: StudioProfilers,
   }
 
   fun forceGarbageCollection() {
-    val response = studioProfilers.client.transportClient.execute(
+    val response = studioProfilers!!.client.transportClient.execute(
       Transport.ExecuteRequest.newBuilder()
         .setCommand(Commands.Command.newBuilder()
                       .setStreamId(sessionData.streamId)
@@ -298,15 +298,15 @@ abstract class BaseStreamingMemoryProfilerStage(profilers: StudioProfilers,
     makeModel(applyDataSeriesConstructor(make))
 
   protected inline fun <T : DurationData> applyDataSeriesConstructor(f: DataSeriesConstructor<T>) =
-    f(studioProfilers.client, sessionData, studioProfilers.ideServices.featureTracker, this)
+    f(studioProfilers!!.client, sessionData, studioProfilers!!.ideServices.featureTracker, this)
 
-  protected fun getDeviceForSelectedSession() = studioProfilers.getStream(studioProfilers.session.streamId).let { stream ->
+  protected fun getDeviceForSelectedSession() = studioProfilers!!.getStream(studioProfilers!!.session.streamId).let { stream ->
     if (stream.type === Common.Stream.Type.DEVICE) stream.device
     else null
   }
 
   private fun makeGcSeries() =
-    UnifiedEventDataSeries(studioProfilers.client.transportClient,
+    UnifiedEventDataSeries(studioProfilers!!.client.transportClient,
                            sessionData.streamId,
                            sessionData.pid,
                            Common.Event.Kind.MEMORY_GC,

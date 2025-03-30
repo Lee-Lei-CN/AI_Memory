@@ -11,22 +11,16 @@ import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowAnchor
 import com.intellij.openapi.wm.ToolWindowFactory
 import com.intellij.openapi.wm.ToolWindowManager
-import com.intellij.ui.JBSplitter
 import com.intellij.ui.content.Content
 import com.intellij.ui.content.ContentFactory
 import com.tcl.tools.ProjectHolder
-import com.tcl.tools.adtui.model.Range
 import com.tcl.tools.idea.profilers.AndroidProfilerService
 import com.tcl.tools.idea.profilers.AndroidProfilerToolWindow
 import com.tcl.tools.profilers.memory.*
 import com.tcl.tools.profilers.memory.adapters.CaptureObject
-import com.tcl.tools.profilers.memory.adapters.classifiers.AllHeapSet
-import com.tcl.tools.profilers.memory.adapters.classifiers.HeapSet
+import com.tcl.tools.profilers.memory.adapters.HeapDumpCaptureObject
 import com.tcl.tools.test.FakeCaptureObject
-import com.tcl.tools.test.FakeIdeProfilerServices
-import com.tcl.tools.test.FakeInstanceObject
-import com.tcl.tools.test.FakeTimer
-import io.grpc.inprocess.InProcessChannelBuilder
+import java.io.File
 import java.util.function.Supplier
 
 class ProfilersAction : AnAction() {
@@ -64,50 +58,18 @@ class ProfilersAction : AnAction() {
 
         override fun createToolWindowContent(project: Project, toolWindow: ToolWindow) {
             ProjectHolder.project = project
-//            val channel =
-//                InProcessChannelBuilder.forName("MemoryProfilerStageViewTestChannel").usePlaintext().directExecutor()
-//                    .build()
-//            val myTimer = FakeTimer()
-//            val ideProfilerServices = FakeIdeProfilerServices()
-//            val profilers = StudioProfilers(ProfilerClient(channel), ideProfilerServices, myTimer)
-//            profilers.setPreferredProcess("lee", "lee process", null)
-
-            val capture = makeFakeCapture()
-            val heap1 = HeapSet(capture, "heap1", 1)
-            val heap2 = HeapSet(capture, "heap2", 2)
-            val allHeap = AllHeapSet(capture, arrayOf(heap1, heap2)).also { it.clearClassifierSets() }
-
-            val insts1 = arrayOf(
-                FakeInstanceObject.Builder(capture, 1, "obj").setHeapId(1).setShallowSize(4).build(),
-                FakeInstanceObject.Builder(capture, 2, "int").setHeapId(1).setShallowSize(8).build(),
-                FakeInstanceObject.Builder(capture, 3, "str").setHeapId(1).setShallowSize(14).build()
+            val file = File("D:\\idea_source_code\\idea-9536633b03339050d6bd0b67517133838a37d449.tar\\idea-9536633b03339050d6bd0b67517133838a37d449\\profilers\\testData\\hprofs\\displayingbitmaps_leakedActivity.hprof")
+            val timestampsNs = HprofUtils.computeImportedFileStartEndTimestampsNs(file)
+            val stage = LeeMemoryCaptureStage(null,CaptureObjectLoader(),
+                timestampsNs.first,
+                1,
+                HeapDumpCaptureObject(project, file, timestampsNs.first, timestampsNs.second)
             )
-            val insts2 = arrayOf(
-                FakeInstanceObject.Builder(capture, 4, "cat").setHeapId(2).setShallowSize(3).build(),
-                FakeInstanceObject.Builder(capture, 5, "dog").setHeapId(2).setShallowSize(5).build(),
-                FakeInstanceObject.Builder(capture, 6, "rat").setHeapId(2).setShallowSize(7).build()
-            )
-            val insts = insts1 + insts2
-            insts.forEach { allHeap.addDeltaInstanceObject(it) }
-
-
-            val selection = MemoryCaptureSelection(null)
-            val panel = CapturePanel(selection, null, Range(), true)
-
-            val instanceDetailsSplitter = JBSplitter(false).apply {
-                isOpaque = true
-                firstComponent = panel.classSetView.component
-                secondComponent = panel.instanceDetailsView.component
-            }
+            val stageView = LeeMemoryCaptureStageView(stage,timestampsNs.first,timestampsNs.second)
+            stage.enter()
             val contentFactory = ContentFactory.SERVICE.getInstance()
-            val content = contentFactory.createContent(instanceDetailsSplitter, "TCL AI Profiler", false)
+            val content = contentFactory.createContent(stageView.mainPanel, "TCL AI Profiler", false)
             toolWindow.contentManager.addContent(content)
-//            toolWindow.setIcon(StudioIcons.Shell.ToolWindows.ANDROID_PROFILER)
-            selection.selectCaptureEntry(CaptureEntry(Any()) { capture })
-            selection.finishSelectingCaptureObject(capture)
-            selection.selectHeapSet(heap1)
-            selection.refreshSelectedHeap()
-            // Forcibly synchronize the Tool Window to a visible state. Otherwise, the Tool Window may not auto-hide correctly.
             toolWindow.activate(null)
         }
 

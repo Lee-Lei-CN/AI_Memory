@@ -29,7 +29,7 @@ class MemoryCaptureStage(profilers: StudioProfilers,
       : BaseMemoryProfilerStage(profilers, loader) {
 
   override fun enter() {
-    studioProfilers.ideServices.featureTracker.trackEnterStage(stageType)
+    studioProfilers?.ideServices?.featureTracker?.trackEnterStage(stageType)
     loader.start()
     doSelectCaptureDuration(durationData, joiner)
   }

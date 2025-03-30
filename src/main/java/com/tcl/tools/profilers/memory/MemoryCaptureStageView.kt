@@ -37,7 +37,7 @@ class MemoryCaptureStageView(profilersView: StudioProfilersView, stage: MemoryCa
 
   private val capturePanel = CapturePanel(stage.captureSelection,
                                           null,
-                                          stage.studioProfilers.timeline.selectionRange,
+                                          stage.studioProfilers!!.timeline.selectionRange,
                                           true)
 
   private val title = JBLabel().apply {

@@ -18,16 +18,17 @@ package com.tcl.tools.profilers;
 import com.tcl.tools.adtui.model.StreamingTimeline;
 import com.tcl.tools.profilers.StudioProfilers;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * A stage that uses a {@link StreamingTimeline}.
  */
 public abstract class StreamingStage extends Stage<StreamingTimeline> {
-  public StreamingStage(@NotNull StudioProfilers profilers) {
+  public StreamingStage(@Nullable StudioProfilers profilers) {
     super(profilers);
   }
 
-  @NotNull
+  @Nullable
   @Override
   public StreamingTimeline getTimeline() {
     return getStudioProfilers().getTimeline();

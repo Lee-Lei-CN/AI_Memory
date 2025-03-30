@@ -83,7 +83,7 @@ public class MainMemoryProfilerStage extends BaseStreamingMemoryProfilerStage {
     this(profilers, new CaptureObjectLoader());
   }
 
-  public MainMemoryProfilerStage(@NotNull StudioProfilers profilers, @NotNull CaptureObjectLoader loader) {
+  public MainMemoryProfilerStage(StudioProfilers profilers, @NotNull CaptureObjectLoader loader) {
     super(profilers, loader);
     myIsMemoryCaptureOnly =
       profilers.getSessionsManager().getSelectedSessionMetaData().getType() == Common.SessionMetaData.SessionType.MEMORY_CAPTURE;

@@ -42,11 +42,11 @@ public abstract class Stage<T extends Timeline> extends AspectObserver {
   @Nullable
   private TooltipModel myTooltip;
 
-  public Stage(@NotNull StudioProfilers profilers) {
+  public Stage(@Nullable StudioProfilers profilers) {
     myProfilers = profilers;
   }
 
-  @NotNull
+  @Nullable
   public StudioProfilers getStudioProfilers() {
     return myProfilers;
   }

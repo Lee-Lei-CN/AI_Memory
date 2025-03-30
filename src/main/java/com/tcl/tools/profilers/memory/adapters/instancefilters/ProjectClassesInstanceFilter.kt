@@ -15,23 +15,32 @@
  */
 package com.tcl.tools.profilers.memory.adapters.instancefilters
 
-import com.tcl.tools.profilers.IdeProfilerServices
+import com.intellij.openapi.project.Project
+import com.intellij.psi.PsiClass
+import com.intellij.psi.search.ProjectScope
+import com.intellij.psi.search.searches.AllClassesSearch
 import com.tcl.tools.profilers.memory.adapters.InstanceObject
-import java.util.function.Predicate
+import java.util.function.Consumer
 
 /**
  * A filter to locate all instances of classes that directly belong to the currently opened project (excluding dependent libraries).
  */
-class ProjectClassesInstanceFilter(ideProfilerServices: IdeProfilerServices)
+class ProjectClassesInstanceFilter(project:Project)
   : CaptureObjectInstanceFilter(
   "project classes",
   "Show instances of classes from only the current project.",
   null,
   null,
-  makeProjectClassTest(ideProfilerServices))
+  makeProjectClassTest(project))
 
-private fun makeProjectClassTest(ideProfilerServices: IdeProfilerServices) : (InstanceObject) -> Boolean {
-  val projectClasses by lazy { ideProfilerServices.allProjectClasses }
+private fun makeProjectClassTest(project: Project) : (InstanceObject) -> Boolean {
+  fun getAllProjectClasses(project: Project): Set<String?> {
+    val query = AllClassesSearch.search(ProjectScope.getProjectScope(project), project)
+    val classNames: MutableSet<String?> = HashSet()
+    query.forEach(Consumer { aClass: PsiClass -> classNames.add(aClass.qualifiedName) })
+    return classNames
+  }
+  val projectClasses by lazy { getAllProjectClasses(project) }
   return { inst ->
     var className = inst.classEntry.className
 

@@ -15,10 +15,9 @@
  */
 package com.tcl.tools.profilers.memory.adapters
 
-import com.android.tools.perflib.heap.*
-import com.android.tools.profiler.proto.Memory.AllocationStack
-import com.android.tools.profiler.proto.Memory.AllocationStack.StackFrameWrapper
+import com.android.tools.profiler.proto.Memory
 import com.google.common.annotations.VisibleForTesting
+import com.tcl.tools.profilers.memory.perflib.heap.*
 import java.util.Locale
 
 /**
@@ -111,12 +110,13 @@ internal class HeapDumpInstanceObject(private val captureObject: HeapDumpCapture
   override fun getAllocationCallStack() = when (instance.stack) {
     null -> null
     else -> {
-      val builder = AllocationStack.newBuilder()
-      val frameBuilder = StackFrameWrapper.newBuilder()
+      val builder = Memory.AllocationStack.newBuilder()
+      val frameBuilder = Memory.AllocationStack.StackFrameWrapper.newBuilder()
       for (stackFrame in instance.stack.frames) {
         val fileName = stackFrame.filename
         val guessedClassName = if (fileName.endsWith(".java")) fileName.substring(0, fileName.length - ".java".length) else fileName
-        frameBuilder.addFrames(AllocationStack.StackFrame.newBuilder()
+        frameBuilder.addFrames(
+          Memory.AllocationStack.StackFrame.newBuilder()
                                  .setClassName(guessedClassName)
                                  .setMethodName(stackFrame.methodName)
                                  .setLineNumber(stackFrame.lineNumber)

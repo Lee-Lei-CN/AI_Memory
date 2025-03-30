@@ -15,9 +15,8 @@
  */
 package com.tcl.tools.profilers.memory.adapters;
 
-import com.android.tools.perflib.heap.*;
-import com.android.tools.perflib.heap.ClassInstance.FieldValue;
 import com.google.common.collect.ImmutableMap;
+import com.tcl.tools.profilers.memory.perflib.heap.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -39,7 +38,7 @@ final class HeapDumpFieldObject implements FieldObject {
     .put(Type.DOUBLE, DOUBLE)
     .build();
 
-  @NotNull private final FieldValue myField;
+  @NotNull private final ClassInstance.FieldValue myField;
   @NotNull private final ValueObject.ValueType myValueType;
   @Nullable private final InstanceObject myInstanceObject;
   private final int myDepth;
@@ -49,7 +48,7 @@ final class HeapDumpFieldObject implements FieldObject {
 
   private final int myHashCode;
 
-  public HeapDumpFieldObject(@NotNull HeapDumpCaptureObject captureObject, @NotNull Instance parentInstance, @NotNull FieldValue field) {
+  public HeapDumpFieldObject(@NotNull HeapDumpCaptureObject captureObject, @NotNull Instance parentInstance, @NotNull ClassInstance.FieldValue field) {
     myField = field;
     Type type = myField.getField().getType();
     if (type == Type.OBJECT) {

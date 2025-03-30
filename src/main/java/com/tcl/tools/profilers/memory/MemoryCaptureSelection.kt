@@ -30,6 +30,7 @@ import com.tcl.tools.profilers.memory.adapters.instancefilters.CaptureObjectInst
 import com.google.common.util.concurrent.ListenableFuture
 import com.tcl.tools.inspectors.commom.api.stacktrace.StackTraceModel
 import com.tcl.tools.profilers.AspectModel
+import com.tcl.tools.profilers.memory.adapters.HeapDumpCaptureObject
 import com.tcl.tools.test.FakeCodeNavigator
 import java.util.Objects
 import java.util.concurrent.Executor
@@ -119,6 +120,23 @@ class MemoryCaptureSelection(val ideServices: IdeProfilerServices?) {
     aspect.changed(CaptureSelectionAspect.CURRENT_LOADING_CAPTURE)
     return true
   }
+
+  /**
+   * @return true if the internal state changed, otherwise false
+   */
+  fun selectCaptureEntry(captureObject: CaptureObject): Boolean {
+    selectedFieldObjectPath = emptyList()
+    selectedInstanceObject = null
+    selectedClassSet = null
+    selectedHeapSet = null
+    selectedCapture?.unload()
+    selectedCapture = captureObject
+    classGroupingModel.update()
+    classGrouping = classGroupingModel.getElementAt(0)
+    aspect.changed(CaptureSelectionAspect.CURRENT_LOADING_CAPTURE)
+    return true
+  }
+
 
   fun selectHeapSet(heapSet: HeapSet?) {
     assert(heapSet == null || selectedCapture != null)

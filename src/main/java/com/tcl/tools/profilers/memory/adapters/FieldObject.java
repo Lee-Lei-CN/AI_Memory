@@ -15,7 +15,9 @@
  */
 package com.tcl.tools.profilers.memory.adapters;
 
-import com.tcl.tools.profilers.memory.adapters.InstanceObject;import com.tcl.tools.profilers.memory.adapters.ValueObject;import org.jetbrains.annotations.NotNull;
+import com.tcl.tools.profilers.memory.adapters.InstanceObject;
+import com.tcl.tools.profilers.memory.adapters.ValueObject;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
