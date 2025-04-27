@@ -15,6 +15,7 @@
  */
 package com.tcl.tools.profilers.memory
 
+import com.google.common.util.concurrent.ListenableFuture
 import com.tcl.tools.profilers.ProfilerMode
 import com.tcl.tools.profilers.StreamingStage
 import com.tcl.tools.profilers.StudioProfilers
@@ -91,31 +92,51 @@ abstract class LeeBaseMemoryProfilerStage(profilers: StudioProfilers?, protected
             // TODO: (revisit) - do we want to pass in data range to loadCapture as well?
             val future = loader.loadCapture(captureObject, queryRange, null)
             future.addListener(Runnable {
-                try {
-                    val loadedCaptureObject = future.get()
-                    if (captureSelection.finishSelectingCaptureObject(loadedCaptureObject)) {
-                        captureSelection.selectHeapSet((loadedCaptureObject.heapSets).getDefault())
-                    } else {
-                        // Capture loading failed.
-                        // TODO: loading has somehow failed - we need to inform users about the error status.
-                        doSelectCaptureDuration(startTime, duration, captureObject)
+                val dispatchThread = ApplicationManager.getApplication().isDispatchThread()
+                System.out.println(" isDispatchThread $dispatchThread")
+                if (!dispatchThread) {
+                    ApplicationManager.getApplication().invokeLater {
+                        val dispatchThread = ApplicationManager.getApplication().isDispatchThread()
+                        System.out.println(" isDispatchThread2 $dispatchThread")
+                        doRenderView(future, startTime, duration, captureObject)
                     }
-                    // Triggers the aspect to inform listeners that the heap content/filter has changed.
-                    captureSelection.refreshSelectedHeap()
-                } catch (exception: InterruptedException) {
-                    Thread.currentThread().interrupt()
-                    doSelectCaptureDuration(startTime, duration, captureObject)
-                } catch (exception: ExecutionException) {
-                    doSelectCaptureDuration(startTime, duration, captureObject)
-                    logger.error(exception)
-                } catch (ignored: CancellationException) {
-                    // No-op: a previous load-capture task is canceled due to another capture being selected and loaded.
+                } else {
+                    doRenderView(future, startTime, duration, captureObject)
                 }
             }, MoreExecutors.directExecutor())
 //            profilerMode = ProfilerMode.EXPANDED
         }
         ApplicationManager.getApplication().invokeAndWait {
             load.run()
+        }
+    }
+
+    private fun doRenderView(
+        future: ListenableFuture<CaptureObject>,
+        startTime: Long,
+        duration: Long,
+        captureObject: CaptureObject
+    ) {
+        try {
+
+            val loadedCaptureObject = future.get()
+            if (captureSelection.finishSelectingCaptureObject(loadedCaptureObject)) {
+                captureSelection.selectHeapSet((loadedCaptureObject.heapSets).getDefault())
+            } else {
+                // Capture loading failed.
+                // TODO: loading has somehow failed - we need to inform users about the error status.
+                doSelectCaptureDuration(startTime, duration, captureObject)
+            }
+            // Triggers the aspect to inform listeners that the heap content/filter has changed.
+            captureSelection.refreshSelectedHeap()
+        } catch (exception: InterruptedException) {
+            Thread.currentThread().interrupt()
+            doSelectCaptureDuration(startTime, duration, captureObject)
+        } catch (exception: ExecutionException) {
+            doSelectCaptureDuration(startTime, duration, captureObject)
+            logger.error(exception)
+        } catch (ignored: CancellationException) {
+            // No-op: a previous load-capture task is canceled due to another capture being selected and loaded.
         }
     }
 }
