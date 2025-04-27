@@ -78,6 +78,7 @@ public class AspectModel<T extends Enum<T>> extends AspectObserver {
     }
 
     private void changed(U aspect) {
+      System.out.println("Lee AspectModel onChange: " + aspect);
       myListeners.get(aspect).forEach(Runnable::run);
     }
   }

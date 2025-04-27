@@ -39,33 +39,17 @@ class ProfilersAction : AnAction() {
 
 
     class AndroidProfilerToolWindowFactory : DumbAware, ToolWindowFactory {
-        private fun makeFakeCapture() = FakeCaptureObject.Builder()
-            .setCaptureName("SAMPLE_CAPTURE1")
-            .setStartTime(0)
-            .setEndTime(10)
-            .setInfoMessage("Foo")
-            .build()
-
-        private fun createStageWithMemoryCaptureStageViewLoaded(profilers:StudioProfilers, mockLoader: CaptureObjectLoader, capture: CaptureObject) = MemoryCaptureStage(
-            profilers,
-            mockLoader,
-            CaptureDurationData(1, false, false, CaptureEntry(Any(), Supplier { capture })),
-            MoreExecutors.directExecutor()
-        ).apply {
-            enter()
-            captureSelection.refreshSelectedHeap()
-        }
-
         override fun createToolWindowContent(project: Project, toolWindow: ToolWindow) {
             ProjectHolder.project = project
-            val file = File("D:\\idea_source_code\\idea-9536633b03339050d6bd0b67517133838a37d449.tar\\idea-9536633b03339050d6bd0b67517133838a37d449\\profilers\\testData\\hprofs\\displayingbitmaps_leakedActivity.hprof")
+            val file = File("D:\\memory-20241203T195337-进入EPG,Privacy.hprof")
             val timestampsNs = HprofUtils.computeImportedFileStartEndTimestampsNs(file)
-            val stage = LeeMemoryCaptureStage(null,CaptureObjectLoader(),
+            val stage = LeeMemoryCaptureStage(
+                null, CaptureObjectLoader(),
                 timestampsNs.first,
                 1,
                 HeapDumpCaptureObject(project, file, timestampsNs.first, timestampsNs.second)
             )
-            val stageView = LeeMemoryCaptureStageView(stage,timestampsNs.first,timestampsNs.second)
+            val stageView = LeeMemoryCaptureStageView(stage, timestampsNs.first, timestampsNs.second)
             stage.enter()
             val contentFactory = ContentFactory.SERVICE.getInstance()
             val content = contentFactory.createContent(stageView.mainPanel, "TCL AI Profiler", false)

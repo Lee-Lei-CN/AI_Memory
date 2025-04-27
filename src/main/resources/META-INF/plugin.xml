@@ -1,7 +1,7 @@
 <idea-plugin>
-    <id>commit-message-helper-idea-plugin</id>
-    <name>Git Commit Message Helper</name>
-    <vendor email="fulinlin9527@outlook.com" url="https://github.com/AutismSuperman">FuLinLin</vendor>
+    <id>TCL-AI-Profiler-Plugin</id>
+    <name>TCL_AI_Profiler_Plugin</name>
+    <vendor email="lei45.li@tcl.com" url="https://github.com/AutismSuperman">FuLinLin</vendor>
     <version>1.4.1</version>
 
 
@@ -25,9 +25,6 @@
 
 
     </extensions>
-
-
-    <resource-bundle>i18n.info</resource-bundle>
 
 
     <actions>

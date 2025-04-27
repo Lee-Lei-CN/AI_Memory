@@ -20,6 +20,8 @@ import static com.tcl.tools.profilers.ProfilerLayout.ROW_HEIGHT_PADDING;
 import static com.tcl.tools.profilers.ProfilerLayout.TABLE_ROW_BORDER;
 import static com.tcl.tools.profilers.memory.ClassGrouping.ARRANGE_BY_CLASS;
 
+import com.intellij.ui.components.JBLoadingPanel;
+import com.tcl.tools.ProjectHolder;
 import com.tcl.tools.inspectors.commom.ui.ContextMenuInstaller;
 import com.tcl.tools.adtui.common.ColoredIconGenerator;
 import com.tcl.tools.adtui.common.ColumnTreeBuilder;
@@ -119,7 +121,7 @@ public final class MemoryClassifierView extends AspectObserver implements Captur
 
   @NotNull private final JPanel myClassifierPanel = new JPanel(new BorderLayout());
 
-//  @NotNull private final LoadingPanel myLoadingPanel;
+  @NotNull private final LoadingPanel myLoadingPanel;
 
   @Nullable private InstructionsPanel myHelpTipPanel; // Panel to let user know to select a range with allocations in it.
 
@@ -138,39 +140,39 @@ public final class MemoryClassifierView extends AspectObserver implements Captur
   public MemoryClassifierView(@NotNull MemoryCaptureSelection selection,ContextMenuInstaller contextMenuInstaller) {
     mySelection = selection;
     myContextMenuInstaller = contextMenuInstaller;
-//    myLoadingPanel = new LoadingPanel() {
-//      private final JBLoadingPanel myLoadingPanel = new JBLoadingPanel(new BorderLayout(), HEAP_UPDATING_DELAY_MS);
-//
-//      @NotNull
-//      @Override
-//      public JComponent getComponent() {
-//        return myLoadingPanel;
-//      }
-//
-//      @Override
-//      public void setChildComponent(@Nullable Component comp) {
-//        myLoadingPanel.getContentPanel().removeAll();
-//        if (comp != null) {
-//          myLoadingPanel.add(comp);
-//        }
-//      }
-//
-//      @Override
-//      public void setLoadingText(@NotNull String loadingText) {
-//        myLoadingPanel.setLoadingText(loadingText);
-//      }
-//
-//      @Override
-//      public void startLoading() {
-//        myLoadingPanel.startLoading();
-//      }
-//
-//      @Override
-//      public void stopLoading() {
-//        myLoadingPanel.stopLoading();
-//      }
-//    };
-//    myLoadingPanel.setLoadingText("");
+    myLoadingPanel = new LoadingPanel() {
+      private final JBLoadingPanel myLoadingPanel = new JBLoadingPanel(new BorderLayout(), ProjectHolder.INSTANCE.getProject(),HEAP_UPDATING_DELAY_MS);
+
+      @NotNull
+      @Override
+      public JComponent getComponent() {
+        return myLoadingPanel;
+      }
+
+      @Override
+      public void setChildComponent(@Nullable Component comp) {
+        myLoadingPanel.getContentPanel().removeAll();
+        if (comp != null) {
+          myLoadingPanel.add(comp);
+        }
+      }
+
+      @Override
+      public void setLoadingText(@NotNull String loadingText) {
+        myLoadingPanel.setLoadingText(loadingText);
+      }
+
+      @Override
+      public void startLoading() {
+        myLoadingPanel.startLoading();
+      }
+
+      @Override
+      public void stopLoading() {
+        myLoadingPanel.stopLoading();
+      }
+    };
+    myLoadingPanel.setLoadingText("");
 
     mySelection.getAspect().addDependency(this)
       .onChange(CaptureSelectionAspect.CURRENT_LOADING_CAPTURE, this::loadCapture)
@@ -459,25 +461,27 @@ public final class MemoryClassifierView extends AspectObserver implements Captur
   }
 
   private void startHeapLoadingUi() {
+    System.out.println("startHeapLoadingUI");
     if (myColumnTree == null) {
       return;
     }
-//    myPanel.remove(myClassifierPanel);
-//    myPanel.add(myLoadingPanel.getComponent(), BorderLayout.CENTER);
-//    myLoadingPanel.setChildComponent(myClassifierPanel);
-//    myLoadingPanel.startLoading();
+    myPanel.remove(myClassifierPanel);
+    myPanel.add(myLoadingPanel.getComponent(), BorderLayout.CENTER);
+    myLoadingPanel.setChildComponent(myClassifierPanel);
+    myLoadingPanel.startLoading();
   }
 
   private void stopHeapLoadingUi() {
+    System.out.println("stopHeapLoadingUI");
     if (myColumnTree == null) {
       return;
     }
 
-//    myPanel.remove(myLoadingPanel.getComponent());
-//    myPanel.add(myClassifierPanel, BorderLayout.CENTER);
-//    // Loading panel is registered with the project. Be extra careful not have it reference anything when we are done with it.
-//    myLoadingPanel.setChildComponent(null);
-//    myLoadingPanel.stopLoading();
+    myPanel.remove(myLoadingPanel.getComponent());
+    myPanel.add(myClassifierPanel, BorderLayout.CENTER);
+    // Loading panel is registered with the project. Be extra careful not have it reference anything when we are done with it.
+    myLoadingPanel.setChildComponent(null);
+    myLoadingPanel.stopLoading();
   }
 
   private void refreshClassifierPanel() {
