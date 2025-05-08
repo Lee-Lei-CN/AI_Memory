@@ -26,7 +26,10 @@ import com.intellij.icons.AllIcons.Hierarchy.Subtypes
 import com.intellij.ui.ColoredTreeCellRenderer
 import com.intellij.ui.SimpleTextAttributes
 import com.intellij.util.PlatformIcons.*
-import icons.StudioIcons.Profiler.Overlays.*
+//import icons.StudioIcons.Profiler.Overlays.*
+
+import com.tcl.tools.StudioIcons.Profiler.Overlays.*
+
 import java.awt.Color
 import javax.swing.Icon
 import javax.swing.JTree

@@ -107,6 +107,8 @@ abstract class LeeBaseMemoryProfilerStage(profilers: StudioProfilers?, protected
 //            profilerMode = ProfilerMode.EXPANDED
         }
         ApplicationManager.getApplication().invokeAndWait {
+            val dispatchThread = ApplicationManager.getApplication().isDispatchThread
+            System.out.println(" invokeAndWait $dispatchThread")
             load.run()
         }
     }

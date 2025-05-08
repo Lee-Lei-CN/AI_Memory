@@ -238,15 +238,15 @@ public final class MemoryInstanceDetailsView extends AspectObserver {
       return;
     }
 
-    FeatureTracker featureTracker = mySelection.getIdeServices().getFeatureTracker();
+//    FeatureTracker featureTracker = mySelection.getIdeServices().getFeatureTracker();
     switch (myTabsPanel.getTitleAt(myTabsPanel.getSelectedIndex())) {
-      case TITLE_TAB_REFERENCES:
-        featureTracker.trackSelectMemoryReferences();
-        break;
-      case TITLE_TAB_ALLOCATION_CALLSTACK:
-      case TITLE_TAB_DEALLOCATION_CALLSTACK:
-        featureTracker.trackSelectMemoryStack();
-        break;
+//      case TITLE_TAB_REFERENCES:
+//        featureTracker.trackSelectMemoryReferences();
+//        break;
+//      case TITLE_TAB_ALLOCATION_CALLSTACK:
+//      case TITLE_TAB_DEALLOCATION_CALLSTACK:
+//        featureTracker.trackSelectMemoryStack();
+//        break;
       default:
         // Intentional no-op
         break;
@@ -635,21 +635,21 @@ public final class MemoryInstanceDetailsView extends AspectObserver {
       }
     });
 
-    mContextMenuInstaller.installNavigationContextMenu(tree, mySelection.getIdeServices().getCodeNavigator(), () -> {
-      TreePath selection = tree.getSelectionPath();
-      if (selection == null) {
-        return null;
-      }
-
-      MemoryObject memoryObject = ((MemoryObjectTreeNode)selection.getLastPathComponent()).getAdapter();
-      if (memoryObject instanceof InstanceObject) {
-        return new CodeLocation.Builder(((InstanceObject)memoryObject).getClassEntry().getClassName()).build();
-      }
-      else {
-        assert memoryObject instanceof ReferenceObject;
-        return new CodeLocation.Builder(((ReferenceObject)memoryObject).getReferenceInstance().getClassEntry().getClassName()).build();
-      }
-    });
+//    mContextMenuInstaller.installNavigationContextMenu(tree, mySelection.getIdeServices().getCodeNavigator(), () -> {
+//      TreePath selection = tree.getSelectionPath();
+//      if (selection == null) {
+//        return null;
+//      }
+//
+//      MemoryObject memoryObject = ((MemoryObjectTreeNode)selection.getLastPathComponent()).getAdapter();
+//      if (memoryObject instanceof InstanceObject) {
+//        return new CodeLocation.Builder(((InstanceObject)memoryObject).getClassEntry().getClassName()).build();
+//      }
+//      else {
+//        assert memoryObject instanceof ReferenceObject;
+//        return new CodeLocation.Builder(((ReferenceObject)memoryObject).getReferenceInstance().getClassEntry().getClassName()).build();
+//      }
+//    });
 
 //    mContextMenuInstaller.installGenericContextMenu(tree, new ContextMenuItem() {
 //      @NotNull

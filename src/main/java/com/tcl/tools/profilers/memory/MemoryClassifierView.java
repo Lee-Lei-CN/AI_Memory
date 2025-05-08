@@ -20,6 +20,7 @@ import static com.tcl.tools.profilers.ProfilerLayout.ROW_HEIGHT_PADDING;
 import static com.tcl.tools.profilers.ProfilerLayout.TABLE_ROW_BORDER;
 import static com.tcl.tools.profilers.memory.ClassGrouping.ARRANGE_BY_CLASS;
 
+import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.ui.components.JBLoadingPanel;
 import com.tcl.tools.ProjectHolder;
 import com.tcl.tools.inspectors.commom.ui.ContextMenuInstaller;
@@ -375,7 +376,8 @@ public final class MemoryClassifierView extends AspectObserver implements Captur
       if (!e.isAddedPath()) {
         return;
       }
-
+      boolean dispatchThread = ApplicationManager.getApplication().isDispatchThread();
+      System.out.println("MemoryClassifierView isDispatchThread :"+ dispatchThread);
       assert path.getLastPathComponent() instanceof MemoryClassifierTreeNode;
       MemoryClassifierTreeNode classifierNode = (MemoryClassifierTreeNode)path.getLastPathComponent();
 

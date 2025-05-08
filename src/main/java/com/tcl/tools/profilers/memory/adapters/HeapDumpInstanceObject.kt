@@ -110,21 +110,22 @@ internal class HeapDumpInstanceObject(private val captureObject: HeapDumpCapture
   override fun getAllocationCallStack() = when (instance.stack) {
     null -> null
     else -> {
-      val builder = Memory.AllocationStack.newBuilder()
-      val frameBuilder = Memory.AllocationStack.StackFrameWrapper.newBuilder()
-      for (stackFrame in instance.stack.frames) {
-        val fileName = stackFrame.filename
-        val guessedClassName = if (fileName.endsWith(".java")) fileName.substring(0, fileName.length - ".java".length) else fileName
-        frameBuilder.addFrames(
-          Memory.AllocationStack.StackFrame.newBuilder()
-                                 .setClassName(guessedClassName)
-                                 .setMethodName(stackFrame.methodName)
-                                 .setLineNumber(stackFrame.lineNumber)
-                                 .setFileName(fileName)
-                                 .build())
-      }
-      builder.setFullStack(frameBuilder)
-      builder.build()
+//      val builder = Memory.AllocationStack.newBuilder()
+//      val frameBuilder = Memory.AllocationStack.StackFrameWrapper.newBuilder()
+//      for (stackFrame in instance.stack.frames) {
+//        val fileName = stackFrame.filename
+//        val guessedClassName = if (fileName.endsWith(".java")) fileName.substring(0, fileName.length - ".java".length) else fileName
+//        frameBuilder.addFrames(
+//          Memory.AllocationStack.StackFrame.newBuilder()
+//                                 .setClassName(guessedClassName)
+//                                 .setMethodName(stackFrame.methodName)
+//                                 .setLineNumber(stackFrame.lineNumber)
+//                                 .setFileName(fileName)
+//                                 .build())
+//      }
+//      builder.setFullStack(frameBuilder)
+//      builder.build()
+       null
     }
   }
 

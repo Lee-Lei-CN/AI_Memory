@@ -317,17 +317,17 @@ public final class MemoryClassSetView extends AspectObserver {
   private void installTreeContextMenus() {
     assert myTree != null;
 
-    myContextMenuInstaller.installNavigationContextMenu(myTree, mySelection.getIdeServices().getCodeNavigator(), () -> {
-      TreePath selection = myTree.getSelectionPath();
-      if (selection == null || !(selection.getLastPathComponent() instanceof MemoryObjectTreeNode)) {
-        return null;
-      }
-
-      MemoryObject selectedObject = ((MemoryObjectTreeNode<?>)selection.getLastPathComponent()).getAdapter();
-      return selectedObject instanceof InstanceObject
-             ? new CodeLocation.Builder(((InstanceObject)selectedObject).getClassEntry().getClassName()).build()
-             : null;
-    });
+//    myContextMenuInstaller.installNavigationContextMenu(myTree, mySelection.getIdeServices().getCodeNavigator(), () -> {
+//      TreePath selection = myTree.getSelectionPath();
+//      if (selection == null || !(selection.getLastPathComponent() instanceof MemoryObjectTreeNode)) {
+//        return null;
+//      }
+//
+//      MemoryObject selectedObject = ((MemoryObjectTreeNode<?>)selection.getLastPathComponent()).getAdapter();
+//      return selectedObject instanceof InstanceObject
+//             ? new CodeLocation.Builder(((InstanceObject)selectedObject).getClassEntry().getClassName()).build()
+//             : null;
+//    });
   }
 
   private void populateTreeContents() {
